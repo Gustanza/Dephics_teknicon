@@ -2,8 +2,9 @@
    TEKNICON LTD — design tokens
    Structure, rhythm and type scale are the Fuse theme's, verbatim
    (docs/THEME_DNA.md §0). Only the colour tokens are re-mapped to Teknicon's
-   brand: red #D81F26 plays the role the theme gives burnt orange, navy #2B2E8C
+   brand: red #E93825 plays the role the theme gives burnt orange, navy #2C3792
    is the secondary, and the dark bands are navy-black rather than warm black.
+   Both hexes are sampled from the designed company profile PDF — see below.
    ============================================================================= */
 
 :root {
@@ -54,28 +55,57 @@
   --ease-soft: cubic-bezier(.25, .8, .25, 1);
 
   /* ---------- Colour: Teknicon light scheme ---------- */
-  --c-bg:         #F3F5F9;
+  /* Every neutral is the brand navy's hue (233.5deg) at its own saturation and
+     lightness, so the greys carry the brand instead of a generic slate. Before
+     this they sat at 220-229deg and drifted up to 13.5deg off. */
+  --c-bg:         #F2F3FA;
   --c-bg-alt:     #FFFFFF;
-  --c-bg-alt-h:   #E9ECF3;
-  --c-bd:         #C6CAD6;
-  --c-text:       #565B70;
-  --c-text-light: #686D83;  /* 4.69:1 on --c-bg, 5.12:1 on white */
-  --c-text-dark:  #141733;
-  --c-link:       #D81F26;   /* BRAND RED — the one hot accent */
-  --c-hover:      #B3161C;
-  --c-link2:      #2B2E8C;   /* BRAND NAVY — secondary */
-  --c-hover2:     #21245F;
+  --c-bg-alt-h:   #E8E9F4;
+  --c-bd:         #C3C6D9;
+  --c-text:       #535773;  /* 6.37:1 on --c-bg, 7.05:1 on white */
+  --c-text-light: #656986;  /* 4.84:1 on --c-bg, 5.36:1 on white */
+  --c-text-dark:  #141733;  /* ink: eyebrows, meta, rules */
+  --c-heading:    #2C3792;  /* brand navy — every heading h1-h6.
+                               9.30:1 on --c-bg, 10.15:1 on white. */
+  /*
+    Brand colours from the designed company profile
+    (tekres/Teknicon Revised Profile Jul 26.pdf) — flat vector fills at 60dpi,
+    68,710 px of the blue and 35,755 px of the red, and the same two values
+    reproduced exactly in the cover logo.
+
+    The navy is the client-specified #2C3792. The profile itself renders #2A3991;
+    the two are 2.33 delta-E apart (R +2, G -2, B +1) — a difference no eye will
+    resolve, and almost certainly rounding between the brand spec and the print
+    artwork. Contrast is unaffected: 10.15:1 under white, 9.30:1 on paper.
+  */
+  --c-brand-navy: #2C3792;   /* BRAND NAVY  — client-specified */
+  --c-brand-red:  #E93825;   /* BRAND RED   — exact; graphics, rules and marks only */
+
+  /*
+    The exact red is 4.15:1 under a white label and 3.80:1 as text on paper, so
+    it cannot carry small type. --c-link is the same red deepened 11% — it holds
+    the brand's hue (G 50 vs the official 56; the old #D81F26 sat at 31) while
+    clearing 4.5:1 on both grounds. Use --c-brand-red wherever nothing is set in it.
+  */
+  --c-link:       #CF3221;   /* working accent: button fills and red text */
+  --c-hover:      #B02C1C;
+  --c-link2:      #2C3792;   /* BRAND NAVY — secondary */
+  --c-hover2:     #21296E;
   --c-inverse-link: #FFFFFF;
   --c-dark-003: rgba(20, 23, 51, .03);
   --c-dark-02:  rgba(20, 23, 51, .2);
   --c-dark-05:  rgba(20, 23, 51, .5);
 
   /* ---------- Colour: Teknicon dark bands ---------- */
-  --d-bg:         #0B0E24;
-  --d-bg-alt:     #141733;
-  --d-bd:         #3A3E63;
-  --d-text:       #B9BDD4;
-  --d-text-light: #8E93B0;
+  /* All three are the brand navy at different values, so the dark end of the
+     page stays in one hue family. --d-bg-brand is the full brand navy: the
+     profile's back cover puts the contact block on exactly this panel. */
+  --d-bg:         #151B47;   /* deepest — counters, split CTA, mobile nav */
+  --d-bg-mid:     #222B72;   /* mid navy — vision band, scroll-top */
+  --d-bg-brand:   #2C3792;   /* the full brand navy — footer panel */
+  --d-bd:         #393E64;
+  --d-text:       #B8BBD5;
+  --d-text-light: #8D91B1;
   --d-text-dark:  #FFFFFF;
   --d-dark-003:   rgba(255, 255, 255, .05);
 }
@@ -136,7 +166,7 @@ img { height: auto; border-radius: var(--rad); }
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
   font-weight: var(--h-weight);
-  color: var(--c-text-dark);
+  color: var(--c-heading);
   margin: 0;
 }
 
@@ -256,7 +286,7 @@ button { font: inherit; color: inherit; }
   width: 50px; height: 1px;
   position: absolute; top: 50%; left: 0;
   transform: translateY(-50%);
-  background-color: var(--c-link);
+  background-color: var(--c-brand-red);
 }
 @media (max-width: 767px) {
   .eyebrow--dash { padding-left: 44px; }

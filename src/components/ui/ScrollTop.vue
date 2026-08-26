@@ -50,7 +50,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
   height: 44px;
   padding: 0;
   color: #fff;
-  background-color: var(--d-bg-alt);
+  background-color: var(--d-bg-mid);
   border: 0;
   border-radius: var(--rad);
   cursor: pointer;
@@ -60,6 +60,6 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
               background-color var(--dur) var(--ease);
 }
 .s2t.is-shown { opacity: 1; visibility: visible; }
-.s2t:hover { background-color: var(--c-link); }
+.s2t:hover { background-color: var(--c-brand-red); }
 .s2t svg { width: 16px; height: 16px; }
 </style>

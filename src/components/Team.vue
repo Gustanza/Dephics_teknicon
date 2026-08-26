@@ -3,10 +3,16 @@ import Reveal from './ui/Reveal.vue'
 import SectionHeading from './ui/SectionHeading.vue'
 import { team } from '../data/content.js'
 
-/* §4.3 — the theme's staff row is a pair of 50% columns at deliberately
-   unequal top offsets (4.6vw / 10.7vw), never a baseline-aligned grid. */
-const half = Math.ceil(team.members.length / 2)
-const columns = [team.members.slice(0, half), team.members.slice(half)]
+/*
+  There are no staff photographs in the company profile, so the theme's photo
+  card (§4.3) has nothing to hold. The roster is set instead as a two-column
+  hairline cell grid — the same §7.1 construction as the client strip — with the
+  sanctioned index numeral leading each entry. Two lines per person keeps six
+  people in three rows rather than six.
+
+  Ordered by length of service so the list reads as a ranked credential.
+*/
+const roster = [...team.members].sort((a, b) => b.years - a.years)
 </script>
 
 <template>
@@ -22,38 +28,29 @@ const columns = [team.members.slice(0, half), team.members.slice(half)]
         </Reveal>
       </div>
 
-      <div class="tm__cols">
-        <ul
-          v-for="(col, c) in columns"
-          :key="c"
-          class="tm__col"
-          :class="`tm__col--${c}`"
+      <ol class="tm__list">
+        <Reveal
+          v-for="(m, i) in roster"
+          :key="m.name"
+          as="li"
+          class="tm"
+          :delay="i * 60"
         >
-          <Reveal
-            v-for="(m, i) in col"
-            :key="m.name"
-            as="li"
-            class="tm"
-            :delay="i * 100"
-          >
-            <span class="tm__mono" aria-hidden="true">{{ m.initials }}</span>
-            <div class="tm__body">
-              <h3 class="tm__name">{{ m.name }}</h3>
-              <p class="tm__prof">{{ m.profession }}</p>
-              <dl class="tm__meta">
-                <div class="tm__meta-row">
-                  <dt>Practised in</dt>
-                  <dd>{{ m.countries }}</dd>
-                </div>
-                <div class="tm__meta-row">
-                  <dt>Experience</dt>
-                  <dd>{{ m.years }} years</dd>
-                </div>
-              </dl>
-            </div>
-          </Reveal>
-        </ul>
-      </div>
+          <span class="tm__index" aria-hidden="true">{{ String(i + 1).padStart(2, '0') }}</span>
+
+          <div class="tm__body">
+            <p class="tm__top">
+              <span class="tm__name">{{ m.name }}</span>
+              <span class="tm__years">
+                <span class="tm__years-n">{{ m.years }}</span><span class="tm__years-u">yrs</span>
+              </span>
+            </p>
+            <p class="tm__meta">
+              {{ m.profession }} · {{ m.countries }}
+            </p>
+          </div>
+        </Reveal>
+      </ol>
 
       <p class="tm__more">{{ team.more }}</p>
     </div>
@@ -74,86 +71,111 @@ const columns = [team.members.slice(0, half), team.members.slice(half)]
   color: var(--c-text-light);
 }
 
-.tm__cols {
+.tm__list {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0 60px;
-  align-items: start;
-}
-/* the unequal offsets are the point — do not level these */
-.tm__col--0 { padding-top: 4.6vw; }
-.tm__col--1 { padding-top: 10.7vw; }
-
-/*
-  No tinted panel and no box border. The theme's team card is a photograph plus
-  type; with no staff photographs in the source, the entry is set typographically
-  and separated by the theme's 1px hairline instead.
-*/
-.tm {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 22px;
-  padding: 28px 0 34px;
+  margin: var(--space-medium) 0 0;
+  padding: 0;
+  list-style: none;
   border-top: 1px solid var(--c-bd);
 }
 
-.tm__mono {
-  font-size: 35px;
-  line-height: 1;
+.tm {
+  position: relative;
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  align-items: start;
+  gap: 16px;
+  padding: 24px 0 26px;
+  border-bottom: 1px solid var(--c-bd);
+  transition: background-color var(--dur) var(--ease);
+}
+/* the rule between the two columns — §7.1 hairline cell grid */
+.tm:nth-child(even) {
+  padding-left: 40px;
+  border-left: 1px solid var(--c-bd);
+}
+.tm:nth-child(odd) { padding-right: 40px; }
+
+/*
+  Hover happens inside the frame — the row never moves (§11.10). A 2px accent
+  rule wipes across the row's own baseline, the same left-to-right gesture the
+  buttons use.
+*/
+.tm::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background-color: var(--c-brand-red);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .45s var(--ease-sweep);
+}
+.tm:hover { background-color: var(--c-bg); }
+.tm:hover::after { transform: scaleX(1); }
+
+.tm__index {
+  font-size: 2em;               /* 34px */
+  line-height: 1.05;
   font-weight: 700;
   letter-spacing: -1px;
+  font-variant-numeric: tabular-nums;
   color: var(--c-bd);
   transition: color var(--dur) var(--ease);
 }
-.tm:hover .tm__mono { color: var(--c-link); }
+.tm:hover .tm__index { color: var(--c-link); }
+
+.tm__body { min-width: 0; }
+
+.tm__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0;
+}
 
 .tm__name {
-  margin: 0;
-  font-size: clamp(19px, 17.5px + .2vw, 20px);
+  font-size: 20px;
   line-height: 1.2em;
+  font-weight: 700;
   letter-spacing: -.5px;
-}
-@media (min-width: 1280px) {
-  .tm__name { font-size: var(--h5-size); }   /* 24px — §4.3 */
+  color: var(--c-heading);   /* sits at heading level even though it is a span */
 }
 
-.tm__prof {
-  margin: 11px 0 0;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 400;
-  color: var(--c-text-light);
-}
-
-.tm__meta { margin: 20px 0 0; }
-.tm__meta-row {
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
-  align-items: baseline;
-}
-.tm__meta-row + .tm__meta-row { margin-top: 6px; }
-.tm__meta dt {
+.tm__years {
   flex-shrink: 0;
-  font-size: 13px;
-  line-height: 1.4;
-  font-weight: 400;
-  letter-spacing: 0;
-  color: var(--c-text-light);
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
 }
-.tm__meta dd {
-  margin: 0;
-  text-align: right;
-  font-size: 15px;
-  line-height: 1.4;
-  font-weight: 500;
+.tm__years-n {
+  font-size: 22px;
+  line-height: 1em;
+  font-weight: 700;
+  letter-spacing: -.6px;
+  font-variant-numeric: tabular-nums;
   color: var(--c-text-dark);
 }
+.tm__years-u {
+  font-size: 13px;
+  color: var(--c-text-light);
+}
+
+.tm__meta {
+  margin: 7px 0 0;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--c-text-light);
+}
+/* the separator inherits the meta colour — at --c-bd it measured 1.64:1 and was
+   too faint to actually separate the two strings */
 
 .tm__more {
   margin: var(--space-medium) 0 0;
-  padding-top: 27px;
-  border-top: 1px solid var(--c-bd);
   font-size: 19px;
   line-height: 1.45em;
   font-weight: 700;
@@ -161,15 +183,33 @@ const columns = [team.members.slice(0, half), team.members.slice(half)]
   color: var(--c-text-dark);
 }
 
+@media (max-width: 1279px) {
+  .tm:nth-child(even) { padding-left: 30px; }
+  .tm:nth-child(odd) { padding-right: 30px; }
+}
+
 @media (max-width: 1023px) {
   .tm__head { grid-template-columns: 1fr; align-items: start; }
   .tm__lede { padding-bottom: 0; }
-  .tm__cols { grid-template-columns: 1fr; gap: 0; margin-top: var(--space-small); }
-  .tm__col--0, .tm__col--1 { padding-top: 0; }
+  .tm__list { margin-top: var(--space-small); }
 }
 
-@media (max-width: 639px) {
-  .tm__mono { font-size: 28px; }
+/* One column below tablet — the two-line entry still holds. */
+@media (max-width: 767px) {
+  .tm__list { grid-template-columns: 1fr; }
+  .tm,
+  .tm:nth-child(even),
+  .tm:nth-child(odd) {
+    padding-inline: 0;
+    border-left: 0;
+  }
+  .tm { grid-template-columns: 44px 1fr; gap: 14px; }
+  .tm__index { font-size: 1.7em; }
+}
+
+@media (max-width: 479px) {
+  .tm__name { font-size: 18px; }
+  .tm__meta { font-size: 14px; }
   .tm__more { font-size: 17px; letter-spacing: 0; }
 }
 </style>

@@ -1,6 +1,5 @@
 <script setup>
 import Logo from './ui/Logo.vue'
-import Marquee from './Marquee.vue'
 import { company, footer } from '../data/content.js'
 </script>
 
@@ -38,15 +37,22 @@ import { company, footer } from '../data/content.js'
       </div>
     </div>
 
-    <Marquee />
-
     <span class="visually-hidden">{{ company.name }} — {{ company.tagline }}</span>
   </footer>
 </template>
 
 <style scoped>
+/*
+  The full brand navy, matching the profile's back cover, which sets the contact
+  block on exactly this panel. Because the ground is much lighter than the other
+  dark bands, the muted text and the hairline are lifted for it — #8E93B0 drops
+  to 3.36:1 here and #3A3E63 is invisible at 1.01:1. Custom properties inherit,
+  so the whole subtree picks these up.
+*/
 .ftr {
-  background-color: var(--d-bg-alt);
+  --d-text-light: #AFB3D6;  /* 4.95:1 on the navy */
+  --d-bd: #676FB1;
+  background-color: var(--d-bg-brand);
   color: var(--d-text);
 }
 

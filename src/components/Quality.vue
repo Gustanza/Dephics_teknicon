@@ -94,7 +94,7 @@ const paths = {
 
 .qa__step:hover .qa__marker {
   color: #fff;
-  background-color: var(--c-link);
+  background-color: var(--c-brand-red);
 }
 
 .qa__timeline {

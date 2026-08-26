@@ -5,9 +5,36 @@ import { company, nav } from '../data/content.js'
 
 const fixed = ref(false)
 const menuOpen = ref(false)
+const activeHref = ref(nav[0].href)
+
+/*
+  Scroll-spy. Rather than an IntersectionObserver — which reports whichever
+  section happens to be intersecting and gets ambiguous when two are on screen
+  at once — this picks the section whose top is the last one above the reading
+  line, so exactly one item is ever active and it changes at a predictable point.
+*/
+const READING_LINE = 140   // just below the fixed header
 
 function onScroll () {
   fixed.value = window.scrollY > 120
+
+  const atBottom =
+    window.innerHeight + window.scrollY >= document.body.scrollHeight - 2
+  if (atBottom) {
+    activeHref.value = nav[nav.length - 1].href
+    return
+  }
+
+  /* Ordered by where the section actually sits on the page, not by where it sits
+     in the menu — the two are not the same, and walking the menu order picks the
+     wrong item wherever they disagree. */
+  const passed = nav
+    .filter((item) => item.href !== '#top')
+    .map((item) => ({ href: item.href, top: document.querySelector(item.href)?.getBoundingClientRect().top }))
+    .filter((s) => s.top !== undefined && s.top <= READING_LINE)
+    .sort((a, b) => a.top - b.top)
+
+  activeHref.value = passed.length ? passed[passed.length - 1].href : nav[0].href
 }
 
 function closeMenu () {
@@ -43,7 +70,11 @@ onBeforeUnmount(() => {
       <nav class="hdr__nav" aria-label="Primary">
         <ul class="menu">
           <li v-for="item in nav" :key="item.href">
-            <a :href="item.href"><span>{{ item.label }}</span></a>
+            <a
+              :href="item.href"
+              :class="{ 'is-active': item.href === activeHref }"
+              :aria-current="item.href === activeHref ? 'true' : undefined"
+            ><span>{{ item.label }}</span></a>
           </li>
         </ul>
       </nav>
@@ -70,7 +101,12 @@ onBeforeUnmount(() => {
     <div id="mobile-menu" class="mnav" :hidden="!menuOpen">
       <ul class="mnav__list">
         <li v-for="item in nav" :key="item.href">
-          <a :href="item.href" @click="closeMenu">{{ item.label }}</a>
+          <a
+            :href="item.href"
+            :class="{ 'is-active': item.href === activeHref }"
+            :aria-current="item.href === activeHref ? 'true' : undefined"
+            @click="closeMenu"
+          >{{ item.label }}</a>
         </li>
       </ul>
       <div class="mnav__foot">
@@ -146,9 +182,27 @@ onBeforeUnmount(() => {
   transition: width .2s var(--ease);
 }
 .menu > li > a:hover::after,
-.menu > li > a:focus-visible::after { width: 100%; }
+.menu > li > a:focus-visible::after,
+.menu > li > a.is-active::after { width: 100%; }
 
 .hdr--fixed .menu > li > a { color: var(--c-text-dark); }
+
+/*
+  Over the hero the row sits on photography, so navy would disappear — there the
+  underline alone carries hover and the label just brightens to pure white.
+  Once the row is fixed on the light ground, hover and active both take the
+  brand navy; the persistent underline is what separates active from hovered.
+*/
+.menu > li > a:hover,
+.menu > li > a:focus-visible { color: #fff; }
+
+.hdr--fixed .menu > li > a:hover,
+.hdr--fixed .menu > li > a:focus-visible,
+.hdr--fixed .menu > li > a.is-active { color: var(--c-heading); }
+
+/* Deliberately no weight change on the active item: bolding it would reflow the
+   whole row every time you scroll past a section boundary. Colour plus the
+   persistent underline is signal enough. */
 
 .hdr__rail {
   display: flex;
@@ -208,6 +262,12 @@ onBeforeUnmount(() => {
   color: #fff;
 }
 .mnav__list a:hover { color: var(--c-link); }
+/* the panel is on --d-bg, where the brand navy would vanish — the red accent
+   carries the active item instead, with a rule to match the desktop underline */
+.mnav__list a.is-active {
+  color: var(--c-link);
+  box-shadow: inset 0 -2px 0 var(--c-link);
+}
 .mnav__foot {
   display: flex;
   flex-direction: column;

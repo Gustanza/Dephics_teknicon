@@ -24,10 +24,15 @@ import { company } from '../data/content.js'
   other surface: one tonal step (#0B0E24 → #141733) and a 1px hairline, so the
   counters band and the vision band read as two bands rather than one field.
 */
+/* The mid rung of the navy ladder. Like the footer, the ground is light enough
+   that the muted text and the hairline have to be lifted for it — #8D91B1 drops
+   to 4.12:1 here. Custom properties inherit, so the subtree picks these up. */
 .vis {
+  --d-text-light: #9CA1C9;  /* 5.04:1 on the mid navy */
+  --d-bd: #4A5296;
   overflow: hidden;
   padding-top: var(--space-large);
-  background-color: var(--d-bg-alt);
+  background-color: var(--d-bg-mid);
   border-top: 1px solid var(--d-bd);
 }
 

@@ -16,15 +16,30 @@
 - **Base:** Dar es Salaam, Tanzania. Works across Tanzania and the region (Rwanda, Uganda,
   Zanzibar). Staff experience also spans Botswana and South Africa.
 
-### Brand colours (sampled from the official logo, `tekres/_extract/word/media/image1.png`)
+### Brand colours — AUTHORITATIVE
 
-| Role | Hex | Note |
+Sampled from the **designed company profile**, `tekres/Teknicon Revised Profile Jul 26.pdf`,
+rendered at 60 dpi and measured across flat vector fills only (neighbour-matched, so
+antialiased edges are excluded). The cover logo reproduces the same two values exactly.
+
+| Role | Hex | Evidence |
 |---|---|---|
-| Navy (primary wordmark) | `#2B2E8C` | dominant logo colour |
-| Signal red (diamond mark) | `#D81F26` | accent / secondary |
+| Brand navy | **`#2C3792`** | client-specified. The profile renders `#2A3991` (68,710 flat px, 15× the next candidate) — 2.33 ΔE apart, i.e. indistinguishable by eye. Use `#2C3792`. |
+| Brand red | `#E93825` | 35,755 flat px — 20× the next candidate |
 
-The logo mark is **two overlapping outlined diamonds** (rhombus lattice) in red,
-left of a navy "Teknicon Ltd" wordmark, with the tagline underneath in navy.
+> **Do not use the values sampled from the Word file's logo** (`image1.png`, a 335×59
+> compressed raster). That gave `#2B2E8C` / `#D81F26`, both wrong: the navy reads too
+> violet (G 46 vs the true 57) and the red too cool and crimson (G 31 vs the true 56).
+> The PDF is vector artwork and is the authority.
+
+**Contrast note.** `#E93825` measures 4.15:1 under a white label and 3.80:1 as text on
+the page ground, so it cannot carry small type at AA. The site therefore uses the exact
+red for graphics, rules and the logo, and a variant deepened 11% (`#CF3221` — 5.08:1 and
+4.66:1) for button fills and red text. Navy needs no variant (10.04:1).
+
+The logo mark is **two interlocking outlined diamonds** in red — each a single thick
+stroked diamond, overlapping and woven at the crossings — left of a navy "Teknicon"
+wordmark, with the tagline "Consulting Engineers and Project Managers" beneath it in near-black.
 
 ## 2. Vision
 

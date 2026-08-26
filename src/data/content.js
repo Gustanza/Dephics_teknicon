@@ -27,10 +27,13 @@ export const company = {
   ]
 }
 
+/* Order follows the order the sections appear on the page. The services block
+   sits above the quality block, so "Services" has to precede "About" — with them
+   the other way round the active-item highlight jumps backwards as you scroll. */
 export const nav = [
   { label: 'Home', href: '#top' },
-  { label: 'About', href: '#quality' },
   { label: 'Services', href: '#services' },
+  { label: 'About', href: '#quality' },
   { label: 'Projects', href: '#projects' },
   { label: 'Clients', href: '#clients' },
   { label: 'Team', href: '#team' },
@@ -309,12 +312,12 @@ export const team = {
   title: ['Registered engineers,', 'on the drawing board', 'and on site'],
   lede: 'Senior consulting engineers, registered professional engineers, a quantity surveyor and senior civil technicians — with individual experience ranging from 7 to 34 years.',
   members: [
-    { name: 'Eng. Florence Msambila',      initials: 'FM', profession: 'Civil/Structural Engineer', countries: 'Tanzania · Botswana · South Africa', years: 31 },
-    { name: 'Eng. Robert D. Lubuva',       initials: 'RL', profession: 'Civil/Structural Engineer', countries: 'Tanzania', years: 24 },
-    { name: 'Eng. Mbaraka M. Shaffi',      initials: 'MS', profession: 'Civil/Structural Engineer', countries: 'Tanzania · Botswana · South Africa', years: 34 },
-    { name: 'Eng. Arnold G. Rutaindurwa',  initials: 'AR', profession: 'Structural Engineer',       countries: 'Tanzania', years: 17 },
-    { name: 'Eng. Suleiman Hanti',         initials: 'SH', profession: 'Civil/Structural Engineer', countries: 'Tanzania', years: 17 },
-    { name: 'Ezekiel Mulinda',             initials: 'EM', profession: 'Civil Engineer',            countries: 'Tanzania', years: 27 }
+    { name: 'Eng. Florence Msambila', profession: 'Civil/Structural Engineer', countries: 'Tanzania · Botswana · South Africa', years: 31 },
+    { name: 'Eng. Robert D. Lubuva', profession: 'Civil/Structural Engineer', countries: 'Tanzania', years: 24 },
+    { name: 'Eng. Mbaraka M. Shaffi', profession: 'Civil/Structural Engineer', countries: 'Tanzania · Botswana · South Africa', years: 34 },
+    { name: 'Eng. Arnold G. Rutaindurwa', profession: 'Structural Engineer',       countries: 'Tanzania', years: 17 },
+    { name: 'Eng. Suleiman Hanti', profession: 'Civil/Structural Engineer', countries: 'Tanzania', years: 17 },
+    { name: 'Ezekiel Mulinda', profession: 'Civil Engineer',            countries: 'Tanzania', years: 27 }
   ],
   note: 'No staff photographs exist in the company profile, and none have been invented. The roster below is set typographically.',
   more: '…and eight more: five engineers, a quantity surveyor and two senior civil technicians.'
@@ -375,11 +378,3 @@ export const footer = {
   copyright: 'Teknicon Ltd © 2026. All rights reserved.',
   registrations: 'ERB LCF 122 · ACET 061 · TIN 108-536-756'
 }
-
-export const marquee = [
-  'Engineering excellence',
-  'Structural',
-  'Civil',
-  'Project management',
-  'Since 2009'
-]

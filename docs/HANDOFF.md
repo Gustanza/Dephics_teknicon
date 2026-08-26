@@ -95,7 +95,6 @@ and each section of the page has its own clearly named block, in the order the p
 | `team` | The Key Personnel roster |
 | `splitCta` | The two call-to-action panels |
 | `footer` | Footer columns, copyright line, registrations line |
-| `marquee` | The large scrolling words behind the footer |
 
 The contact details are in **`company`**, and the footer reads them from there, so changing the
 phone number or address in one place changes it everywhere it appears. Find the sentence you
