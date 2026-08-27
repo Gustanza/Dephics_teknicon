@@ -2,6 +2,7 @@
 import SiteHeader from './components/SiteHeader.vue'
 import Hero from './components/Hero.vue'
 import Credentials from './components/Credentials.vue'
+import About from './components/About.vue'
 import Services from './components/Services.vue'
 import Quality from './components/Quality.vue'
 import Projects from './components/Projects.vue'
@@ -22,6 +23,7 @@ import ScrollTop from './components/ui/ScrollTop.vue'
   <main id="main">
     <Hero />
     <Credentials />
+    <About />
     <Services />
     <Quality />
     <Projects />

@@ -1,579 +1,597 @@
 {
- "_note": "Curated from tekres/_extract/word/media. Project attribution derived from the caption paragraph that immediately follows each image in word/document.xml reading order, cross-checked against docs/BRIEF.md. Do not invent facts beyond BRIEF.md.",
- "hero": [
-  {
-   "file": "img/hero-tsf-embankment-luika.jpg",
-   "source": "image46.png",
-   "w": 1467,
-   "h": 964,
-   "bytes": 1842103,
-   "alt": "A yellow vibrating roller compacting the crest of a rockfill tailings embankment under a deep blue sky at a gold mine site",
-   "caption": "Embankment construction, TSF2 Phase 3, New Luika Gold Mine",
-   "project": "TSF2 Phase 3, New Luika Gold Mine",
-   "client": "Shanta Mining Company Ltd",
-   "confidence": "confident",
-   "flags": [
-    "needs compression before launch (1.8 MB PNG)"
-   ]
+  "_note": "Curated from tekres/_extract/word/media. Project attribution derived from the caption paragraph that immediately follows each image in word/document.xml reading order, cross-checked against docs/BRIEF.md. Do not invent facts beyond BRIEF.md.",
+  "hero": [
+    {
+      "file": "img/hero-tsf-embankment-luika.jpg",
+      "source": "image46.png",
+      "w": 1467,
+      "h": 964,
+      "bytes": 1842103,
+      "alt": "A yellow vibrating roller compacting the crest of a rockfill tailings embankment under a deep blue sky at a gold mine site",
+      "caption": "Embankment construction, TSF2 Phase 3, New Luika Gold Mine",
+      "project": "TSF2 Phase 3, New Luika Gold Mine",
+      "client": "Shanta Mining Company Ltd",
+      "confidence": "confident",
+      "flags": [
+        "needs compression before launch (1.8 MB PNG)"
+      ]
+    },
+    {
+      "file": "img/hero-ulongoni-bridge.jpg",
+      "source": "image29.png",
+      "w": 1080,
+      "h": 810,
+      "bytes": 1430328,
+      "alt": "A reinforced concrete bridge deck under construction across a sandy river channel, with a concrete apron, workers in high-visibility vests, a wheel loader and an excavator, and a densely built hillside settlement behind",
+      "caption": "Ulongoni Bridge under construction, Dar es Salaam Metropolitan Development Project",
+      "project": "Ulongoni Bridge (feasibility study, design and construction supervision), DMDP",
+      "client": "Ilala Municipal Council",
+      "confidence": "confident",
+      "flags": [
+        "1080 px wide - below the 1400 px ideal for a full-bleed hero"
+      ],
+      "status": "removed from the build",
+      "note": "Dropped when the client asked for stronger hero imagery. Still in tekres/_extract/word/media/ under `source` — re-run tools/optimize_images.py style conversion to bring it back."
+    }
+  ],
+  "projects": [
+    {
+      "file": "img/project-tra-ita-hotel.jpg",
+      "source": "image8.jpeg",
+      "w": 1367,
+      "h": 771,
+      "bytes": 489074,
+      "alt": "Architectural rendering of a seven-storey accommodation block with a green and white facade, framed by palm trees",
+      "caption": "TRA ITA Hotel Accommodation, Mikocheni - seven-storey building, project cost TZS 15.94 billion (VAT incl.)",
+      "project": "TRA ITA Hotel Accommodation, Mikocheni",
+      "client": "Tanzania Revenue Authority (TRA)",
+      "confidence": "confident"
+    },
+    {
+      "file": "img/project-binguni-hospital.jpg",
+      "source": "image11.jpeg",
+      "w": 1464,
+      "h": 880,
+      "bytes": 598227,
+      "alt": "Aerial masterplan rendering of a hospital campus, with a large main block labelled Binguni Referral and Teaching Hospital surrounded by ancillary buildings, roads and parking",
+      "caption": "Referral and Teaching College Hospital, Zanzibar - design",
+      "project": "Referral and Teaching College Hospital, Zanzibar",
+      "client": "Government of Zanzibar, Ministry of Health",
+      "confidence": "confident"
+    },
+    {
+      "file": "img/project-zmt-terminal.jpg",
+      "source": "image13.jpeg",
+      "w": 1057,
+      "h": 664,
+      "bytes": 419316,
+      "alt": "Drone view of a container storage yard with rows of stacked shipping containers on a paved hardstand, alongside red-roofed workshop and service buildings",
+      "caption": "Workshop, service building and container storage hardstand - Zanzibar Multipurpose Terminal",
+      "project": "Zanzibar Multipurpose Terminal (ZMT) workshop, service building and hardstand",
+      "client": "Zanzibar Multipurpose Terminal (ZMT)",
+      "confidence": "confident",
+      "status": "removed from the build",
+      "note": "Dropped when the client asked for stronger hero imagery. Still in tekres/_extract/word/media/ under `source` — re-run tools/optimize_images.py style conversion to bring it back."
+    },
+    {
+      "file": "img/project-tobacco-plant-morogoro.jpg",
+      "source": "image14.png",
+      "w": 1015,
+      "h": 768,
+      "bytes": 1722929,
+      "alt": "A steel portal-frame building under erection, with a mobile crane lifting a rafter into place and workers on ladders securing steelwork",
+      "caption": "Structural steelwork erection, Tobacco Processing Plant expansion, Morogoro",
+      "project": "Expansion of Tobacco Processing Plant, Morogoro",
+      "client": "Tanzania Tobacco Processors Ltd",
+      "confidence": "confident",
+      "flags": [
+        "needs compression before launch (1.7 MB PNG)"
+      ]
+    },
+    {
+      "file": "img/project-msd-warehouse-keko.jpg",
+      "source": "image18.jpeg",
+      "w": 1100,
+      "h": 825,
+      "bytes": 237358,
+      "alt": "A completed white medical storage warehouse with msd branding, with two msd delivery trucks at the loading bays and a paved yard in the foreground",
+      "caption": "MSD Storage Warehouse, Keko, Dar es Salaam - design and construction supervision",
+      "project": "MSD Storage Warehouse, Keko, Dar es Salaam",
+      "client": "Tanzania Medical Store Department (MSD), funded by USAID",
+      "confidence": "confident"
+    },
+    {
+      "file": "img/project-zimbili-bridge.jpg",
+      "source": "image24.png",
+      "w": 645,
+      "h": 291,
+      "bytes": 404918,
+      "alt": "A bridge under construction over a river bed, with formwork and reinforcement on the abutment, workers on the deck and a wheel loader working in the foreground",
+      "caption": "Zimbili Bridge, 40 m span - feasibility study, design and construction supervision, DMDP",
+      "project": "Zimbili Bridge (40 m span), DMDP",
+      "client": "Ilala Municipal Council",
+      "confidence": "confident",
+      "flags": [
+        "low resolution (645x291) - suits a small card only"
+      ]
+    },
+    {
+      "file": "img/project-tiper-hardstand.jpg",
+      "source": "image26.jpeg",
+      "w": 1020,
+      "h": 459,
+      "bytes": 40162,
+      "alt": "A concrete boom pump placing concrete for a rigid pavement slab inside a fuel depot, with a mixer truck, a team of workers in high-visibility vests and rows of bulk storage tanks behind",
+      "caption": "Rigid pavement hardstand for heavy-duty fuel truck parking, TIPER Gantry Production Centre",
+      "project": "TIPER Gantry Production Centre rigid pavement hardstand",
+      "client": "Tanzania International Petroleum Reserves (TIPER)",
+      "confidence": "confident"
+    },
+    {
+      "file": "img/project-mnekezi-box-culvert.jpg",
+      "source": "image34.jpeg",
+      "w": 1571,
+      "h": 1178,
+      "bytes": 810085,
+      "alt": "A completed three-cell reinforced concrete box culvert carrying a gravel road with steel guardrails over a stream",
+      "caption": "Box culvert on the Mnekezi to Lwamgasa gravel road diversion, Geita",
+      "project": "Mnekezi-Lwamgasa gravel road diversion (8.6 km), Geita",
+      "client": "TARURA / Buckreef Gold Company Ltd",
+      "confidence": "confident",
+      "flags": [
+        "camera date stamp burnt into the lower right corner"
+      ]
+    },
+    {
+      "file": "img/project-tsf-liner-mwaoga.jpg",
+      "source": "image64.jpeg",
+      "w": 1521,
+      "h": 1140,
+      "bytes": 488911,
+      "alt": "A wide tailings storage facility basin fully lined with geomembrane, with three workers kneeling on the liner in the middle distance and forested hills on the horizon",
+      "caption": "Geomembrane lining, TSF1 at Mwaoga Village, Chunya District, Mbeya",
+      "project": "TSF1, Mwaoga Village, Chunya District, Mbeya",
+      "client": "Anglo de Beers Tanzania Ltd",
+      "confidence": "confident",
+      "flags": [
+        "camera date stamp burnt into the lower right corner"
+      ]
+    },
+    {
+      "file": "img/project-energy-dissipater-luika.jpg",
+      "source": "image48.jpeg",
+      "w": 1525,
+      "h": 1147,
+      "bytes": 584100,
+      "alt": "A concrete-lined stilling basin filled with water, fed by a pipe outfall discharging through a gabion retaining wall, with a rockfill embankment and a mountain behind",
+      "caption": "Energy dissipater for TSF2 supernatant water, New Luika Gold Mine",
+      "project": "Energy dissipater, TSF2 supernatant water, New Luika Gold Mine",
+      "client": "Shanta Mining Company Ltd",
+      "confidence": "confident",
+      "flags": [
+        "camera date stamp burnt into the lower right corner"
+      ],
+      "status": "removed from the build",
+      "note": "Dropped when the client asked for stronger hero imagery. Still in tekres/_extract/word/media/ under `source` — re-run tools/optimize_images.py style conversion to bring it back."
+    },
+    {
+      "file": "img/dam-masonry-luika.jpg",
+      "source": "image38.jpeg",
+      "w": 676,
+      "h": 509,
+      "bytes": 212822,
+      "alt": "A masonry water dam under construction, with a large crew in orange overalls working along the sloping masonry face, a reinforced concrete outlet structure and the impounded reservoir beyond",
+      "caption": "350 ML masonry water dam under construction, New Luika Gold Mine",
+      "project": "350 ML Masonry Water Dam, New Luika Gold Mine",
+      "client": "Shanta Mining Company Ltd",
+      "confidence": "confident",
+      "flags": [
+        "low resolution (676x509)",
+        "camera date stamp burnt into the lower right corner"
+      ]
+    },
+    {
+      "file": "img/project-kilombero-pump-station.jpg",
+      "source": "image70.jpeg",
+      "w": 1600,
+      "h": 1200,
+      "bytes": 243164,
+      "alt": "A pump station under construction beside an open water channel, with a bank of six pumps and galvanised suction pipes feeding a common delivery manifold, and workers commissioning the units",
+      "caption": "Pump station, Water Supply and Irrigation Scheme, Ifakara, Kilombero District",
+      "project": "Water Supply and Irrigation Scheme, Ifakara, Kilombero District, Morogoro",
+      "client": "Kilombero Plantation Ltd",
+      "confidence": "confident"
+    },
+    {
+      "file": "img/project-kibongoto-laboratory.jpg",
+      "source": "image12.png",
+      "w": 1024,
+      "h": 768,
+      "alt": "A completed four-storey laboratory building in white render with dark glazing and an orange feature panel, fronted by a paved forecourt and a circular lawn with a young tree",
+      "caption": "New laboratory, Kibong'oto Hospital — completed",
+      "project": "Kibong'oto Hospital New Laboratory",
+      "client": "Ministry of Health, Tanzania",
+      "confidence": "confident",
+      "note": "Held in reserve in the first pass; pulled in for the About section."
+    }
+  ],
+  "atmosphere": [
+    {
+      "file": "img/site-survey-team.jpg",
+      "source": "image30.jpeg",
+      "w": 1070,
+      "h": 775,
+      "bytes": 407207,
+      "alt": "Two engineers in yellow high-visibility vests, one printed Teknicon Ltd, taking notes on a clipboard during a route survey in open bush country",
+      "caption": "Route survey during feasibility studies for road upgrading in Iringa District",
+      "project": "Wenda-Mgama Road (19 km), Iringa District - feasibility, detailed design and tender documents",
+      "client": "TARURA",
+      "confidence": "likely",
+      "flags": [
+        "camera date stamp (31/05/2021) burnt into the lower right corner",
+        "Teknicon-branded PPE visible - strongest team image in the source"
+      ]
+    },
+    {
+      "file": "img/site-supervision-crew.jpg",
+      "source": "image52.jpeg",
+      "w": 808,
+      "h": 611,
+      "bytes": 154080,
+      "alt": "A crew of about a dozen workers in hard hats and high-visibility vests unrolling a large roll of black geomembrane liner across a prepared earthworks platform",
+      "caption": "Geomembrane liner installation under construction supervision, TSF2 Cell 1, Mnekezi, Geita",
+      "project": "TSF2 Cell 1, Mnekezi, Geita",
+      "client": "Buckreef Gold Company Ltd",
+      "confidence": "confident",
+      "flags": [
+        "camera date stamp burnt into the lower right corner"
+      ]
+    },
+    {
+      "file": "img/site-engineers-reviewing-drawings.jpg",
+      "source": "image25.png",
+      "w": 640,
+      "h": 289,
+      "bytes": 499372,
+      "alt": "Five engineers and site staff in hard hats and high-visibility vests standing on a reinforcement mat, reviewing a rolled set of construction drawings together",
+      "caption": "Reviewing construction drawings on site before a deck pour",
+      "project": "Zimbili Bridge (40 m span), DMDP",
+      "client": "Ilala Municipal Council",
+      "confidence": "likely",
+      "flags": [
+        "low resolution (640x289) - letterboxed crop, suits a narrow banner only",
+        "not used on the page; file removed from public/img so it does not ship to dist"
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "file": "img/clients/client-shanta-gold.png",
+      "source": "image72.png",
+      "w": 175,
+      "h": 79,
+      "name": "Shanta Gold / Shanta Mining Company Ltd",
+      "confidence": "confident"
+    },
+    {
+      "file": "img/clients/client-buckreef-gold.png",
+      "source": "image73.png",
+      "w": 172,
+      "h": 90,
+      "name": "Buckreef Gold Company Ltd (BGC)",
+      "confidence": "confident"
+    },
+    {
+      "file": "img/clients/client-anglo-de-beers.png",
+      "source": "image74.png",
+      "w": 237,
+      "h": 103,
+      "name": "Anglo de Beers (T) Limited",
+      "confidence": "confident"
+    },
+    {
+      "file": "img/clients/client-ruvuma-coal.png",
+      "source": "image75.png",
+      "w": 127,
+      "h": 127,
+      "name": "Ruvuma Coal Limited",
+      "confidence": "confident"
+    },
+    {
+      "file": "img/clients/client-matongo-gold-mine.png",
+      "source": "image76.png",
+      "w": 195,
+      "h": 58,
+      "name": "Matongo Gold Mine Ltd",
+      "confidence": "confident"
+    },
+    {
+      "file": "img/clients/client-busolwa-mining.png",
+      "source": "image77.png",
+      "w": 230,
+      "h": 169,
+      "name": "Busolwa Mining Limited",
+      "confidence": "confident"
+    },
+    {
+      "file": "img/clients/client-katavi-mining.png",
+      "source": "image78.png",
+      "w": 220,
+      "h": 230,
+      "name": "Katavi Mining Company Ltd",
+      "confidence": "confident"
+    },
+    {
+      "file": "img/clients/client-volt-resources.png",
+      "source": "image79.png",
+      "w": 256,
+      "h": 80,
+      "name": "Volt Resources",
+      "confidence": "confident"
+    },
+    {
+      "file": "img/clients/client-dawasa.png",
+      "source": "image80.png",
+      "w": 98,
+      "h": 72,
+      "name": "DAWASA - Dar es Salaam Water Supply and Sanitation Authority",
+      "confidence": "confident",
+      "flags": [
+        "re-cropped to its ink from 148x148 (33% of the width and 52% of the height were empty padding, which made the mark render far smaller than the others in the strip)"
+      ]
+    },
+    {
+      "file": "img/clients/client-unilever.png",
+      "source": "image81.png",
+      "w": 148,
+      "h": 148,
+      "name": "Unilever",
+      "confidence": "confident"
+    },
+    {
+      "file": "img/clients/client-iruwasa.png",
+      "source": "image82.png",
+      "w": 151,
+      "h": 148,
+      "name": "IRUWASA - Iringa Urban Water Supply and Sanitation Authority",
+      "confidence": "confident",
+      "flags": [
+        "re-cropped to its ink from 223x148 (72 px of empty side padding)"
+      ]
+    }
+  ],
+  "logo": {
+    "file": "img/logo-teknicon.png",
+    "source": "image1.png",
+    "w": 335,
+    "h": 59,
+    "bytes": 38349,
+    "alt": "Teknicon Ltd logo: a red outlined double-diamond mark beside the navy wordmark Teknicon Ltd and the tagline Consulting Engineers and Project Managers",
+    "flags": [
+      "only 335x59 - will look soft above ~170 px display width",
+      "superseded by the SVG redraw at src/assets/brand/mark.svg; raster removed from public/img so it does not ship to dist"
+    ]
   },
-  {
-   "file": "img/hero-ulongoni-bridge.jpg",
-   "source": "image29.png",
-   "w": 1080,
-   "h": 810,
-   "bytes": 1430328,
-   "alt": "A reinforced concrete bridge deck under construction across a sandy river channel, with a concrete apron, workers in high-visibility vests, a wheel loader and an excavator, and a densely built hillside settlement behind",
-   "caption": "Ulongoni Bridge under construction, Dar es Salaam Metropolitan Development Project",
-   "project": "Ulongoni Bridge (feasibility study, design and construction supervision), DMDP",
-   "client": "Ilala Municipal Council",
-   "confidence": "confident",
-   "flags": [
-    "1080 px wide - below the 1400 px ideal for a full-bleed hero"
-   ]
-  }
- ],
- "projects": [
-  {
-   "file": "img/project-tra-ita-hotel.jpg",
-   "source": "image8.jpeg",
-   "w": 1367,
-   "h": 771,
-   "bytes": 489074,
-   "alt": "Architectural rendering of a seven-storey accommodation block with a green and white facade, framed by palm trees",
-   "caption": "TRA ITA Hotel Accommodation, Mikocheni - seven-storey building, project cost TZS 15.94 billion (VAT incl.)",
-   "project": "TRA ITA Hotel Accommodation, Mikocheni",
-   "client": "Tanzania Revenue Authority (TRA)",
-   "confidence": "confident"
-  },
-  {
-   "file": "img/project-binguni-hospital.jpg",
-   "source": "image11.jpeg",
-   "w": 1464,
-   "h": 880,
-   "bytes": 598227,
-   "alt": "Aerial masterplan rendering of a hospital campus, with a large main block labelled Binguni Referral and Teaching Hospital surrounded by ancillary buildings, roads and parking",
-   "caption": "Referral and Teaching College Hospital, Zanzibar - design",
-   "project": "Referral and Teaching College Hospital, Zanzibar",
-   "client": "Government of Zanzibar, Ministry of Health",
-   "confidence": "confident"
-  },
-  {
-   "file": "img/project-zmt-terminal.jpg",
-   "source": "image13.jpeg",
-   "w": 1057,
-   "h": 664,
-   "bytes": 419316,
-   "alt": "Drone view of a container storage yard with rows of stacked shipping containers on a paved hardstand, alongside red-roofed workshop and service buildings",
-   "caption": "Workshop, service building and container storage hardstand - Zanzibar Multipurpose Terminal",
-   "project": "Zanzibar Multipurpose Terminal (ZMT) workshop, service building and hardstand",
-   "client": "Zanzibar Multipurpose Terminal (ZMT)",
-   "confidence": "confident"
-  },
-  {
-   "file": "img/project-tobacco-plant-morogoro.jpg",
-   "source": "image14.png",
-   "w": 1015,
-   "h": 768,
-   "bytes": 1722929,
-   "alt": "A steel portal-frame building under erection, with a mobile crane lifting a rafter into place and workers on ladders securing steelwork",
-   "caption": "Structural steelwork erection, Tobacco Processing Plant expansion, Morogoro",
-   "project": "Expansion of Tobacco Processing Plant, Morogoro",
-   "client": "Tanzania Tobacco Processors Ltd",
-   "confidence": "confident",
-   "flags": [
-    "needs compression before launch (1.7 MB PNG)"
-   ]
-  },
-  {
-   "file": "img/project-msd-warehouse-keko.jpg",
-   "source": "image18.jpeg",
-   "w": 1100,
-   "h": 825,
-   "bytes": 237358,
-   "alt": "A completed white medical storage warehouse with msd branding, with two msd delivery trucks at the loading bays and a paved yard in the foreground",
-   "caption": "MSD Storage Warehouse, Keko, Dar es Salaam - design and construction supervision",
-   "project": "MSD Storage Warehouse, Keko, Dar es Salaam",
-   "client": "Tanzania Medical Store Department (MSD), funded by USAID",
-   "confidence": "confident"
-  },
-  {
-   "file": "img/project-zimbili-bridge.jpg",
-   "source": "image24.png",
-   "w": 645,
-   "h": 291,
-   "bytes": 404918,
-   "alt": "A bridge under construction over a river bed, with formwork and reinforcement on the abutment, workers on the deck and a wheel loader working in the foreground",
-   "caption": "Zimbili Bridge, 40 m span - feasibility study, design and construction supervision, DMDP",
-   "project": "Zimbili Bridge (40 m span), DMDP",
-   "client": "Ilala Municipal Council",
-   "confidence": "confident",
-   "flags": [
-    "low resolution (645x291) - suits a small card only"
-   ]
-  },
-  {
-   "file": "img/project-tiper-hardstand.jpg",
-   "source": "image26.jpeg",
-   "w": 1020,
-   "h": 459,
-   "bytes": 40162,
-   "alt": "A concrete boom pump placing concrete for a rigid pavement slab inside a fuel depot, with a mixer truck, a team of workers in high-visibility vests and rows of bulk storage tanks behind",
-   "caption": "Rigid pavement hardstand for heavy-duty fuel truck parking, TIPER Gantry Production Centre",
-   "project": "TIPER Gantry Production Centre rigid pavement hardstand",
-   "client": "Tanzania International Petroleum Reserves (TIPER)",
-   "confidence": "confident"
-  },
-  {
-   "file": "img/project-mnekezi-box-culvert.jpg",
-   "source": "image34.jpeg",
-   "w": 1571,
-   "h": 1178,
-   "bytes": 810085,
-   "alt": "A completed three-cell reinforced concrete box culvert carrying a gravel road with steel guardrails over a stream",
-   "caption": "Box culvert on the Mnekezi to Lwamgasa gravel road diversion, Geita",
-   "project": "Mnekezi-Lwamgasa gravel road diversion (8.6 km), Geita",
-   "client": "TARURA / Buckreef Gold Company Ltd",
-   "confidence": "confident",
-   "flags": [
-    "camera date stamp burnt into the lower right corner"
-   ]
-  },
-  {
-   "file": "img/project-tsf-liner-mwaoga.jpg",
-   "source": "image64.jpeg",
-   "w": 1521,
-   "h": 1140,
-   "bytes": 488911,
-   "alt": "A wide tailings storage facility basin fully lined with geomembrane, with three workers kneeling on the liner in the middle distance and forested hills on the horizon",
-   "caption": "Geomembrane lining, TSF1 at Mwaoga Village, Chunya District, Mbeya",
-   "project": "TSF1, Mwaoga Village, Chunya District, Mbeya",
-   "client": "Anglo de Beers Tanzania Ltd",
-   "confidence": "confident",
-   "flags": [
-    "camera date stamp burnt into the lower right corner"
-   ]
-  },
-  {
-   "file": "img/project-energy-dissipater-luika.jpg",
-   "source": "image48.jpeg",
-   "w": 1525,
-   "h": 1147,
-   "bytes": 584100,
-   "alt": "A concrete-lined stilling basin filled with water, fed by a pipe outfall discharging through a gabion retaining wall, with a rockfill embankment and a mountain behind",
-   "caption": "Energy dissipater for TSF2 supernatant water, New Luika Gold Mine",
-   "project": "Energy dissipater, TSF2 supernatant water, New Luika Gold Mine",
-   "client": "Shanta Mining Company Ltd",
-   "confidence": "confident",
-   "flags": [
-    "camera date stamp burnt into the lower right corner"
-   ]
-  },
-  {
-   "file": "img/dam-masonry-luika.jpg",
-   "source": "image38.jpeg",
-   "w": 676,
-   "h": 509,
-   "bytes": 212822,
-   "alt": "A masonry water dam under construction, with a large crew in orange overalls working along the sloping masonry face, a reinforced concrete outlet structure and the impounded reservoir beyond",
-   "caption": "350 ML masonry water dam under construction, New Luika Gold Mine",
-   "project": "350 ML Masonry Water Dam, New Luika Gold Mine",
-   "client": "Shanta Mining Company Ltd",
-   "confidence": "confident",
-   "flags": [
-    "low resolution (676x509)",
-    "camera date stamp burnt into the lower right corner"
-   ]
-  },
-  {
-   "file": "img/project-kilombero-pump-station.jpg",
-   "source": "image70.jpeg",
-   "w": 1600,
-   "h": 1200,
-   "bytes": 243164,
-   "alt": "A pump station under construction beside an open water channel, with a bank of six pumps and galvanised suction pipes feeding a common delivery manifold, and workers commissioning the units",
-   "caption": "Pump station, Water Supply and Irrigation Scheme, Ifakara, Kilombero District",
-   "project": "Water Supply and Irrigation Scheme, Ifakara, Kilombero District, Morogoro",
-   "client": "Kilombero Plantation Ltd",
-   "confidence": "confident"
-  }
- ],
- "atmosphere": [
-  {
-   "file": "img/site-survey-team.jpg",
-   "source": "image30.jpeg",
-   "w": 1070,
-   "h": 775,
-   "bytes": 407207,
-   "alt": "Two engineers in yellow high-visibility vests, one printed Teknicon Ltd, taking notes on a clipboard during a route survey in open bush country",
-   "caption": "Route survey during feasibility studies for road upgrading in Iringa District",
-   "project": "Wenda-Mgama Road (19 km), Iringa District - feasibility, detailed design and tender documents",
-   "client": "TARURA",
-   "confidence": "likely",
-   "flags": [
-    "camera date stamp (31/05/2021) burnt into the lower right corner",
-    "Teknicon-branded PPE visible - strongest team image in the source"
-   ]
-  },
-  {
-   "file": "img/site-supervision-crew.jpg",
-   "source": "image52.jpeg",
-   "w": 808,
-   "h": 611,
-   "bytes": 154080,
-   "alt": "A crew of about a dozen workers in hard hats and high-visibility vests unrolling a large roll of black geomembrane liner across a prepared earthworks platform",
-   "caption": "Geomembrane liner installation under construction supervision, TSF2 Cell 1, Mnekezi, Geita",
-   "project": "TSF2 Cell 1, Mnekezi, Geita",
-   "client": "Buckreef Gold Company Ltd",
-   "confidence": "confident",
-   "flags": [
-    "camera date stamp burnt into the lower right corner"
-   ]
-  },
-  {
-   "file": "img/site-engineers-reviewing-drawings.jpg",
-   "source": "image25.png",
-   "w": 640,
-   "h": 289,
-   "bytes": 499372,
-   "alt": "Five engineers and site staff in hard hats and high-visibility vests standing on a reinforcement mat, reviewing a rolled set of construction drawings together",
-   "caption": "Reviewing construction drawings on site before a deck pour",
-   "project": "Zimbili Bridge (40 m span), DMDP",
-   "client": "Ilala Municipal Council",
-   "confidence": "likely",
-   "flags": [
-    "low resolution (640x289) - letterboxed crop, suits a narrow banner only",
-    "not used on the page; file removed from public/img so it does not ship to dist"
-   ]
-  }
- ],
- "clients": [
-  {
-   "file": "img/clients/client-shanta-gold.png",
-   "source": "image72.png",
-   "w": 175,
-   "h": 79,
-   "name": "Shanta Gold / Shanta Mining Company Ltd",
-   "confidence": "confident"
-  },
-  {
-   "file": "img/clients/client-buckreef-gold.png",
-   "source": "image73.png",
-   "w": 172,
-   "h": 90,
-   "name": "Buckreef Gold Company Ltd (BGC)",
-   "confidence": "confident"
-  },
-  {
-   "file": "img/clients/client-anglo-de-beers.png",
-   "source": "image74.png",
-   "w": 237,
-   "h": 103,
-   "name": "Anglo de Beers (T) Limited",
-   "confidence": "confident"
-  },
-  {
-   "file": "img/clients/client-ruvuma-coal.png",
-   "source": "image75.png",
-   "w": 127,
-   "h": 127,
-   "name": "Ruvuma Coal Limited",
-   "confidence": "confident"
-  },
-  {
-   "file": "img/clients/client-matongo-gold-mine.png",
-   "source": "image76.png",
-   "w": 195,
-   "h": 58,
-   "name": "Matongo Gold Mine Ltd",
-   "confidence": "confident"
-  },
-  {
-   "file": "img/clients/client-busolwa-mining.png",
-   "source": "image77.png",
-   "w": 230,
-   "h": 169,
-   "name": "Busolwa Mining Limited",
-   "confidence": "confident"
-  },
-  {
-   "file": "img/clients/client-katavi-mining.png",
-   "source": "image78.png",
-   "w": 220,
-   "h": 230,
-   "name": "Katavi Mining Company Ltd",
-   "confidence": "confident"
-  },
-  {
-   "file": "img/clients/client-volt-resources.png",
-   "source": "image79.png",
-   "w": 256,
-   "h": 80,
-   "name": "Volt Resources",
-   "confidence": "confident"
-  },
-  {
-   "file": "img/clients/client-dawasa.png",
-   "source": "image80.png",
-   "w": 98,
-   "h": 72,
-   "name": "DAWASA - Dar es Salaam Water Supply and Sanitation Authority",
-   "confidence": "confident",
-   "flags": [
-    "re-cropped to its ink from 148x148 (33% of the width and 52% of the height were empty padding, which made the mark render far smaller than the others in the strip)"
-   ]
-  },
-  {
-   "file": "img/clients/client-unilever.png",
-   "source": "image81.png",
-   "w": 148,
-   "h": 148,
-   "name": "Unilever",
-   "confidence": "confident"
-  },
-  {
-   "file": "img/clients/client-iruwasa.png",
-   "source": "image82.png",
-   "w": 151,
-   "h": 148,
-   "name": "IRUWASA - Iringa Urban Water Supply and Sanitation Authority",
-   "confidence": "confident",
-   "flags": [
-    "re-cropped to its ink from 223x148 (72 px of empty side padding)"
-   ]
-  }
- ],
- "logo": {
-  "file": "img/logo-teknicon.png",
-  "source": "image1.png",
-  "w": 335,
-  "h": 59,
-  "bytes": 38349,
-  "alt": "Teknicon Ltd logo: a red outlined double-diamond mark beside the navy wordmark Teknicon Ltd and the tagline Consulting Engineers and Project Managers",
-  "flags": [
-   "only 335x59 - will look soft above ~170 px display width",
-   "superseded by the SVG redraw at src/assets/brand/mark.svg; raster removed from public/img so it does not ship to dist"
+  "rejected": [
+    {
+      "source": "image2.png",
+      "reason": "Aerial of a completed TSF, but only 482x322 - cover-page thumbnail, too small to use"
+    },
+    {
+      "source": "image3.png",
+      "reason": "Roller on a TSF embankment crest; usable subject but portrait 1389x1692 cover-page crop and 2.6 MB; superseded by image46"
+    },
+    {
+      "source": "image4.png",
+      "reason": "Green geometric cover-page decoration, not photography"
+    },
+    {
+      "source": "image5.wmf",
+      "reason": "Unreadable vector blob"
+    },
+    {
+      "source": "image6.wmf",
+      "reason": "Unreadable vector blob"
+    },
+    {
+      "source": "image7.wmf",
+      "reason": "Organisation chart, unreadable vector blob"
+    },
+    {
+      "source": "image9.emf",
+      "reason": "TRA Regional Office Tanga - unreadable EMF vector blob (2.1 MB); project has no usable image"
+    },
+    {
+      "source": "image10.emf",
+      "reason": "Uganda High Commission, Dodoma - unreadable EMF vector blob (8.3 MB); project has no usable image"
+    },
+    {
+      "source": "image12.png",
+      "reason": "Kibong'oto Hospital new laboratory, completed building 1024x768 - good quality, cut only to keep the buildings grid to four; a valid reserve"
+    },
+    {
+      "source": "image15.png",
+      "reason": "Royal Soap industrial building - 384x576, below the 600 px floor"
+    },
+    {
+      "source": "image16.jpeg",
+      "reason": "Oysterbay residences aerial render - duplicate subject of image17"
+    },
+    {
+      "source": "image17.jpeg",
+      "reason": "Oysterbay residence render 1489x931 - good quality, cut for pillar balance; a valid reserve"
+    },
+    {
+      "source": "image19.jpeg",
+      "reason": "MSD Warehouse Mbeya - near-duplicate of the Keko warehouse already selected"
+    },
+    {
+      "source": "image20.jpeg",
+      "reason": "MPPD Warehouse Kigali - third warehouse elevation, redundant with image18"
+    },
+    {
+      "source": "image21.png",
+      "reason": "Lafarge Mbeya bulk loading system under construction - hazy, dust-washed exposure and a watermark-like artefact bottom right"
+    },
+    {
+      "source": "image22.jpeg",
+      "reason": "Warehouse interior with engineer in PPE - 492x369, below the 600 px floor"
+    },
+    {
+      "source": "image23.jpeg",
+      "reason": "Nanyumbu Bus Terminal render - dated low-fidelity 3D render, weakest of the visualisations"
+    },
+    {
+      "source": "image27.png",
+      "reason": "Rau Bridge - 674x465 with a burnt-in DARAJA LA RAU graphic overlay"
+    },
+    {
+      "source": "image28.jpeg",
+      "reason": "Mpanda Bus Terminal render - redundant second terminal visualisation"
+    },
+    {
+      "source": "image31.png",
+      "reason": "Furahisha pedestrian flyover render - 690x446, visibly upscaled and blurry"
+    },
+    {
+      "source": "image32.png",
+      "reason": "Matomondo-Mlale Road - 576x1280 portrait of an empty gravel road, no visual interest"
+    },
+    {
+      "source": "image33.jpeg",
+      "reason": "Mnekezi-Lwamgasa road diversion - frame is almost entirely bare earth, no subject"
+    },
+    {
+      "source": "image35.jpeg",
+      "reason": "Helipad at Mnekezi, Geita, 2592x1944 - correctly identified but the frame is mostly blank concrete; usable only if a helipad card is required"
+    },
+    {
+      "source": "image36.png",
+      "reason": "274x208, below the size floor"
+    },
+    {
+      "source": "image37.jpeg",
+      "reason": "150 ML water reservoir, New Luika - 682x509, flat and featureless"
+    },
+    {
+      "source": "image39.jpeg",
+      "reason": "Dam outlet penstock gates - 741x555, technical detail rather than portfolio image"
+    },
+    {
+      "source": "image40.jpeg",
+      "reason": "TSF2 Phase 2A detail - under 810 px, redundant with better TSF images"
+    },
+    {
+      "source": "image41.jpeg",
+      "reason": "TSF2 Phase 2A detail - under 810 px, redundant"
+    },
+    {
+      "source": "image42.jpeg",
+      "reason": "TSF2 Phase 2A detail - under 810 px, redundant"
+    },
+    {
+      "source": "image43.jpeg",
+      "reason": "TSF2 Phase 2A detail - under 810 px, redundant"
+    },
+    {
+      "source": "image44.jpeg",
+      "reason": "TSF2 Phase 2B liner detail - 685x513, redundant"
+    },
+    {
+      "source": "image45.jpeg",
+      "reason": "TSF2 Phase 2B liner detail - 684x511, redundant"
+    },
+    {
+      "source": "image47.png",
+      "reason": "Screenshot of a Word window (2560x1440) - Word UI and chrome visible; the drone shot of the completed TSF inside it is unrecoverable at usable quality"
+    },
+    {
+      "source": "image49.jpeg",
+      "reason": "Second energy dissipater view - near-duplicate of image48"
+    },
+    {
+      "source": "image50.jpeg",
+      "reason": "TSF2 Cell 1 excavator on liner - 709x530, redundant"
+    },
+    {
+      "source": "image51.jpeg",
+      "reason": "TSF2 Cell 1 liner and pipeline - 701x526, redundant"
+    },
+    {
+      "source": "image53.jpeg",
+      "reason": "TSF2 Cell 1 haul road - 701x525, no clear subject"
+    },
+    {
+      "source": "image54.jpeg",
+      "reason": "Pipe bedding in a reinforcement trench, TSF1 Ikungi - technical record shot, not portfolio material"
+    },
+    {
+      "source": "image55.png",
+      "reason": "Drone shot of the completed TSF1 at Ikungi - excellent subject but only 641x353; the best aerial in the source and badly under-resolved"
+    },
+    {
+      "source": "image56.jpeg",
+      "reason": "TSF2 Cell 2 detail - under 700 px, redundant"
+    },
+    {
+      "source": "image57.jpeg",
+      "reason": "TSF2 Cell 2 detail - under 700 px, redundant"
+    },
+    {
+      "source": "image58.jpeg",
+      "reason": "TSF1 Matongo earthworks - 701x526, no clear subject"
+    },
+    {
+      "source": "image59.jpeg",
+      "reason": "TSF1 Matongo detail - 702x527, redundant"
+    },
+    {
+      "source": "image60.jpeg",
+      "reason": "TSF1 Phase 2 Ikungi detail - 631x472, redundant"
+    },
+    {
+      "source": "image61.jpeg",
+      "reason": "TSF1 Phase 2 Ikungi detail - 628x468, redundant"
+    },
+    {
+      "source": "image62.jpeg",
+      "reason": "TSF2 Cell 2 Phase 2 rockfill and liner - 658x493, redundant"
+    },
+    {
+      "source": "image63.jpeg",
+      "reason": "TSF2 Cell 2 Phase 2 detail - 659x493, redundant"
+    },
+    {
+      "source": "image65.jpeg",
+      "reason": "Close-up of a pump and valve assembly on a pallet - equipment record shot"
+    },
+    {
+      "source": "image66.jpeg",
+      "reason": "River Nyamazovu excavation - churned mud, unattractive frame"
+    },
+    {
+      "source": "image67.jpeg",
+      "reason": "River Nyamazovu gabion channel - near-duplicate of image68"
+    },
+    {
+      "source": "image68.jpeg",
+      "reason": "River Nyamazovu trained channel with gabion revetment, 1509x1131 - good quality, cut only for pillar balance; the strongest reserve image"
+    },
+    {
+      "source": "image69.jpeg",
+      "reason": "Lined irrigation canal, Ifakara - good but superseded by the pump station image from the same project"
+    },
+    {
+      "source": "image71.png",
+      "reason": "Concrete irrigation canal and control gates, Ifakara - only 295x222"
+    },
+    {
+      "source": "image83.png",
+      "reason": "RUWASA logo, but the file is a browser screenshot with close and share buttons visible - not usable in a logo strip"
+    },
+    {
+      "source": "image84.png",
+      "reason": "TIPER Bulk Storage logo, but the file is a screenshot of a tender listing with a red tenders badge and caption text baked in - not usable in a logo strip"
+    }
   ]
- },
- "rejected": [
-  {
-   "source": "image2.png",
-   "reason": "Aerial of a completed TSF, but only 482x322 - cover-page thumbnail, too small to use"
-  },
-  {
-   "source": "image3.png",
-   "reason": "Roller on a TSF embankment crest; usable subject but portrait 1389x1692 cover-page crop and 2.6 MB; superseded by image46"
-  },
-  {
-   "source": "image4.png",
-   "reason": "Green geometric cover-page decoration, not photography"
-  },
-  {
-   "source": "image5.wmf",
-   "reason": "Unreadable vector blob"
-  },
-  {
-   "source": "image6.wmf",
-   "reason": "Unreadable vector blob"
-  },
-  {
-   "source": "image7.wmf",
-   "reason": "Organisation chart, unreadable vector blob"
-  },
-  {
-   "source": "image9.emf",
-   "reason": "TRA Regional Office Tanga - unreadable EMF vector blob (2.1 MB); project has no usable image"
-  },
-  {
-   "source": "image10.emf",
-   "reason": "Uganda High Commission, Dodoma - unreadable EMF vector blob (8.3 MB); project has no usable image"
-  },
-  {
-   "source": "image12.png",
-   "reason": "Kibong'oto Hospital new laboratory, completed building 1024x768 - good quality, cut only to keep the buildings grid to four; a valid reserve"
-  },
-  {
-   "source": "image15.png",
-   "reason": "Royal Soap industrial building - 384x576, below the 600 px floor"
-  },
-  {
-   "source": "image16.jpeg",
-   "reason": "Oysterbay residences aerial render - duplicate subject of image17"
-  },
-  {
-   "source": "image17.jpeg",
-   "reason": "Oysterbay residence render 1489x931 - good quality, cut for pillar balance; a valid reserve"
-  },
-  {
-   "source": "image19.jpeg",
-   "reason": "MSD Warehouse Mbeya - near-duplicate of the Keko warehouse already selected"
-  },
-  {
-   "source": "image20.jpeg",
-   "reason": "MPPD Warehouse Kigali - third warehouse elevation, redundant with image18"
-  },
-  {
-   "source": "image21.png",
-   "reason": "Lafarge Mbeya bulk loading system under construction - hazy, dust-washed exposure and a watermark-like artefact bottom right"
-  },
-  {
-   "source": "image22.jpeg",
-   "reason": "Warehouse interior with engineer in PPE - 492x369, below the 600 px floor"
-  },
-  {
-   "source": "image23.jpeg",
-   "reason": "Nanyumbu Bus Terminal render - dated low-fidelity 3D render, weakest of the visualisations"
-  },
-  {
-   "source": "image27.png",
-   "reason": "Rau Bridge - 674x465 with a burnt-in DARAJA LA RAU graphic overlay"
-  },
-  {
-   "source": "image28.jpeg",
-   "reason": "Mpanda Bus Terminal render - redundant second terminal visualisation"
-  },
-  {
-   "source": "image31.png",
-   "reason": "Furahisha pedestrian flyover render - 690x446, visibly upscaled and blurry"
-  },
-  {
-   "source": "image32.png",
-   "reason": "Matomondo-Mlale Road - 576x1280 portrait of an empty gravel road, no visual interest"
-  },
-  {
-   "source": "image33.jpeg",
-   "reason": "Mnekezi-Lwamgasa road diversion - frame is almost entirely bare earth, no subject"
-  },
-  {
-   "source": "image35.jpeg",
-   "reason": "Helipad at Mnekezi, Geita, 2592x1944 - correctly identified but the frame is mostly blank concrete; usable only if a helipad card is required"
-  },
-  {
-   "source": "image36.png",
-   "reason": "274x208, below the size floor"
-  },
-  {
-   "source": "image37.jpeg",
-   "reason": "150 ML water reservoir, New Luika - 682x509, flat and featureless"
-  },
-  {
-   "source": "image39.jpeg",
-   "reason": "Dam outlet penstock gates - 741x555, technical detail rather than portfolio image"
-  },
-  {
-   "source": "image40.jpeg",
-   "reason": "TSF2 Phase 2A detail - under 810 px, redundant with better TSF images"
-  },
-  {
-   "source": "image41.jpeg",
-   "reason": "TSF2 Phase 2A detail - under 810 px, redundant"
-  },
-  {
-   "source": "image42.jpeg",
-   "reason": "TSF2 Phase 2A detail - under 810 px, redundant"
-  },
-  {
-   "source": "image43.jpeg",
-   "reason": "TSF2 Phase 2A detail - under 810 px, redundant"
-  },
-  {
-   "source": "image44.jpeg",
-   "reason": "TSF2 Phase 2B liner detail - 685x513, redundant"
-  },
-  {
-   "source": "image45.jpeg",
-   "reason": "TSF2 Phase 2B liner detail - 684x511, redundant"
-  },
-  {
-   "source": "image47.png",
-   "reason": "Screenshot of a Word window (2560x1440) - Word UI and chrome visible; the drone shot of the completed TSF inside it is unrecoverable at usable quality"
-  },
-  {
-   "source": "image49.jpeg",
-   "reason": "Second energy dissipater view - near-duplicate of image48"
-  },
-  {
-   "source": "image50.jpeg",
-   "reason": "TSF2 Cell 1 excavator on liner - 709x530, redundant"
-  },
-  {
-   "source": "image51.jpeg",
-   "reason": "TSF2 Cell 1 liner and pipeline - 701x526, redundant"
-  },
-  {
-   "source": "image53.jpeg",
-   "reason": "TSF2 Cell 1 haul road - 701x525, no clear subject"
-  },
-  {
-   "source": "image54.jpeg",
-   "reason": "Pipe bedding in a reinforcement trench, TSF1 Ikungi - technical record shot, not portfolio material"
-  },
-  {
-   "source": "image55.png",
-   "reason": "Drone shot of the completed TSF1 at Ikungi - excellent subject but only 641x353; the best aerial in the source and badly under-resolved"
-  },
-  {
-   "source": "image56.jpeg",
-   "reason": "TSF2 Cell 2 detail - under 700 px, redundant"
-  },
-  {
-   "source": "image57.jpeg",
-   "reason": "TSF2 Cell 2 detail - under 700 px, redundant"
-  },
-  {
-   "source": "image58.jpeg",
-   "reason": "TSF1 Matongo earthworks - 701x526, no clear subject"
-  },
-  {
-   "source": "image59.jpeg",
-   "reason": "TSF1 Matongo detail - 702x527, redundant"
-  },
-  {
-   "source": "image60.jpeg",
-   "reason": "TSF1 Phase 2 Ikungi detail - 631x472, redundant"
-  },
-  {
-   "source": "image61.jpeg",
-   "reason": "TSF1 Phase 2 Ikungi detail - 628x468, redundant"
-  },
-  {
-   "source": "image62.jpeg",
-   "reason": "TSF2 Cell 2 Phase 2 rockfill and liner - 658x493, redundant"
-  },
-  {
-   "source": "image63.jpeg",
-   "reason": "TSF2 Cell 2 Phase 2 detail - 659x493, redundant"
-  },
-  {
-   "source": "image65.jpeg",
-   "reason": "Close-up of a pump and valve assembly on a pallet - equipment record shot"
-  },
-  {
-   "source": "image66.jpeg",
-   "reason": "River Nyamazovu excavation - churned mud, unattractive frame"
-  },
-  {
-   "source": "image67.jpeg",
-   "reason": "River Nyamazovu gabion channel - near-duplicate of image68"
-  },
-  {
-   "source": "image68.jpeg",
-   "reason": "River Nyamazovu trained channel with gabion revetment, 1509x1131 - good quality, cut only for pillar balance; the strongest reserve image"
-  },
-  {
-   "source": "image69.jpeg",
-   "reason": "Lined irrigation canal, Ifakara - good but superseded by the pump station image from the same project"
-  },
-  {
-   "source": "image71.png",
-   "reason": "Concrete irrigation canal and control gates, Ifakara - only 295x222"
-  },
-  {
-   "source": "image83.png",
-   "reason": "RUWASA logo, but the file is a browser screenshot with close and share buttons visible - not usable in a logo strip"
-  },
-  {
-   "source": "image84.png",
-   "reason": "TIPER Bulk Storage logo, but the file is a screenshot of a tender listing with a red tenders badge and caption text baked in - not usable in a logo strip"
-  }
- ]
 }

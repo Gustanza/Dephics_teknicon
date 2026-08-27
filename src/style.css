@@ -88,7 +88,11 @@
     clearing 4.5:1 on both grounds. Use --c-brand-red wherever nothing is set in it.
   */
   --c-link:       #CF3221;   /* working accent: button fills and red text */
-  --c-hover:      #B02C1C;
+  --c-hover:      #B02C1C;   /* text-link hover — stays in the red family */
+  /* Buttons hover to the brand navy rather than a deeper red: red and navy are
+     the brand pair, and white on this measures 10.15:1. Deliberately a separate
+     token from --c-hover, which still drives every text link on the page. */
+  --c-btn-hover:  #2C3792;
   --c-link2:      #2C3792;   /* BRAND NAVY — secondary */
   --c-hover2:     #21296E;
   --c-inverse-link: #FFFFFF;
@@ -320,7 +324,7 @@ button { font: inherit; color: inherit; }
   transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease),
               border-color var(--dur) var(--ease);
 }
-.btn:hover, .btn:focus-visible { color: var(--c-inverse-link); background-color: var(--c-hover); }
+.btn:hover, .btn:focus-visible { color: var(--c-inverse-link); background-color: var(--c-btn-hover); }
 
 .btn__label {
   display: block;
@@ -349,7 +353,7 @@ button { font: inherit; color: inherit; }
   border: var(--border-btn) solid var(--c-link);
   color: var(--c-link);
   padding: 17px 52px;
-  --sweep: var(--c-link);
+  --sweep: var(--c-btn-hover);
   --sweep-text: var(--c-inverse-link);
 }
 .btn--outline.btn--sm { padding: 12px 42px; }
@@ -369,7 +373,7 @@ button { font: inherit; color: inherit; }
    fade in and it does not stay. */
 /* .btn:hover's flat fill must not apply to the sweep variants */
 .btn--outline:hover, .btn--outline:focus-visible {
-  background-color: transparent; color: var(--c-link); border-color: var(--c-link);
+  background-color: transparent; color: var(--c-btn-hover); border-color: var(--c-btn-hover);
 }
 .btn--light:hover, .btn--light:focus-visible {
   background-color: transparent; color: #fff; border-color: #fff;

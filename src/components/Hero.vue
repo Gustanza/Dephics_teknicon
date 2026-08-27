@@ -21,6 +21,14 @@ function go (i) {
 const next = () => go(index.value + 1)
 const prev = () => go(index.value - 1)
 
+/*
+  Autoplay deliberately does NOT pause when the pointer is anywhere over the hero.
+  The hero is close to the full viewport, so a visitor's cursor rests over it by
+  default — treating that as a pause gesture froze the carousel on slide 1 for
+  anyone whose mouse happened to be on the page, and it never resumed because the
+  pointer never left. Hover-pause lives on the slide counter instead, where
+  hovering is an actual intent. Focus, off-screen and reduced-motion still pause.
+*/
 const reducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -33,6 +41,12 @@ function restart () {
 function pause () { paused.value = true; clearInterval(timer) }
 function resume () { paused.value = false; restart() }
 
+/* A backgrounded tab should not queue up transitions to replay all at once. */
+function onVisibility () {
+  if (document.hidden) clearInterval(timer)
+  else restart()
+}
+
 onMounted(() => {
   // no point advancing a carousel nobody is looking at
   observer = new IntersectionObserver(([entry]) => {
@@ -40,11 +54,13 @@ onMounted(() => {
     if (!entry.isIntersecting) { index.value = 0; clearInterval(timer) } else restart()
   }, { threshold: 0.2 })
   if (root.value) observer.observe(root.value)
+  document.addEventListener('visibilitychange', onVisibility)
   restart()
 })
 
 onBeforeUnmount(() => {
   clearInterval(timer)
+  document.removeEventListener('visibilitychange', onVisibility)
   if (observer) observer.disconnect()
 })
 </script>
@@ -57,8 +73,6 @@ onBeforeUnmount(() => {
     aria-roledescription="carousel"
     aria-label="Featured Teknicon projects"
     tabindex="0"
-    @mouseenter="pause"
-    @mouseleave="resume"
     @focusin="pause"
     @focusout="resume"
     @keydown.left.prevent="prev"
@@ -120,6 +134,8 @@ onBeforeUnmount(() => {
 
       <button
         class="hero__counter"
+        @mouseenter="pause"
+        @mouseleave="resume"
         type="button"
         @click="next"
       >

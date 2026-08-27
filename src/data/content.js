@@ -23,17 +23,17 @@ export const company = {
     'Coca Cola Road, Plot 17',
     'Mikocheni Light Industrial Area',
     'Dar es Salaam, Tanzania',
-    'P.O. Box 31653'
+    'P. O. Box 31653'  /* client house style: spaced initials, not P.O. */
   ]
 }
 
-/* Order follows the order the sections appear on the page. The services block
-   sits above the quality block, so "Services" has to precede "About" — with them
-   the other way round the active-item highlight jumps backwards as you scroll. */
+/* Order follows the order the sections appear on the page — the scroll-spy sorts by
+   document position, but a menu whose order disagrees with the page still reads as
+   broken. About now has its own section and sits where it belongs again. */
 export const nav = [
   { label: 'Home', href: '#top' },
+  { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
-  { label: 'About', href: '#quality' },
   { label: 'Projects', href: '#projects' },
   { label: 'Clients', href: '#clients' },
   { label: 'Team', href: '#team' },
@@ -45,13 +45,10 @@ export const nav = [
    dimensions come from docs/image-manifest.json. */
 export const heroSlides = [
   {
-    image: '/img/project-zmt-terminal.jpg',
-    w: 1057, h: 664,
-    /* the lowest-resolution source in the hero set and the LCP frame: the Ken
-       Burns amplitude is capped so peak demand stays under 2x. See Hero.vue. */
-    quietZoom: true,
-    alt: 'Drone view of a container storage yard with rows of stacked shipping containers on a paved hardstand, alongside red-roofed workshop and service buildings',
-    focus: '50% 50%',
+    image: '/img/hero-luika-dissipater.jpg',
+    w: 1541, h: 959,
+    alt: 'A concrete-lined stilling basin holding pale green water, fed by a pipe outfall through a stone gabion wall, with a rockfill embankment and an excavator on its crest behind, under a clear blue sky',
+    focus: '50% 45%',
     eyebrow: 'Consulting engineers and project managers',
     title: ['Engineering that holds', 'Tanzania together'],
     lede: 'Structural, civil and project management consultancy — from feasibility study to defects liability. Established June 2009 and registered with the Engineers Registration Board.',
@@ -69,16 +66,56 @@ export const heroSlides = [
     cta: { label: 'See the portfolio', href: '#projects' }
   },
   {
-    image: '/img/hero-ulongoni-bridge.jpg',
-    w: 1080, h: 810,
-    alt: 'A reinforced concrete bridge deck under construction across a sandy river channel, with a concrete apron, workers in high-visibility vests, a wheel loader and an excavator, and a densely built hillside settlement behind',
-    focus: '50% 55%',
+    image: '/img/project-tra-ita-hotel.jpg',
+    w: 1367, h: 771,
+    alt: 'A completed multi-storey accommodation block in white and green render with deep balconies and dark glazing, framed by mature palms',
+    focus: '50% 45%',
     eyebrow: 'Buildings, bridges & infrastructure',
     title: ['From a 40m span', 'to a 7-storey block'],
     lede: 'Zimbili and Ulongoni bridges for the Dar es Salaam Metropolitan Development Project. The TZS 15.94 billion (VAT incl.) TRA ITA building at Mikocheni. Storage warehouses for MSD at Keko and Mbeya.',
     cta: { label: 'See the portfolio', href: '#projects' }
   }
 ]
+
+/* ----------------------------------------------------------------- about */
+/* Introduction and "Background and Organization of the Company", profile pp. 4-5.
+   The profile draws the three departments as a three-cog diagram; that is not
+   reproduced here — decorative shapes are against the theme (THEME_DNA §11.11) and
+   the diagram's amber is a colour that exists nowhere else on the site. The
+   departments are named and linked to the Services section instead. */
+export const about = {
+  eyebrow: 'Introduction',
+  index: '01',                       /* the profile tabs this section "01 INTRODUCTION" */
+  title: ['Multidisciplinary consultants,'],
+  titleAccent: 'wholly Tanzanian-owned',   /* carries the theme's accent underline */
+  paragraphs: [
+    'TEKNICON LTD is a multidisciplinary local consultancy firm, established in June 2009 and registered in Tanzania with the Engineers Registration Board as a Local Engineering Consulting Firm. The company provides professional technical design, consulting engineering, construction supervision and project management services to public and private sector clients.',
+    'The firm is wholly owned by Tanzanian nationals and is legally registered under the Companies Act. TEKNICON is also a member of the Association of Consulting Engineers Tanzania (ACET), confirming its standing within the professional consulting engineering sector.',
+    'From its offices in Dar es Salaam, TEKNICON delivers practical, cost-effective and quality-driven engineering solutions for buildings, infrastructure, warehouses, bridges, hospitals, terminals and industrial developments — combining strong technical capability with hands-on project management and construction-stage support.'
+  ],
+  objective: 'The company’s objective is to deliver clients’ precise requirements with the highest level of quality, within the agreed budget and timeframe. This is achieved through constant dialogue with clients, disciplined coordination and strict adherence to internal quality control and assurance procedures.',
+  departmentsIntro: 'The firm is organised around three technical departments',
+  departments: [
+    { n: '01', name: 'Structural and Bridge Engineering' },
+    { n: '02', name: 'Civil Engineering' },
+    { n: '03', name: 'Project Management' }
+  ],
+  departmentsLink: { label: 'What each department does', href: '#services' },
+  /* Two frames, offset and overlapping — the theme's about-page image pair. One
+     building, one civil work, so the pair shows the range the copy claims. */
+  image: {
+    src: '/img/project-kibongoto-laboratory.jpg',
+    w: 1024, h: 768,
+    alt: 'A completed four-storey laboratory building in white render with dark glazing and an orange feature panel, fronted by a paved forecourt and a circular lawn with a young tree',
+    caption: 'New laboratory, Kibong’oto Hospital — Ministry of Health, Tanzania'
+  },
+  imageAlt2: {
+    src: '/img/project-nyamazovu-river-training.jpg',
+    w: 1509, h: 904,
+    alt: 'A trained river channel carrying water between two banks faced with stone-filled gabion revetment, under an overcast sky in open bush country',
+    caption: 'River Nyamazovu, relocated and trained — Buckreef Gold, Geita'
+  }
+}
 
 /* ----------------------------------------------------------- credentials */
 export const credentials = {
@@ -103,7 +140,7 @@ export const services = {
       tag: 'Structural',
       title: 'Structural and Bridge Engineering',
       body: 'Raft foundations, frames and steelwork.',
-      link: 'View capability',
+      link: 'View Capability',
       href: '#projects',
       image: '/img/project-tobacco-plant-morogoro.jpg',
       w: 1015, h: 768,
@@ -114,7 +151,7 @@ export const services = {
       tag: 'Civil',
       title: 'Civil Engineering and Infrastructure',
       body: 'Earthworks, drainage, dams and tailings.',
-      link: 'View capability',
+      link: 'View Capability',
       href: '#projects',
       image: '/img/project-kilombero-pump-station.jpg',
       w: 1600, h: 1200,
@@ -122,10 +159,10 @@ export const services = {
       crop: false
     },
     {
-      tag: 'Project management',
+      tag: 'Project Management',
       title: 'Project Management and Supervision',
       body: 'Contracts, supervision and close-out.',
-      link: 'View capability',
+      link: 'View Capability',
       href: '#projects',
       image: '/img/site-survey-team.jpg',
       w: 1070, h: 775,
@@ -329,10 +366,12 @@ export const splitCta = [
     eyebrow: 'Get in touch',
     title: 'Have a project?',
     button: { label: 'Request a proposal', href: '#contact' },
-    image: '/img/project-energy-dissipater-luika.jpg',
-    w: 1525, h: 1147,
-    alt: 'A concrete-lined stilling basin filled with water, fed by a pipe outfall discharging through a gabion retaining wall, with a rockfill embankment and a mountain behind',
-    focus: '35% 40%',
+    /* was the Luika stilling basin — swapped once a near-identical frame of the same
+       structure became hero slide 1, so the two would not read as a duplicate */
+    image: '/img/project-mnekezi-box-culvert.jpg',
+    w: 1571, h: 1178,
+    alt: 'A reinforced concrete box culvert under construction on a gravel road diversion, with formwork in place and an excavator working alongside',
+    focus: '50% 45%',
     crop: true
   },
   {
@@ -360,18 +399,22 @@ export const footer = {
       heading: 'Contact',
       type: 'links',
       links: [
-        { label: company.email, href: `mailto:${company.email}` },
-        { label: company.phone, href: `tel:${company.phoneHref}`, strong: true },
-        { label: company.web, href: company.webHref }
+        { label: company.email, href: `mailto:${company.email}`, icon: 'mail' },
+        { label: company.phone, href: `tel:${company.phoneHref}`, strong: true, icon: 'phone' },
+        { label: company.web, href: company.webHref, icon: 'globe' }
       ]
     },
     {
-      heading: 'Departments',
-      type: 'list',
-      lines: [
-        'Structural and Bridge Engineering',
-        'Civil Engineering',
-        'Project Management'
+      heading: 'Follow',
+      type: 'links',
+      /* PLACEHOLDER LINKS. The client has not supplied handles yet, and none appear
+         anywhere in the company profile, so every href below is '#'. Replace each
+         one with the real profile URL before launch — do not guess them. */
+      links: [
+        { label: 'LinkedIn', href: '#', icon: 'linkedin' },
+        { label: 'Instagram', href: '#', icon: 'instagram' },
+        { label: 'Facebook', href: '#', icon: 'facebook' },
+        { label: 'X', href: '#', icon: 'x' }
       ]
     }
   ],

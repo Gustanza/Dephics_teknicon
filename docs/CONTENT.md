@@ -13,8 +13,9 @@ unembellished. Never "we're passionate about". Always name the client and the nu
 ## 0. Header
 
 - Logo: Teknicon lockup (white/knockout version over the hero, navy version once fixed)
-- Nav: `Home · About · Services · Projects · Team · Contact`
-  (single-page anchors — this is a landing page only)
+- Nav: `Home · About · Services · Projects · Clients · Team · Contact`
+  (single-page anchors — this is a landing page only; order must match page order,
+  because the header runs a scroll-spy that highlights the section you are in)
 - Right rail: phone `+255 22 2700403` and a primary button **"Request a proposal"**
 - Transparent over the hero; on scroll, becomes a fixed solid navy/white bar
 
@@ -59,6 +60,30 @@ but carrying registrations instead of borrowed logos. Small caps labels, value b
 | Established | `June 2009` |
 
 Caption under the strip: `Fully registered, continuously compliant, wholly Tanzanian-owned.`
+
+---
+
+## 2a. About — "Introduction"  (added at the client's request)
+
+Added after the client noted that the profile's Introduction and "Background and
+Organization of the Company" content (profile pp. 4–5) appeared nowhere on the site,
+and that the **About** nav link wrongly jumped to the Quality Assurance section.
+Sits between the credentials strip and Services, mirroring the profile's own order.
+
+- Eyebrow: `INTRODUCTION`
+- H2: `Multidisciplinary consultants,` <br> `wholly Tanzanian-owned`
+
+Left column: photograph of the completed Kibong'oto Hospital laboratory with a caption
+naming the project and client, then the three technical departments and a link through
+to Services.
+
+Right column: the three introduction paragraphs verbatim from the profile, then the
+company objective statement set apart behind a 2px accent rule.
+
+> The profile draws the three departments as a **three-cog diagram** in red, amber and
+> navy. It is deliberately not reproduced: decorative shapes are against the theme
+> (`THEME_DNA.md` §11.11), and the diagram's amber is a colour that appears nowhere else
+> on the site. The departments are named in the theme's own language instead.
 
 ---
 

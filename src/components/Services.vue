@@ -1,4 +1,5 @@
 <script setup>
+import Button from './ui/Button.vue'
 import Reveal from './ui/Reveal.vue'
 import SectionHeading from './ui/SectionHeading.vue'
 import { services } from '../data/content.js'
@@ -45,12 +46,7 @@ import { services } from '../data/content.js'
           <p class="svc__body">{{ item.body }}</p>
 
           <div class="svc__info">
-            <a class="svc__link" :href="item.href">
-              {{ item.link }}
-              <svg class="svc__link-icon" viewBox="0 0 16 12" fill="none" aria-hidden="true">
-                <path d="M1 6h13M9.5 1 15 6l-5.5 5" stroke="currentColor" stroke-width="1.5" />
-              </svg>
-            </a>
+            <Button :href="item.href" :label="item.link" size="sm" />
           </div>
         </Reveal>
       </ul>
@@ -142,22 +138,10 @@ import { services } from '../data/content.js'
   background-color: var(--c-text-dark);
 }
 
-.svc__link {
-  display: inline-flex;
-  align-items: center;
-  font-size: 15px;
-  line-height: 21px;
-  font-weight: 500;
-  color: var(--c-text-dark);
-}
-.svc__link-icon {
-  width: 14px;
-  margin-left: -8px;
-  opacity: 0;
-  transition: margin-left var(--dur) var(--ease), opacity var(--dur) var(--ease);
-}
-.svc:hover .svc__link { color: var(--c-link); }
-.svc:hover .svc__link-icon { margin-left: 8px; opacity: 1; }
+/* Client asked for a solid button here in place of the theme's quiet text link
+   (THEME_DNA §4.1). The 34px rule above it stays — it is what separates the
+   image from the call to action. */
+.svc__info .btn { margin-top: 1.5em; }
 
 /* three cards in a two-column grid orphan the third at half width, so the grid
    drops straight from 3-up to 1-up rather than through a ragged 2-up */

@@ -87,6 +87,7 @@ and each section of the page has its own clearly named block, in the order the p
 | `nav` | The seven links in the top bar |
 | `heroSlides` | The three rotating opening images and their headlines |
 | `credentials` | The strip of registration numbers under the hero |
+| `about` | The Introduction section — narrative, objective statement, departments |
 | `services` | The three department cards |
 | `quality` | The Quality Assurance section |
 | `projects` | The nine project cards |
