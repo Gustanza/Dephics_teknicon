@@ -56,7 +56,7 @@ import { about } from '../data/content.js'
         </figure>
 
         <div class="ab__body">
-          <Reveal variant="fade">
+          <Reveal class="ab__head-reveal" variant="fade">
             <div class="ab__head">
               <span class="ab__index" aria-hidden="true">{{ about.index }}</span>
               <span class="eyebrow eyebrow--dash">{{ about.eyebrow }}</span>
@@ -67,11 +67,11 @@ import { about } from '../data/content.js'
             </div>
           </Reveal>
 
-          <Reveal variant="fade" :delay="100">
+          <Reveal class="ab__paras-reveal" variant="fade" :delay="100">
             <p v-for="para in about.paragraphs" :key="para" class="ab__para">{{ para }}</p>
           </Reveal>
 
-          <Reveal variant="fade" :delay="200">
+          <Reveal class="ab__objective-reveal" variant="fade" :delay="200">
             <blockquote class="ab__objective">{{ about.objective }}</blockquote>
           </Reveal>
         </div>
@@ -307,6 +307,19 @@ import { about } from '../data/content.js'
 
 @media (max-width: 1023px) {
   .ab__grid { grid-template-columns: 1fr; gap: var(--space-medium); }
+  /*
+    Below the two-column layout, a photo landing first with no label above it reads
+    as a stray image rather than part of this section. .ab__body carries no styling
+    of its own — display:contents drops its box and promotes its three Reveal
+    children (head, paragraphs, objective) to grid items alongside .ab__media, so
+    they can be reordered into a heading → photo → copy narrative that always
+    introduces the section before showing a picture of it.
+  */
+  .ab__body { display: contents; }
+  .ab__head-reveal { order: 1; }
+  .ab__media { order: 2; }
+  .ab__paras-reveal { order: 3; }
+  .ab__objective-reveal { order: 4; }
   /* the overlap needs two columns to lean into — below that the frames stack */
   .ab__stack { padding-bottom: 0; }
   .ab__inset {

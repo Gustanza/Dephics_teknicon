@@ -103,10 +103,9 @@ import { clients } from '../data/content.js'
   height: calc(var(--mh) * var(--mark-k, 1px));
   max-width: 100%;
   object-fit: contain;
-  opacity: .3;
-  transition: opacity var(--dur) var(--ease);
+  transition: transform var(--dur) var(--ease);
 }
-.cl__cell:hover img { opacity: 1; }
+.cl__cell:hover img { transform: scale(1.1); }
 
 @media (max-width: 1279px) {
   .cl__grid { grid-template-columns: repeat(3, 1fr); }

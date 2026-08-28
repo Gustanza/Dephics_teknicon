@@ -45,10 +45,10 @@ export const nav = [
    dimensions come from docs/image-manifest.json. */
 export const heroSlides = [
   {
-    image: '/img/hero-luika-dissipater.jpg',
-    w: 1541, h: 959,
-    alt: 'A concrete-lined stilling basin holding pale green water, fed by a pipe outfall through a stone gabion wall, with a rockfill embankment and an excavator on its crest behind, under a clear blue sky',
-    focus: '50% 45%',
+    image: '/img/project-tiper-hardstand.jpg',
+    w: 1646, h: 602,
+    alt: 'A concrete boom pump arcing across a clear blue sky to place concrete for a rigid pavement slab inside a fuel depot, with a mixer truck, a team of workers in high-visibility vests and rows of bulk storage tanks behind',
+    focus: '50% 55%',
     eyebrow: 'Consulting engineers and project managers',
     title: ['Engineering that holds', 'Tanzania together'],
     lede: 'Structural, civil and project management consultancy — from feasibility study to defects liability. Established June 2009 and registered with the Engineers Registration Board.',
@@ -255,7 +255,7 @@ export const projects = {
       wide: true,
       client: 'Tanzania International Petroleum Reserves · rigid pavement hardstand',
       image: '/img/project-tiper-hardstand.jpg',
-      w: 1020, h: 459,
+      w: 1646, h: 602,
       alt: 'A concrete boom pump placing concrete for a rigid pavement slab inside a fuel depot, with a mixer truck, a team of workers in high-visibility vests and rows of bulk storage tanks behind',
       crop: false
     },

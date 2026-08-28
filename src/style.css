@@ -363,8 +363,8 @@ button { font: inherit; color: inherit; }
   border: var(--border-btn) solid #fff;
   color: #fff;
   padding: 17px 52px;
-  --sweep: #fff;
-  --sweep-text: var(--c-text-dark);
+  --sweep: var(--c-btn-hover);
+  --sweep-text: #fff;
 }
 .btn--light.btn--sm { padding: 12px 42px; }
 
@@ -417,7 +417,7 @@ button { font: inherit; color: inherit; }
     color: var(--c-inverse-link); background-color: var(--c-hover); border-color: var(--c-hover);
   }
   .btn--light:hover, .btn--light:focus-visible {
-    color: var(--c-text-dark); background-color: #fff;
+    color: #fff; background-color: var(--c-btn-hover); border-color: var(--c-btn-hover);
   }
 }
 

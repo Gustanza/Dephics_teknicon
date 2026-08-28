@@ -63,7 +63,6 @@ onBeforeUnmount(() => {
         <Logo
           :variant="fixed ? 'dark' : 'knockout'"
           :size="fixed ? 'sm' : 'md'"
-          :show-tagline="false"
         />
       </a>
 
@@ -249,7 +248,10 @@ onBeforeUnmount(() => {
 
 .mnav {
   display: none;
-  background: var(--d-bg);
+  background: var(--d-bg-brand);
+  /* the footer sits on this same ground and lifts its hairline the same way —
+     the default --d-bd is tuned for the much darker --d-bg and nearly vanishes here */
+  --d-bd: #676FB1;
   padding: 34px var(--edge-pad) 44px;
 }
 .mnav__list > li + li { border-top: 1px solid var(--d-bd); }
@@ -262,8 +264,8 @@ onBeforeUnmount(() => {
   color: #fff;
 }
 .mnav__list a:hover { color: var(--c-link); }
-/* the panel is on --d-bg, where the brand navy would vanish — the red accent
-   carries the active item instead, with a rule to match the desktop underline */
+/* the red accent carries the active item instead of a navy fill, matching the
+   desktop underline treatment */
 .mnav__list a.is-active {
   color: var(--c-link);
   box-shadow: inset 0 -2px 0 var(--c-link);
@@ -282,7 +284,7 @@ onBeforeUnmount(() => {
   .hdr__burger { display: inline-flex; }
   .mnav { display: block; max-height: calc(100dvh - 76px); overflow-y: auto; }
   .mnav[hidden] { display: none; }
-  .hdr--open { background: var(--d-bg); }
+  .hdr--open { background: var(--d-bg-brand); }
   .hdr--open .hdr__row::before { opacity: 0; }
 }
 

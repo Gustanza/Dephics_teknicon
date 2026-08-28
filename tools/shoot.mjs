@@ -12,7 +12,7 @@ if (!url || !outDir) {
 }
 mkdirSync(outDir, { recursive: true })
 
-const browser = await chromium.launch()
+const browser = await chromium.launch({ channel: 'chrome' })
 const page = await browser.newPage({
   viewport: { width: 1440, height: 900 },
   deviceScaleFactor: 1,

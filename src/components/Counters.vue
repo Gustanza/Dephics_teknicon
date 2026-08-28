@@ -59,7 +59,17 @@ onBeforeUnmount(() => observer && observer.disconnect())
 
 <style scoped>
 /* the Vision band below carries most of the gap — the theme never doubles up */
-.cnt { padding-bottom: var(--space-medium); }
+.cnt {
+  padding-bottom: var(--space-medium);
+  /* red panel, scoped to this section only — .band--dark elsewhere (Vision) stays navy.
+     --c-link, not the exact brand red: it's the deepened red the rest of the site
+     already uses wherever red has to carry text, and it's what clears 4.5:1 for
+     the white label under it. The hairline and caption are re-tuned for this
+     warmer, lighter ground the same way the footer re-tunes them for its navy. */
+  background-color: var(--c-link);
+  --d-bd: rgba(255, 255, 255, .3);
+  --d-text-light: rgba(255, 255, 255, .78);
+}
 
 .cnt__eyebrow {
   text-align: left;

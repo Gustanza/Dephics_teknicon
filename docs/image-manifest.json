@@ -2,6 +2,19 @@
   "_note": "Curated from tekres/_extract/word/media. Project attribution derived from the caption paragraph that immediately follows each image in word/document.xml reading order, cross-checked against docs/BRIEF.md. Do not invent facts beyond BRIEF.md.",
   "hero": [
     {
+      "file": "img/project-tiper-hardstand.jpg",
+      "source": "PDF p24 xref609 (docx image26.jpeg is the same photo at 1020x459 — the PDF embed is a materially higher-quality source)",
+      "w": 1646,
+      "h": 602,
+      "bytes": 109751,
+      "alt": "A concrete boom pump arcing across a clear blue sky to place concrete for a rigid pavement slab inside a fuel depot, with a mixer truck, a team of workers in high-visibility vests and rows of bulk storage tanks behind",
+      "caption": "Rigid pavement hardstand for heavy-duty fuel truck parking, TIPER Gantry Production Centre",
+      "project": "TIPER Gantry Production Centre rigid pavement hardstand",
+      "client": "Tanzania International Petroleum Reserves (TIPER)",
+      "confidence": "confident",
+      "note": "Slide 1 (2026-08-27, client request): swapped from hero-tsf-liner-mwaoga.jpg for a more dynamic action shot. Doubles as the img/project-tiper-hardstand.jpg used on the Projects grid — same dual-use pattern as project-tra-ita-hotel.jpg (hero slide 3 + Projects). Both call sites were upgraded together from the 1020x459 docx-quality crop to this 1646x602 PDF-quality extraction; see the 'projects' entry below for the extraction detail. hero-tsf-liner-mwaoga.jpg (the prior slide 1) is removed; img/project-tsf-liner-mwaoga.jpg it was cropped from is still used on the Projects grid."
+    },
+    {
       "file": "img/hero-tsf-embankment-luika.jpg",
       "source": "image46.png",
       "w": 1467,
@@ -117,15 +130,16 @@
     },
     {
       "file": "img/project-tiper-hardstand.jpg",
-      "source": "image26.jpeg",
-      "w": 1020,
-      "h": 459,
-      "bytes": 40162,
+      "source": "PDF p24 xref609 (docx image26.jpeg is the same photo at 1020x459, extracted from the compressed Word embed)",
+      "w": 1646,
+      "h": 602,
+      "bytes": 109751,
       "alt": "A concrete boom pump placing concrete for a rigid pavement slab inside a fuel depot, with a mixer truck, a team of workers in high-visibility vests and rows of bulk storage tanks behind",
       "caption": "Rigid pavement hardstand for heavy-duty fuel truck parking, TIPER Gantry Production Centre",
       "project": "TIPER Gantry Production Centre rigid pavement hardstand",
       "client": "Tanzania International Petroleum Reserves (TIPER)",
-      "confidence": "confident"
+      "confidence": "confident",
+      "note": "Re-extracted from Teknicon Revised Profile Jul 26.pdf (2026-08-27, client request) at 1.6x the linear resolution of the docx embed — same photo, materially sharper. Also now used for hero slide 1; see the 'hero' entry above."
     },
     {
       "file": "img/project-mnekezi-box-culvert.jpg",
