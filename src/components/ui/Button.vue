@@ -8,7 +8,7 @@ import { computed } from 'vue'
  */
 const props = defineProps({
   href: { type: String, default: '' },
-  variant: { type: String, default: 'solid' }, // solid | outline | light | navy
+  variant: { type: String, default: 'solid' }, // solid | outline | navy
   size: { type: String, default: 'md' },        // sm | md | lg
   label: { type: String, required: true },
   arrow: { type: Boolean, default: true }

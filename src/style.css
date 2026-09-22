@@ -358,16 +358,6 @@ button { font: inherit; color: inherit; }
 }
 .btn--outline.btn--sm { padding: 12px 42px; }
 
-.btn--light {
-  background: none;
-  border: var(--border-btn) solid #fff;
-  color: #fff;
-  padding: 17px 52px;
-  --sweep: var(--c-btn-hover);
-  --sweep-text: #fff;
-}
-.btn--light.btn--sm { padding: 12px 42px; }
-
 /* §3.4 sc_button_slide — the fill sweeps left→right through the button and out
    the far side over 1.2s, with the label colour flipping mid-sweep. It does not
    fade in and it does not stay. */
@@ -375,15 +365,10 @@ button { font: inherit; color: inherit; }
 .btn--outline:hover, .btn--outline:focus-visible {
   background-color: transparent; color: var(--c-btn-hover); border-color: var(--c-btn-hover);
 }
-.btn--light:hover, .btn--light:focus-visible {
-  background-color: transparent; color: #fff; border-color: #fff;
-}
 
-.btn--outline .btn__label,
-.btn--light .btn__label { position: relative; z-index: 2; }
+.btn--outline .btn__label { position: relative; z-index: 2; }
 
-.btn--outline::after,
-.btn--light::after {
+.btn--outline::after {
   content: "";
   position: absolute;
   z-index: 1;
@@ -392,12 +377,10 @@ button { font: inherit; color: inherit; }
   background-color: var(--sweep);
   transform: translateX(-101%);
 }
-.btn--outline:hover::after, .btn--outline:focus-visible::after,
-.btn--light:hover::after,   .btn--light:focus-visible::after {
+.btn--outline:hover::after, .btn--outline:focus-visible::after {
   animation: btn-sweep 1.2s var(--ease-sweep) forwards;
 }
-.btn--outline:hover .btn__label, .btn--outline:focus-visible .btn__label,
-.btn--light:hover .btn__label,   .btn--light:focus-visible .btn__label {
+.btn--outline:hover .btn__label, .btn--outline:focus-visible .btn__label {
   animation: btn-sweep-label 1.2s forwards;
 }
 
@@ -412,17 +395,20 @@ button { font: inherit; color: inherit; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn--outline::after, .btn--light::after { display: none; }
+  .btn--outline::after { display: none; }
   .btn--outline:hover, .btn--outline:focus-visible {
     color: var(--c-inverse-link); background-color: var(--c-hover); border-color: var(--c-hover);
   }
-  .btn--light:hover, .btn--light:focus-visible {
-    color: #fff; background-color: var(--c-btn-hover); border-color: var(--c-btn-hover);
-  }
 }
 
-.btn--navy { background-color: var(--c-link2); }
-.btn--navy:hover, .btn--navy:focus-visible { background-color: var(--c-hover2); }
+/* The secondary CTA — the pair to the red .btn. It takes the full brand navy
+   the footer panel is built from and hovers to the red, so the two buttons in a
+   row trade places rather than both darkening into navy. White measures 10.15:1
+   on the navy and 5.05:1 on the red. */
+.btn--navy { background-color: var(--d-bg-brand); }
+.btn--navy:hover, .btn--navy:focus-visible {
+  color: var(--c-inverse-link); background-color: var(--c-link);
+}
 
 /* Text-link button */
 .link-btn {

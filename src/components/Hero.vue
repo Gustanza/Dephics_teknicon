@@ -126,7 +126,7 @@ onBeforeUnmount(() => {
               <path d="M1 6h13M9.5 1 15 6l-5.5 5" stroke="currentColor" stroke-width="1.6" />
             </svg>
           </a>
-          <a v-if="current.cta2" class="btn btn--light" :href="current.cta2.href">
+          <a v-if="current.cta2" class="btn btn--navy" :href="current.cta2.href">
             <span class="btn__label">{{ current.cta2.label }}</span>
           </a>
         </div>

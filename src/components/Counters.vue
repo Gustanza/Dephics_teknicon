@@ -69,6 +69,11 @@ onBeforeUnmount(() => observer && observer.disconnect())
   background-color: var(--c-link);
   --d-bd: rgba(255, 255, 255, .3);
   --d-text-light: rgba(255, 255, 255, .78);
+  /* The ghost numeral is re-tuned for this ground too. --d-dark-003 (white at
+     .05) was cut for the near-black navy bands; on this lighter red it all but
+     disappears. .2 is the most the numeral can take and still leave the white
+     label over it at 3.68:1 — past AA for the label's 24px bold. */
+  --cnt-figure: rgba(255, 255, 255, .2);
 }
 
 .cnt__eyebrow {
@@ -91,7 +96,7 @@ onBeforeUnmount(() => observer && observer.disconnect())
   min-height: 8.2em;
 }
 
-/* oversized ghost numeral behind the label — 170px, barely-there alpha */
+/* oversized ghost numeral behind the label — 170px, low alpha */
 .cnt__figure {
   position: absolute;
   z-index: 0;
@@ -104,7 +109,7 @@ onBeforeUnmount(() => observer && observer.disconnect())
   line-height: 1em;
   font-weight: 700;
   letter-spacing: 0;
-  color: var(--d-dark-003);
+  color: var(--cnt-figure);
 }
 .cnt__label {
   position: relative;

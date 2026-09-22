@@ -22,7 +22,7 @@ import { splitCta } from '../data/content.js'
         <p class="cta__title">{{ panel.title }}</p>
         <Button
           class="cta__btn"
-          variant="light"
+          variant="navy"
           size="sm"
           :href="panel.button.href"
           :label="panel.button.label"
