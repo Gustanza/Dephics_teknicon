@@ -1,4 +1,11 @@
 <script setup>
+import { computed } from 'vue'
+import Button from './ui/Button.vue'
+
+/* `teaser` renders the Home-page subset with a link onward to the full page. Six of the
+   nine cards, so the grid still fills two complete rows of three. */
+const props = defineProps({ teaser: { type: Boolean, default: false } })
+const shown = computed(() => (props.teaser ? projects.items.slice(0, 6) : projects.items))
 import Reveal from './ui/Reveal.vue'
 import SectionHeading from './ui/SectionHeading.vue'
 import { projects } from '../data/content.js'
@@ -23,7 +30,7 @@ import { projects } from '../data/content.js'
 
       <ul class="prj__grid">
         <Reveal
-          v-for="(item, i) in projects.items"
+          v-for="(item, i) in shown"
           :key="item.title"
           as="li"
           class="prj"
@@ -47,6 +54,10 @@ import { projects } from '../data/content.js'
           </div>
         </Reveal>
       </ul>
+
+      <div v-if="teaser" class="prj__more">
+        <Button to="/projects" label="See all projects" variant="navy" />
+      </div>
     </div>
   </section>
 </template>
@@ -69,6 +80,8 @@ import { projects } from '../data/content.js'
   letter-spacing: -.6px;
   color: var(--c-text-dark);
 }
+
+.prj__more { margin-top: var(--space-medium); }
 
 .prj__grid {
   display: grid;
@@ -142,12 +155,14 @@ import { projects } from '../data/content.js'
 @media (max-width: 1023px) {
   .prj__head { grid-template-columns: 1fr; }
   .prj__footnote { margin-bottom: 0; }
-  .prj__grid { grid-template-columns: repeat(2, 1fr); }
+
+.prj__grid { grid-template-columns: repeat(2, 1fr); }
   .prj__info { padding: 22px 24px 26px; }
 }
 
 @media (max-width: 639px) {
-  .prj__grid { grid-template-columns: 1fr; }
+
+.prj__grid { grid-template-columns: 1fr; }
   .prj__footnote { font-size: 17px; letter-spacing: 0; }
 }
 </style>

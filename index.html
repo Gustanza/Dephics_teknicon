@@ -44,8 +44,11 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-
-    <link rel="preload" as="image" href="/img/hero-luika-dissipater.jpg" fetchpriority="high" />
+    <!-- No static LCP preload here. index.html is the shared template for every
+         prerendered route, so a homepage-only preload downloads a hero image on
+         /contact too — and it silently rots when the hero photograph changes.
+         Hero.vue puts loading="eager" + fetchpriority="high" on slide 1 instead,
+         which is route-correct and cannot drift out of sync with the data. -->
   </head>
   <body>
     <div id="app"></div>

@@ -1,49 +1,29 @@
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import Logo from './ui/Logo.vue'
-import { company, nav } from '../data/content.js'
-
-const fixed = ref(false)
-const menuOpen = ref(false)
-const activeHref = ref(nav[0].href)
+import { company, nav, primaryCta } from '../data/content.js'
 
 /*
-  Scroll-spy. Rather than an IntersectionObserver — which reports whichever
-  section happens to be intersecting and gets ambiguous when two are on screen
-  at once — this picks the section whose top is the last one above the reading
-  line, so exactly one item is ever active and it changes at a predictable point.
+  The scroll-spy that used to live here is gone. It existed because the whole site
+  was one page with anchor navigation; the client rejected that (IA feedback C1), so
+  the active item is now simply the current route and vue-router tracks it for us
+  via router-link-active.
+
+  The header still goes from transparent to fixed on scroll — every page opens on a
+  dark photographic masthead (Hero on the homepage, PageHero elsewhere), so the
+  knockout logo and white menu read correctly at the top of all of them.
 */
-const READING_LINE = 140   // just below the fixed header
+const route = useRoute()
+const fixed = ref(false)
+const menuOpen = ref(false)
 
-function onScroll () {
-  fixed.value = window.scrollY > 120
+function onScroll () { fixed.value = window.scrollY > 120 }
+function closeMenu () { menuOpen.value = false }
+function onKeydown (e) { if (e.key === 'Escape') closeMenu() }
 
-  const atBottom =
-    window.innerHeight + window.scrollY >= document.body.scrollHeight - 2
-  if (atBottom) {
-    activeHref.value = nav[nav.length - 1].href
-    return
-  }
-
-  /* Ordered by where the section actually sits on the page, not by where it sits
-     in the menu — the two are not the same, and walking the menu order picks the
-     wrong item wherever they disagree. */
-  const passed = nav
-    .filter((item) => item.href !== '#top')
-    .map((item) => ({ href: item.href, top: document.querySelector(item.href)?.getBoundingClientRect().top }))
-    .filter((s) => s.top !== undefined && s.top <= READING_LINE)
-    .sort((a, b) => a.top - b.top)
-
-  activeHref.value = passed.length ? passed[passed.length - 1].href : nav[0].href
-}
-
-function closeMenu () {
-  menuOpen.value = false
-}
-
-function onKeydown (e) {
-  if (e.key === 'Escape') closeMenu()
-}
+/* a route change must never leave the mobile panel hanging open */
+watch(() => route.fullPath, closeMenu)
 
 onMounted(() => {
   onScroll()
@@ -59,30 +39,26 @@ onBeforeUnmount(() => {
 <template>
   <header class="hdr" :class="{ 'hdr--fixed': fixed, 'hdr--open': menuOpen }">
     <div class="hdr__row bleed">
-      <a class="hdr__brand" href="#top" aria-label="Teknicon Ltd — home">
+      <RouterLink class="hdr__brand" to="/" aria-label="Teknicon Ltd — home">
         <Logo
           :variant="fixed ? 'dark' : 'knockout'"
           :size="fixed ? 'sm' : 'md'"
         />
-      </a>
+      </RouterLink>
 
       <nav class="hdr__nav" aria-label="Primary">
         <ul class="menu">
-          <li v-for="item in nav" :key="item.href">
-            <a
-              :href="item.href"
-              :class="{ 'is-active': item.href === activeHref }"
-              :aria-current="item.href === activeHref ? 'true' : undefined"
-            ><span>{{ item.label }}</span></a>
+          <li v-for="item in nav" :key="item.to">
+            <RouterLink :to="item.to"><span>{{ item.label }}</span></RouterLink>
           </li>
         </ul>
       </nav>
 
       <div class="hdr__rail">
         <a class="hdr__phone" :href="`tel:${company.phoneHref}`">{{ company.phone }}</a>
-        <a class="btn btn--sm hdr__cta" href="#contact">
-          <span class="btn__label">Request a proposal</span>
-        </a>
+        <RouterLink class="btn btn--sm hdr__cta" :to="primaryCta.to">
+          <span class="btn__label">{{ primaryCta.label }}</span>
+        </RouterLink>
         <button
           class="hdr__burger"
           type="button"
@@ -99,13 +75,8 @@ onBeforeUnmount(() => {
     <!-- mobile fullscreen panel -->
     <div id="mobile-menu" class="mnav" :hidden="!menuOpen">
       <ul class="mnav__list">
-        <li v-for="item in nav" :key="item.href">
-          <a
-            :href="item.href"
-            :class="{ 'is-active': item.href === activeHref }"
-            :aria-current="item.href === activeHref ? 'true' : undefined"
-            @click="closeMenu"
-          >{{ item.label }}</a>
+        <li v-for="item in nav" :key="item.to">
+          <RouterLink :to="item.to" @click="closeMenu">{{ item.label }}</RouterLink>
         </li>
       </ul>
       <div class="mnav__foot">
@@ -167,6 +138,12 @@ onBeforeUnmount(() => {
   font-weight: 500;
   letter-spacing: 0;
   color: #fff;
+  /* Two-word labels ("About Us", "Contact Us") were breaking onto a second line at
+     1280-1440 — the commonest laptop widths — which pushed the header from 102px to
+     128px and looked like a mistake. It was never a space problem: the row still had
+     ~228px of slack, the labels were simply allowed to wrap. The nav is hidden below
+     1280 anyway, so nowrap cannot cause an overflow. */
+  white-space: nowrap;
   transition: color var(--dur) var(--ease);
 }
 .menu > li > a::after {
@@ -182,7 +159,7 @@ onBeforeUnmount(() => {
 }
 .menu > li > a:hover::after,
 .menu > li > a:focus-visible::after,
-.menu > li > a.is-active::after { width: 100%; }
+.menu > li > a.router-link-active::after { width: 100%; }
 
 .hdr--fixed .menu > li > a { color: var(--c-text-dark); }
 
@@ -197,7 +174,7 @@ onBeforeUnmount(() => {
 
 .hdr--fixed .menu > li > a:hover,
 .hdr--fixed .menu > li > a:focus-visible,
-.hdr--fixed .menu > li > a.is-active { color: var(--c-heading); }
+.hdr--fixed .menu > li > a.router-link-active { color: var(--c-heading); }
 
 /* Deliberately no weight change on the active item: bolding it would reflow the
    whole row every time you scroll past a section boundary. Colour plus the
@@ -252,6 +229,9 @@ onBeforeUnmount(() => {
   /* the footer sits on this same ground and lifts its hairline the same way —
      the default --d-bd is tuned for the much darker --d-bg and nearly vanishes here */
   --d-bd: #676FB1;
+  /* and the same remap: --c-link drives both the hover and the active item here,
+     and it is 2.00:1 against this navy */
+  --c-link: var(--c-link-on-navy);
   padding: 34px var(--edge-pad) 44px;
 }
 .mnav__list > li + li { border-top: 1px solid var(--d-bd); }
@@ -266,9 +246,16 @@ onBeforeUnmount(() => {
 .mnav__list a:hover { color: var(--c-link); }
 /* the red accent carries the active item instead of a navy fill, matching the
    desktop underline treatment */
-.mnav__list a.is-active {
+.mnav__list a.router-link-active {
   color: var(--c-link);
-  box-shadow: inset 0 -2px 0 var(--c-link);
+  /* Drawn as a background rule rather than an inset box-shadow: the theme has no
+     shadows at all (THEME_DNA §11.2) and a background keeps that invariant literally
+     true, so the audit census stays meaningful. Same technique as the accent
+     underline in About.vue. */
+  background-image: linear-gradient(var(--c-link), var(--c-link));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 2px;
 }
 .mnav__foot {
   display: flex;

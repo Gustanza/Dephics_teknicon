@@ -3,6 +3,10 @@ import Button from './ui/Button.vue'
 import Reveal from './ui/Reveal.vue'
 import SectionHeading from './ui/SectionHeading.vue'
 import { services } from '../data/content.js'
+
+/* On the Home page all three cards stay — they are the core offer and cutting one would
+   misrepresent it. `teaser` only adds the link onward to the full Services page. */
+defineProps({ teaser: { type: Boolean, default: false } })
 </script>
 
 <template>
@@ -50,11 +54,17 @@ import { services } from '../data/content.js'
           </div>
         </Reveal>
       </ul>
+
+      <div v-if="teaser" class="svc__more">
+        <Button to="/services" label="All services" variant="navy" />
+      </div>
     </div>
   </section>
 </template>
 
 <style scoped>
+.svc__more { margin-top: var(--space-medium); text-align: center; }
+
 .svc__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -146,7 +156,8 @@ import { services } from '../data/content.js'
 /* three cards in a two-column grid orphan the third at half width, so the grid
    drops straight from 3-up to 1-up rather than through a ragged 2-up */
 @media (max-width: 1023px) {
-  .svc__grid { grid-template-columns: 1fr; }
+
+.svc__grid { grid-template-columns: 1fr; }
   .svc { padding: 1.9em; }
 }
 </style>

@@ -3,10 +3,13 @@ import { computed } from 'vue'
 
 /**
  * The Fuse button: 15px/700, letter-spacing 0, NOT uppercase, 0px radius,
- * flat fill that darkens on hover. On hover the label slides left 1.65rem and
- * an arrow fades in from the right edge.
+ * flat fill that hovers to the brand navy. On hover the label slides left 1.65rem
+ * and an arrow fades in from the right edge.
+ *
+ * Pass `to` for an internal route, `href` for an external or protocol link.
  */
 const props = defineProps({
+  to: { type: String, default: '' },
   href: { type: String, default: '' },
   variant: { type: String, default: 'solid' }, // solid | outline | navy
   size: { type: String, default: 'md' },        // sm | md | lg
@@ -14,7 +17,7 @@ const props = defineProps({
   arrow: { type: Boolean, default: true }
 })
 
-const tag = computed(() => (props.href ? 'a' : 'button'))
+const tag = computed(() => (props.to ? 'RouterLink' : props.href ? 'a' : 'button'))
 const classes = computed(() => [
   'btn',
   props.variant !== 'solid' ? `btn--${props.variant}` : '',
@@ -24,7 +27,13 @@ const classes = computed(() => [
 </script>
 
 <template>
-  <component :is="tag" :href="href || undefined" :type="href ? undefined : 'button'" :class="classes">
+  <component
+    :is="tag"
+    :to="to || undefined"
+    :href="href || undefined"
+    :type="!to && !href ? 'button' : undefined"
+    :class="classes"
+  >
     <span class="btn__label">{{ label }}</span>
     <svg
       v-if="arrow"

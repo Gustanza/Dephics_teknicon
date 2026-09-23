@@ -93,6 +93,11 @@
      the brand pair, and white on this measures 10.15:1. Deliberately a separate
      token from --c-hover, which still drives every text link on the page. */
   --c-btn-hover:  #2C3792;
+  /* The working red on the brand-navy ground. --c-link (#CF3221) is tuned for light
+     grounds and measures only 2.00:1 on #2C3792 — unreadable the moment a link is
+     hovered. This is the same hue at 76% lightness, 4.66:1. Any surface sitting on
+     --d-bg-brand should remap --c-link to this. */
+  --c-link-on-navy: #FF9185;
   --c-link2:      #2C3792;   /* BRAND NAVY — secondary */
   --c-hover2:     #21296E;
   --c-inverse-link: #FFFFFF;

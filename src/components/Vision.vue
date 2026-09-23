@@ -7,10 +7,15 @@ import { company } from '../data/content.js'
   <section class="section band--dark vis" aria-label="Vision statement">
     <div class="container vis__inner">
       <Reveal variant="fade">
-        <blockquote class="vis__quote">
-          <p>{{ company.vision }}</p>
-          <footer class="vis__author">{{ company.visionAttribution }}</footer>
-        </blockquote>
+        <!-- figure + figcaption, not a <footer> inside the blockquote: the spec puts
+             attribution outside the quote, and it keeps the page to exactly one
+             <footer> element even though the old one was never a second landmark. -->
+        <figure class="vis__figure">
+          <blockquote class="vis__quote">
+            <p>{{ company.vision }}</p>
+          </blockquote>
+          <figcaption class="vis__author">{{ company.visionAttribution }}</figcaption>
+        </figure>
       </Reveal>
     </div>
   </section>
@@ -37,6 +42,8 @@ import { company } from '../data/content.js'
 }
 
 .vis__inner { position: relative; z-index: 1; }
+
+.vis__figure { margin: 0; }
 
 .vis__quote {
   margin: 0 auto;

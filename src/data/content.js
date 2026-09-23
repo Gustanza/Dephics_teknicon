@@ -27,18 +27,21 @@ export const company = {
   ]
 }
 
-/* Order follows the order the sections appear on the page — the scroll-spy sorts by
-   document position, but a menu whose order disagrees with the page still reads as
-   broken. About now has its own section and sits where it belongs again. */
+/* Primary navigation. Real routes, not in-page anchors — the client rejected
+   anchor navigation (IA feedback C1). Order follows the proposed IA exactly. */
 export const nav = [
-  { label: 'Home', href: '#top' },
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Clients', href: '#clients' },
-  { label: 'Team', href: '#team' },
-  { label: 'Contact', href: '#contact' }
+  { label: 'Home', to: '/' },
+  { label: 'About Us', to: '/about' },
+  { label: 'Services', to: '/services' },
+  { label: 'Projects', to: '/projects' },
+  { label: 'Sectors', to: '/sectors' },
+  { label: 'Insights', to: '/insights' },
+  { label: 'Contact Us', to: '/contact' }
 ]
+
+/* The primary call to action, per client comment C2: they asked for "Contact us"
+   rather than "Request a Consultation". Contextual CTAs keep their own wording. */
+export const primaryCta = { label: 'Contact us', to: '/contact' }
 
 /* ------------------------------------------------------------------ hero */
 /* Each slide's photograph is the subject its headline names. Natural pixel
@@ -52,8 +55,8 @@ export const heroSlides = [
     eyebrow: 'Consulting engineers and project managers',
     title: ['Engineering that holds', 'Tanzania together'],
     lede: 'Structural, civil and project management consultancy — from feasibility study to defects liability. Established June 2009 and registered with the Engineers Registration Board.',
-    cta: { label: 'Explore our work', href: '#projects' },
-    cta2: { label: 'Talk to an engineer', href: '#contact' }
+    cta: { label: 'Explore our work', to: '/projects' },
+    cta2: { label: 'Contact us', to: '/contact' }
   },
   {
     image: '/img/hero-tsf-embankment-luika.jpg',
@@ -63,7 +66,7 @@ export const heroSlides = [
     eyebrow: 'Tailings storage facilities & water',
     title: ['Dams and tailings', 'built to be audited'],
     lede: 'Design, design review and construction supervision of TSFs, clear-water dams and reservoirs for Shanta, Buckreef, Matongo and Anglo de Beers.',
-    cta: { label: 'See the portfolio', href: '#projects' }
+    cta: { label: 'See the portfolio', to: '/projects' }
   },
   {
     image: '/img/project-tra-ita-hotel.jpg',
@@ -73,7 +76,7 @@ export const heroSlides = [
     eyebrow: 'Buildings, bridges & infrastructure',
     title: ['From a 40m span', 'to a 7-storey block'],
     lede: 'Zimbili and Ulongoni bridges for the Dar es Salaam Metropolitan Development Project. The TZS 15.94 billion (VAT incl.) TRA ITA building at Mikocheni. Storage warehouses for MSD at Keko and Mbeya.',
-    cta: { label: 'See the portfolio', href: '#projects' }
+    cta: { label: 'See the portfolio', to: '/projects' }
   }
 ]
 
@@ -100,7 +103,7 @@ export const about = {
     { n: '02', name: 'Civil Engineering' },
     { n: '03', name: 'Project Management' }
   ],
-  departmentsLink: { label: 'What each department does', href: '#services' },
+  departmentsLink: { label: 'What each department does', to: '/services' },
   /* Two frames, offset and overlapping — the theme's about-page image pair. One
      building, one civil work, so the pair shows the range the copy claims. */
   image: {
@@ -375,7 +378,9 @@ export const splitCta = [
     crop: true
   },
   {
-    eyebrow: 'Clients & partners',
+    /* not 'Clients & partners' — that is the Clients section's own eyebrow, and the
+       two appear on the same page, which read as a duplicated heading */
+    eyebrow: 'Our clients',
     title: 'Who do we work for?',
     note: 'TRA · TIPER · MSD · TARURA · Shanta · Buckreef',
     button: { label: 'See our clients', href: '#clients' },
@@ -401,7 +406,8 @@ export const footer = {
       links: [
         { label: company.email, href: `mailto:${company.email}`, icon: 'mail' },
         { label: company.phone, href: `tel:${company.phoneHref}`, strong: true, icon: 'phone' },
-        { label: company.web, href: company.webHref, icon: 'globe' }
+        /* our own domain: an internal route, not an external link */
+        { label: company.web, to: '/', icon: 'globe' }
       ]
     },
     {
@@ -420,4 +426,192 @@ export const footer = {
   ],
   copyright: 'Teknicon Ltd © 2026. All rights reserved.',
   registrations: 'ERB LCF 122 · ACET 061 · TIN 108-536-756'
+}
+
+/* ------------------------------------------------------------ home intro */
+/* IA section 1: "Brief introduction to Teknicon with a linked button to About us Page".
+   A condensed version of the opening of profile p.4 — the full text lives on /about. */
+export const homeIntro = {
+  eyebrow: 'Who we are',
+  title: ['A Tanzanian consulting practice,', 'registered and independent'],
+  body: 'TEKNICON LTD is a multidisciplinary local consultancy firm, established in June 2009 and registered with the Engineers Registration Board as a Local Engineering Consulting Firm. Wholly owned by Tanzanian nationals and a member of the Association of Consulting Engineers Tanzania.',
+  cta: { label: 'Find out more about Teknicon', to: '/about' }
+}
+
+/* --------------------------------------------------- organisation chart */
+/*
+  Client comment C3: staff are shown as POSITIONS, not named individuals. The 14 named
+  personnel in BRIEF section 6 are internal reference only and must not be published.
+
+  Recovered from the company profile PDF page 14, which holds the chart as live text
+  plus 98 vector shapes (the .emf in the Word file is unreadable).
+
+  NOTE FOR THE CLI–T: their chart shows four engineering clusters but only three HOD
+  labels — the topmost cluster has no HOD box. Only the three labelled departments are
+  reproduced here. See docs/ROADMAP.md section 7, Q6.
+*/
+export const orgChart = {
+  eyebrow: 'Leadership & our team',
+  title: ['Structured by discipline,', 'led by registered engineers'],
+  lede: 'Teknicon is organised by position rather than by individual. Each technical department is led by a Head of Department and staffed by senior engineers, junior engineers and technicians.',
+  root: 'Board of Directors',
+  chief: 'Managing Director and CEO',
+  directorates: [
+    {
+      title: 'Director of Technical Services',
+      departments: [
+        { title: 'HOD Structural and Bridges Eng.', staff: ['Senior Engineers', 'Junior Engineers', 'Technicians'] },
+        { title: 'HOD Dams and Water Infrastructures', staff: ['Senior Engineers', 'Junior Engineers', 'Technicians'] },
+        { title: 'HOD Civil & Highway Eng.', staff: ['Senior Engineers', 'Junior Engineers', 'Technicians'] }
+      ]
+    },
+    {
+      title: 'Director of Admin and Finance',
+      roles: ['HR & Admin Manager', 'Accountant', 'Legal Officer (Company Secretary)', 'IT & Systems Administrator']
+    }
+  ],
+  note: 'Individual staff names, qualifications and years of service are provided on request and in tender submissions.'
+}
+
+/* --------------------------------------------------------------- licences */
+/* BRIEF section 7, verbatim. Every number is a statutory or professional registration. */
+export const licences = {
+  eyebrow: 'Licences & memberships',
+  title: ['Registered, and', 'continuously compliant'],
+  lede: 'TEKNICON maintains full, up-to-date statutory and professional registrations for consulting engineering in Tanzania.',
+  items: [
+    { name: 'Certificate of Incorporation (BRELA)', ref: '71672' },
+    { name: 'VAT Registration (TRA)', ref: 'VRN 40-004932-P' },
+    { name: 'Taxpayer Identification Number (TRA)', ref: 'TIN 108-536-756' },
+    { name: 'Business Licence', ref: 'BL01396912025-2600017652', expires: '19 November 2026' },
+    { name: 'Tax Clearance Certificate', ref: '131-0261-6147', expires: '31 December 2026' },
+    { name: 'Engineers Registration Board (ERB)', ref: 'LCF 122 / Reg. No. 0122' },
+    { name: 'ERB Annual Practising Licence 2026', ref: 'ERBT01341', expires: '31 December 2026' },
+    { name: 'Association of Consulting Engineers Tanzania (ACET)', ref: '061' },
+    { name: 'Occupational Safety and Health Authority (OSHA)', ref: '313-102-022' },
+    { name: 'National Social Security Fund (NSSF)', ref: '1026954' }
+  ],
+  download: {
+    label: 'Download the company profile',
+    href: '/downloads/teknicon-company-profile.pdf',
+    meta: 'PDF · 50 pages · 6.8 MB'
+  }
+}
+
+/* ---------------------------------------------------------------- sectors */
+/*
+  The seven sectors are the client's own list, from the proposed IA section 5. A sector
+  is who Teknicon serves; a service is what it does.
+
+  Each sector is evidenced by real projects from BRIEF section 5 rather than by marketing
+  prose — that keeps every line traceable and avoids inventing positioning copy.
+*/
+export const sectors = {
+  eyebrow: 'Sectors',
+  title: ['Who we build for'],
+  lede: 'A sector is who or what the work serves. Every sector below is evidenced by named projects already delivered.',
+  items: [
+    {
+      n: '01',
+      name: 'Buildings, Commercial & Residential',
+      evidence: ['TRA ITA Hotel Accommodation, Mikocheni — 7 storeys', 'Residential Apartments, Oysterbay', 'Royal Soap Industrial Building, Dar es Salaam']
+    },
+    {
+      n: '02',
+      name: 'Government & Public Infrastructure',
+      evidence: ['Uganda High Commission, Dodoma', 'New Nanyumbu and New Mpanda Bus Terminals', 'Rehabilitation of TRA Regional Office, Tanga']
+    },
+    {
+      n: '03',
+      name: 'Health & Education Facilities',
+      evidence: ['Binguni Referral and Teaching Hospital, Zanzibar', 'Kibong’oto Hospital new laboratory', 'MSD storage warehouses, Keko and Mbeya']
+    },
+    {
+      n: '04',
+      name: 'Industrial, Manufacturing & Logistics',
+      evidence: ['Tobacco Processing Plant expansion, Morogoro', 'Bulk Loading System, Lafarge Cement Factory, Mbeya', '55m span steelwork structure, Coca-Cola Road']
+    },
+    {
+      n: '05',
+      name: 'Transport & Urban Development',
+      evidence: ['Zimbili and Ulongoni bridges, DMDP', 'Furahisha Pedestrian Flyover, Mwanza', 'Wenda–Mgama and Mtili–Ifwagi–Mkuta roads, TARURA']
+    },
+    {
+      n: '06',
+      name: 'Water, Agriculture & Irrigation',
+      evidence: ['Water Supply & Irrigation Scheme, Ifakara', '350 ML Masonry Water Dam, New Luika', '150 ML Water Reservoir, New Luika']
+    },
+    {
+      n: '07',
+      name: 'Mining & Extractives',
+      evidence: ['TSF2 Phases 1 to 3B, New Luika Gold Mine', 'TSF2 Cells 1 and 2, Mnekezi, Geita', 'TSF1, Mwaoga Village, Chunya District']
+    }
+  ]
+}
+
+/* --------------------------------------------------------------- insights */
+/*
+  Client comment C4: Insights launches as curated professional and regulatory links
+  rather than as a news feed. News, publications and careers come later.
+
+  Every URL below returned HTTP 200 on 2026-09-22 except the one marked `unverified`,
+  which could not be reached from the build environment and needs a manual check.
+*/
+export const insights = {
+  eyebrow: 'Insights & resources',
+  title: ['The bodies we answer to,', 'and work alongside'],
+  lede: 'Consulting engineering in Tanzania is a regulated profession. These are the authorities, professional bodies and standards that govern the work Teknicon does.',
+  groups: [
+    {
+      heading: 'Regulators & professional bodies',
+      links: [
+        { name: 'Engineers Registration Board (ERB)', href: 'https://www.erb.go.tz/', note: 'Registers engineers and consulting firms. Teknicon is LCF 122.' },
+        { name: 'Institution of Engineers Tanzania (IET)', href: 'https://iet.or.tz/', note: 'The national professional institution for engineers.', unverified: true },
+        { name: 'Occupational Safety and Health Authority (OSHA)', href: 'https://www.osha.go.tz/', note: 'Workplace safety and health regulation. Teknicon is 313-102-022.' }
+      ]
+    },
+    {
+      heading: 'Client authorities',
+      links: [
+        { name: 'TANROADS', href: 'https://www.tanroads.go.tz/', note: 'Tanzania National Roads Agency.' },
+        { name: 'TARURA', href: 'https://tarura.go.tz/', note: 'Tanzania Rural and Urban Roads Agency — client on several road and bridge assignments.' }
+      ]
+    },
+    {
+      heading: 'Standards & contract practice',
+      links: [
+        { name: 'Tanzania Bureau of Standards (TBS)', href: 'https://www.tbs.go.tz/', note: 'National standards and conformity assessment.' },
+        { name: 'FIDIC', href: 'https://www.fidic.org/', note: 'International Federation of Consulting Engineers — the contract forms used across the sector.' }
+      ]
+    }
+  ],
+  note: 'News, publications and career openings will be published here as they become available.'
+}
+
+/* ---------------------------------------------------------- contact page */
+export const contactPage = {
+  eyebrow: 'Contact us',
+  title: ['Talk to a registered', 'consulting engineer'],
+  lede: 'For proposals, tender enquiries and technical questions. We respond to every enquiry received during working hours.',
+  hours: [
+    { days: 'Monday to Friday', time: '08:00 – 17:00 EAT' },
+    { days: 'Saturday, Sunday and public holidays', time: 'Closed' }
+  ],
+  /* Google Maps embed for the registered office. Coordinates are not published in the
+     company profile, so this searches the address rather than pinning a lat/long. */
+  mapQuery: 'Natai Plaza, Coca Cola Road, Mikocheni Light Industrial Area, Dar es Salaam, Tanzania',
+  form: {
+    heading: 'Send an enquiry',
+    /* TODO P5-1: no backend is wired yet. The form is inert until an endpoint is chosen
+       (Formspree / Netlify Forms / client host). See docs/ROADMAP.md section 7, Q4. */
+    fields: [
+      { name: 'name', label: 'Name', type: 'text', required: true },
+      { name: 'organisation', label: 'Organisation', type: 'text', required: false },
+      { name: 'email', label: 'Email', type: 'email', required: true },
+      { name: 'phone', label: 'Phone', type: 'tel', required: false },
+      { name: 'subject', label: 'Subject', type: 'text', required: false },
+      { name: 'message', label: 'Enquiry', type: 'textarea', required: true }
+    ],
+    submit: 'Send enquiry'
+  }
 }

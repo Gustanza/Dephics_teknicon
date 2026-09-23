@@ -4,9 +4,9 @@
 If you are picking this up in a fresh session, read this file top to bottom before
 touching anything. Everything you need is either here or linked from here.
 
-- **Last updated:** 2026-09-22
-- **Current phase:** Landing page delivered · multi-page rebuild planned, **not started**
-- **Status of this plan:** awaiting client go-ahead
+- **Last updated:** 2026-09-22 (Phase 1 in progress)
+- **Current phase:** **Phase 1 complete.** 7 prerendered pages, all audited clean.
+- **Status:** go-ahead given; the six open questions were answered with the recommended defaults (see §4)
 
 ---
 
@@ -82,18 +82,33 @@ invisible to headless testing because it only triggers with a real cursor on scr
 ## 2. Where the build is right now
 
 ### Stack
-Vue 3.5 · Vite 8 · **no router** (single page) · Playwright 1.62 for verification.
-No CSS framework. Tokens in `src/style.css`, all content in `src/data/content.js`.
+Vue 3.5 · Vite 8.2 · **vue-router 5.3** · **vite-ssg 28.3** (static prerendering) ·
+Playwright 1.62 for verification. No CSS framework.
+Tokens in `src/style.css`, all content in `src/data/content.js`.
 
-### Page structure (`src/App.vue`)
-`Hero → Credentials → About → Services → Quality → Projects → Clients → Counters →
-Vision → Team → SplitCta → SiteFooter`
+### Routes — 7 pages, each prerendered to static HTML
+`/` · `/about` · `/services` · `/projects` · `/sectors` · `/insights` · `/contact`
+plus a catch-all 404. Defined with their `<head>` meta in `src/router/routes.js`.
+
+`src/App.vue` is now a layout shell only: `SiteHead · SiteHeader · <RouterView> ·
+SiteFooter · ScrollTop`. Page composition lives in `src/pages/`.
+
+### Page composition
+- **Home** — Hero · Credentials · HomeIntro · Services(teaser) · Projects(teaser) ·
+  SectorsList(teaser) · Counters · Clients · SplitCta
+- **About** — PageHero · About · Vision · Quality · **OrgChart** · Licences · SplitCta
+- **Services / Projects / Sectors / Insights / Contact** — PageHero + their section(s)
 
 ### Components
-`src/components/` — About, Clients, Counters, Credentials, Hero, Projects, Quality,
-Services, SiteFooter, SiteHeader, SplitCta, Team, Vision
-`src/components/ui/` — Button, Logo, Reveal, ScrollTop, SectionHeading
+`src/components/` — About, Clients, ContactBlock, Counters, Credentials, Hero, HomeIntro,
+InsightsLinks, Licences, OrgChart, PageHero, Projects, Quality, SectorsList, SiteFooter,
+SiteHead, SiteHeader, SplitCta, Vision
+`src/components/ui/` — Button (supports `to` for routes), Logo, Reveal, ScrollTop, SectionHeading
 `src/composables/useReveal.js` — one shared IntersectionObserver
+
+> **`Team.vue` is retired.** It published six named engineers, which conflicts with client
+> comment C3 (positions, not individuals). `OrgChart.vue` replaces it. The file is no longer
+> imported anywhere — delete it once Phase 1 is signed off.
 
 ### Brand tokens (authoritative — do not re-derive from the Word file)
 | Token | Value | Note |
@@ -185,36 +200,128 @@ Decisions already made, with reasoning, so they are not relitigated.
 
 ---
 
+## 4a. Phase 1 build notes
+
+| Item | Detail |
+|---|---|
+| Routing | `src/router/routes.js` is the single source of routes **and** per-route `<head>` meta |
+| Prerendering | `npm run build` runs `vite-ssg build` and emits real HTML per route. `build:spa` is an escape hatch for debugging. |
+| Verified | Per-route `<title>`, canonical and `og:image` all present in the static HTML |
+| Known gap | No `404.html` is emitted — the catch-all route is not prerendered. Static hosts need one. Added as P1-12. |
+| Profile PDF | Recompressed with PyMuPDF `rewrite_images` (100 dpi / q62). 36.7 MB → 6.8 MB. |
+
 ## 5. TASK TRACKER
 
 Status key: `[ ]` not started · `[~]` in progress · `[x]` done · `[!]` blocked · `[?]` needs a decision
 
 ### P0 — Outstanding on the current landing page
 
-- [ ] **P0-1** Outlined hero button (`.btn--light`) sweep → brand navy instead of white
-  *Two lines in `src/style.css`: `--sweep: var(--c-btn-hover); --sweep-text: #fff`.
-  Affects 3 buttons (hero secondary + 2 split-CTA). White-on-navy = 10.15:1, safe.*
+- [x] **P0-1** Outlined hero button sweep → navy — **resolved differently by the client:**
+  the `.btn--light` variant was removed entirely and those buttons are now solid
+  `.btn--navy` beside the solid red primary. Brand pair rather than a white outline.
 - [!] **P0-2** Replace `#` placeholder social links in the footer
   *Blocked on the client supplying real handles. `src/data/content.js` → `footer.columns[Follow]`.*
 
 ### P1 — Routing spine (the foundation for everything else)
 
-- [?] **P1-1** Choose SSG vs Nuxt — **see §7 Q1**
-- [ ] **P1-2** Add `vue-router@5` + `vite-ssg@28` *(confirmed compatible with Vite 8)*
-- [ ] **P1-3** Create route structure and `src/pages/`; move `App.vue` sections into pages
-- [ ] **P1-4** Header: replace scroll-spy with route-based active state; keep hover colour behaviour
-- [ ] **P1-5** Per-route `<title>`, meta description, canonical, OG tags
-- [ ] **P1-6** ⚠️ **Replace Team roster with the org chart (positions, not individuals)**
+- [x] **P1-1** SSG chosen (`vite-ssg`), no Nuxt migration
+- [x] **P1-2** `vue-router@5.3.1` + `vite-ssg@28.3.0` installed and working on Vite 8.2.2
+- [x] **P1-3** `src/router/routes.js` + 8 pages in `src/pages/`; `App.vue` is now a layout shell
+- [x] **P1-4** Scroll-spy removed; nav uses `RouterLink` + `router-link-active`
+- [x] **P1-5** `SiteHead.vue` drives head from `routes.js` `meta`; verified in the prerendered HTML
+- [x] **P1-6** ✅ **Team roster replaced by the org chart.** Verified: no named individual appears in any of the 7 prerendered pages.
   *`src/components/Team.vue` currently publishes 6 named engineers with years of service.
   This conflicts with client policy C3 and must not ship. Chart data is recoverable —
   see §6. The 14 named personnel stay in BRIEF §6 as internal reference only.*
-- [ ] **P1-7** Build the org chart as native responsive HTML/SVG (not an image)
-- [ ] **P1-8** Footer restructure to the IA's five columns: About Teknicon (+ profile
-      download) · Services · Quick Links · Professional Credentials · Contact + Legal
-- [ ] **P1-9** Insights page — curated links: ERB, IET, OSHA Tanzania, TANROADS, TARURA, FIDIC, TBS
-      *Verify every URL before shipping.*
-- [ ] **P1-10** Standardise CTA copy per C2 — **pending §7 Q2**
-- [ ] **P1-11** Company Profile PDF download (asset already in `tekres/`)
+- [x] **P1-7** `OrgChart.vue` — native HTML, 1px hairline connectors, no image
+- [x] **P1-8** Footer restructured to the five IA parts; Services and Quick Links are derived from `content.js` so they stay in sync
+- [ ] **P1-12** Emit a `404.html` for static hosting (catch-all route is not prerendered)
+- [x] **P1-9** `InsightsLinks.vue` — 7 links, `target="_blank"` + `rel="noopener noreferrer"`.
+      6 of 7 returned HTTP 200; **IET is flagged `unverified` in the data** and needs a manual check.
+- [x] **P1-10** `primaryCta` = "Contact us"; header, hero and footer updated
+- [x] **P1-11** `public/downloads/teknicon-company-profile.pdf` — compressed 36.7 MB → 6.8 MB (82%), 50 pages and text intact
+
+### Fixed this session, beyond the task list
+
+- [x] **Footer / mobile-nav link hover was 2.00:1 on the navy.** `--c-link` (#CF3221) is
+      tuned for light grounds. Added `--c-link-on-navy: #FF9185` (4.66:1, same hue at 76%
+      lightness) and remapped `--c-link` inside `.ftr` and `.mnav`. The subagent flagged the
+      footer; the mobile nav had the identical defect and was caught by the census.
+- [x] **Stale LCP preload removed from `index.html`.** It still pointed at a hero image the
+      slider no longer uses, and because `index.html` is the shared template for all 7
+      prerendered routes it was downloading a homepage image on `/contact` too.
+      `Hero.vue`'s own `fetchpriority="high"` on slide 1 is route-correct and cannot drift.
+- [x] **Last `box-shadow` on the site removed.** The mobile-nav active underline used an
+      inset shadow; now a background rule, so "zero shadows" is literally true and the
+      census stays meaningful.
+
+- [x] **Navigation was broken in dev — `useHead()` called outside setup.** `SiteHead.vue`
+      called `useHead()` inside a `watchEffect`, which runs outside the setup context.
+      unhead threw, and the exception broke vue-router's navigation: the URL changed and
+      `document.title` updated, but `<RouterView>` never re-rendered, so every menu click
+      appeared to do nothing. **The production build swallowed the error and looked fine —
+      only the dev server surfaced it.** Fixed by calling `useHead()` once at the top of
+      setup with a `computed` head object. Verified 6/6 navigations on both servers.
+- [x] **Scroll did not reset between pages.** Navigating from the bottom of one page left
+      you at the bottom of the next, and since every page ends in the same footer that also
+      read as "nothing happened". `scrollBehavior` now waits two animation frames for the
+      incoming view to lay out, then scrolls with `behavior: 'instant'` — `html
+      { scroll-behavior: smooth }` was animating the jump and a height change mid-animation
+      aborted it.
+- [x] **Header nav wrapped at 1280–1440.** "About Us" and "Contact Us" broke onto a second
+      line at the commonest laptop widths, pushing the header from 102px to 128px. Not a
+      space problem — the row had ~228px of slack — so `white-space: nowrap` on the menu
+      links. The nav is hidden below 1280, so it cannot cause overflow.
+
+- [x] **`/sectors` masthead was rendering an empty panel.** It pointed at
+      `project-zmt-terminal.jpg`, which had been deleted during the hero rework. Nothing
+      caught it: a decorative `<img>` (`alt=""`, `aria-hidden`) 404s **silently** — no
+      console error, no failed-request warning, and the census only counted 4xx on
+      requests it happened to observe. Now uses `project-binguni-hospital.jpg`.
+- [x] **Added `tools/check-assets.mjs`, wired into `npm run build`.** It fails the build
+      if any `/img`, `/downloads` or root asset referenced from `src/` or `index.html`
+      is missing, and expands template-literal paths (Logo.vue's tone variants) rather
+      than skipping them. 41 references checked. This class of bug cannot recur silently.
+- [x] **Duplicate page headings removed.** Pages that open with a `PageHero` were also
+      rendering the section's own eyebrow + title immediately below it — `/sectors` showed
+      "SECTORS / Who we build for" twice. `SectorsList` and `InsightsLinks` now take
+      `hide-heading`; the lede is kept, since it is not duplicated.
+- [x] **Census now detects broken images** (`img.complete && naturalWidth > 0`) across all
+      pages, so a silent 404 shows up as a number rather than needing a human to notice.
+
+### Full-site audit — findings and fixes
+
+`tools/audit.mjs` was written for this pass and checks every route for: h1 count, heading
+order, duplicate ids, duplicate eyebrows, dead internal links, external `target`/`rel`,
+placeholder hrefs, broken images, missing `width`/`height`, unlabelled form controls,
+landmark counts, SEO tags, console and page errors, and failed requests.
+
+First run: **54 findings in 9 categories.** After the fixes below: **zero.**
+
+- [x] **Dead footer links on every page.** `/privacy` and `/terms` have no routes, so both
+      fell through to the 404. Marked `ready: false` and filtered out until the pages exist.
+- [x] **Four placeholder social links on every page.** The `Follow` block now renders only
+      when at least one handle has a real URL. Drop the hrefs into `content.js` and it
+      reappears by itself.
+- [x] **The company's own domain was an external link** in the footer, with no `target` or
+      `rel`. Now an internal route to `/`.
+- [x] **Every masthead was missing `width`/`height`** — six pages able to shift layout as
+      the image arrived. `PageHero` now requires intrinsic `w`/`h`.
+- [x] **Heading order skipped h1 -> h3** on `/sectors` and `/insights`, caused by the
+      `hide-heading` fix removing the h2. Those items now render as h2 when the section
+      heading is hidden.
+- [x] **Duplicate "Clients & partners" eyebrow** on `/` and `/projects` — the Clients
+      section and the split CTA panel used the same words. Panel is now "Our clients".
+- [x] **Vision attribution used `<footer>` inside a blockquote.** Now `figure` +
+      `figcaption`, the accessible quote/attribution pattern.
+- [x] Audit itself corrected twice: `/downloads/*.pdf` is a static file not a route, and
+      contentinfo landmarks must be counted rather than `<footer>` elements.
+
+Behaviour verified beyond the static checks: hero autoplay with a cursor resting on it,
+mobile nav open -> navigate -> auto-close, contact form refusing to fake a send and
+offering `mailto:` instead, skip-link as first tab stop, and the 404 route rendering with
+`noindex`. Facts re-checked: all 10 licence numbers and all 23 project references on
+`/sectors` trace to BRIEF; the only unmatched figure site-wide is the PDF's file size.
 
 ### P2 — Services
 
@@ -241,9 +348,10 @@ Status key: `[ ]` not started · `[~]` in progress · `[x]` done · `[!]` blocke
 ### P5 — Contact & Legal
 
 - [?] **P5-1** Choose enquiry-form backend — **see §7 Q4**
-- [ ] **P5-2** Contact page: address, phone, email, socials, working hours
-- [ ] **P5-3** Google map embed
-- [ ] **P5-4** Enquiry form + spam protection
+- [x] **P5-2** Contact page built — address, phone, email, working hours
+- [x] **P5-3** Google Maps `<iframe>` (no API key needed); verified it resolves to NATAI PLAZA
+- [!] **P5-4** Form markup built with real labels — **deliberately inert.** On submit it tells
+      the visitor to email directly rather than faking a send. Blocked on P5-1.
 - [ ] **P5-5** Privacy Policy *(needs drafting, arguably legal input)*
 - [ ] **P5-6** Terms of Use *(same)*
 
@@ -317,11 +425,11 @@ Three images were removed from the build when the hero changed and are recoverab
 
 | # | Question | Recommendation |
 |---|---|---|
-| **Q1** | SSG on the current stack, or migrate to Nuxt? | **SSG.** `vite-ssg@28` supports Vite 8 and vue-router 5. Keeps all components, real HTML per route for SEO and link previews, still deploys as static files. Nuxt only if Insights becomes a real content operation. |
-| **Q2** | "Contact us" on every primary CTA, or only the Home slideshow button? | **Standardise the primary CTA**, keep contextual ones ("See the portfolio", "View Capability"). |
-| **Q3** | Sectors — 7 pages or 1 page with 7 blocks? | **One page for launch.** Far less copy to write; splits later without breaking URLs if slugs are planned now. |
+| ~~Q1~~ | **ANSWERED — SSG.** | **SSG.** `vite-ssg@28` supports Vite 8 and vue-router 5. Keeps all components, real HTML per route for SEO and link previews, still deploys as static files. Nuxt only if Insights becomes a real content operation. |
+| ~~Q2~~ | **ANSWERED — standardised.** | **Standardise the primary CTA**, keep contextual ones ("See the portfolio", "View Capability"). |
+| ~~Q3~~ | **ANSWERED — one page**, slugs reserved. | **One page for launch.** Far less copy to write; splits later without breaking URLs if slugs are planned now. |
 | **Q4** | Enquiry-form backend — Formspree, Netlify Forms, or client host? | Affects where we deploy. Needs answering before P5. |
-| **Q5** | Three departments or the IA's five services? | **Five.** The IA asks for it and the org chart corroborates it. |
+| ~~Q5~~ | **ANSWERED — five services** (Phase 2). | **Five.** The IA asks for it and the org chart corroborates it. |
 | **Q6** | Confirm the missing fourth HOD on the org chart | Client question. |
 
 ---
