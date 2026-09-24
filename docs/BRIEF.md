@@ -165,6 +165,87 @@ steelwork, prefabricated warehouse systems and bridge structures.
 - **Water Supply & Irrigation Scheme**, Ifakara, Kilombero District, Morogoro —
   Kilombero Plantation Ltd
 
+### 5.1 Scope of each commission, as worded in the profile
+
+Added 2026-09-23 from `tekres/_extract/doc.txt` lines 212–309 (the Word profile's project
+list), because §5 above summarised several scopes away. This is the authority for the
+"services delivered" line on each project page.
+
+| Project | Scope as the profile words it |
+|---|---|
+| TRA ITA Hotel Accommodation, Mikocheni | Design and construction supervision |
+| TRA Regional Office, Tanga | Design and construction supervision of the rehabilitation |
+| Uganda High Commission, Dodoma | Design |
+| Referral and Teaching College Hospital, Zanzibar | Design |
+| Kibong'oto Hospital New Laboratory | Design and construction supervision |
+| ZMT workshop, service building and hardstand | Design and construction supervision |
+| Tobacco Processing Plant expansion, Morogoro | *not stated* |
+| Royal Soap Industrial Building | Design and construction supervision |
+| Residential Apartments, Oysterbay | Design and construction supervision |
+| MSD Storage Warehouse, Keko | Design and construction supervision |
+| MSD Storage Warehouse, Mbeya | Design and construction supervision |
+| Storage Warehouse, Kigali | Design and construction supervision |
+| Bulk Loading System, Lafarge Cement Factory, Mbeya | Design and construction supervision |
+| 55m span steelwork structure, Coca-Cola Road | *not stated* |
+| New Nanyumbu Bus Terminal | *not stated* |
+| Zimbili Bridge | Feasibility study, design and construction supervision |
+| Ulongoni Bridge | Feasibility study, design and construction supervision |
+| TIPER Gantry Production Centre hardstand | Feasibility study, detailed design and construction supervision. The source reads "covering a total area of **xxxx**" — the area is a placeholder in the profile itself |
+| Rau Bridge, Moshi | Feasibility study, detailed engineering design and preparation of tender documents. Along the Rau Madukani, Mamboleo, Materuni Road |
+| New Mpanda Bus Terminal | Design and construction supervision |
+| Wenda–Mgama Road (19 km) and Mtili–Ifwagi–Mkuta Road (14 km) | Feasibility study, detailed engineering design and preparation of tender documents. Both in the **Ihemi Cluster** |
+| Furahisha Pedestrian Flyover, Mwanza | Design and construction supervision, in association with Advanced Engineering Solutions Ltd |
+| Matomondo–Mlale Road (23 km), Songea District | Feasibility study, ESIA, detailed engineering design and preparation of tender documents, in association with Advanced Engineering Solutions Ltd |
+| Mnekezi–Lwamgasa road diversion (8.6 km) | Design and construction supervision. Along the Katoro–Lwamgasa road |
+| Helipad, Mnekezi Village | Design and construction supervision |
+| 150 ML Water Reservoir, New Luika | Design and construction supervision |
+| 350 ML Masonry Water Dam, New Luika | Design and construction supervision |
+| TSF2 Phases 1, 2A and 2B, New Luika | Design review and construction supervision |
+| TSF2 Phase 3, New Luika | Design and construction supervision |
+| TSF2 Phase 3B, New Luika | Construction supervision |
+| Energy dissipater, TSF2, New Luika | Design and construction supervision |
+| TSF2 Cell 1, Cell 2 and Cell 2 Phase 2, Mnekezi | Design and construction supervision |
+| TSF1, Ikungi, Singida Region | Phase 1 design and construction supervision; Phase 2 construction supervision |
+| TSF1 Phase 1, Matongo, Tarime District | Design and construction supervision |
+| TSF1, Mwaoga Village, Chunya District | Design review and construction supervision |
+| River Nyamazovu relocation and training | Design and construction supervision |
+| Water Supply & Irrigation Scheme, Ifakara | Design and supervision of construction, including auxiliary structures |
+
+The profile's own framing of the mining and water work: "Designs, Design Reviews,
+Construction Supervision and Structural Audits" of TSFs and auxiliary infrastructure,
+water dams, irrigation and the training of water courses.
+
+> **Not in either source, for any project:** year, completion status, and (except
+> TRA ITA) contract value. These are client inputs — the site marks them `TBC`.
+
+### 5.2 Additions from the designed PDF (pp. 16–42)
+
+Added 2026-09-23. The designed profile (`Teknicon Revised Profile Jul 26.pdf`) is newer
+than the Word file and says more on several projects. **Where the two differ, the PDF
+wins.** Each fact below is on the page cited.
+
+| Project | The PDF adds | Page |
+|---|---|---|
+| Referral and Teaching College Hospital | "at Biguni in Zanzibar" (the rendering spells it Binguni) | 17 |
+| Tobacco Processing Plant expansion | Scope: design and construction supervision of the expansion | 18 |
+| Kibong'oto Hospital New Laboratory | Location: Kilimanjaro Region | 18 |
+| Lafarge, Mbeya | It is a bulk **cement** loading system | 19 |
+| Royal Soap Industrial Building | Client: **METL**. Location: **Ubungo**, Dar es Salaam | 20 |
+| 55m span steelwork, Coca-Cola Road | Scope: design and construction supervision | 22 |
+| MSD Storage Warehouse, Mbeya | Funded by USAID **and the Global Fund** | 23 |
+| TIPER hardstand | Location: TIPER yards in Dar es Salaam. The "xxxx" area clause is gone | 24 |
+| New Nanyumbu Bus Terminal | Scope: design and construction supervision | 24 |
+| New Mpanda Bus Terminal | Client written "Mpanda **Municipal** Council" (Word: "Mpanda **Town** Municipal Council") — site keeps the Word form; confirm with client | 26 |
+| All New Luika Gold Mine projects | Location: **Songwe Region** | 29–35 |
+| 350 ML Masonry Water Dam | "Across Luika River" | 30 |
+
+Still in **neither** source: project years, completion status, contract values (except
+TRA ITA), case-study narratives, and the clients of the Oysterbay apartments, the Lafarge
+loading system, the Furahisha flyover and the Matomondo–Mlale road.
+
+The PDF's project pages also carry roughly two photographs per project, several at
+higher resolution than the Word-file copies — a source for the project galleries.
+
 ## 6. Key personnel (14 listed)
 
 | # | Name | Profession | Countries | Experience |

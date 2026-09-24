@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import Reveal from './ui/Reveal.vue'
-import { company, contactPage } from '../data/content.js'
+import { company, contactPage, filled } from '../data/content.js'
 
 /*
   IA section 7 — the contact page body: office address, telephone, email, working
@@ -19,24 +19,51 @@ const mapSrc =
   `https://www.google.com/maps?output=embed&q=${encodeURIComponent(contactPage.mapQuery)}`
 
 /*
-  TODO P5-1 — the enquiry form HAS NO BACKEND and must not pretend to have one.
+  P5-1 — the enquiry form posts to `contactPage.form.endpoint` in content.js.
 
-  ROADMAP.md section 7, Q4 (Formspree / Netlify Forms / client host) is still open,
-  so `onSubmit` does nothing but reveal the mailto fallback. To wire it up, all five
-  of these are required:
-    1. Decide the endpoint (Q4) — it also decides where the site is deployed.
-    2. Post the field values to it (form `action`/`method`, or fetch() from onSubmit).
-    3. Replace the single inline notice with real idle / sending / sent / failed
-       states, and keep the mailto fallback for the failed case.
-    4. Add spam protection — a honeypot field plus whatever the provider supplies.
-    5. Confirm with the client which mailbox receives the submissions, and say so
-       on the page.
-  Until every one of those is done this handler must keep telling the visitor to
-  email directly. Do not replace the notice with a "Thank you, message sent".
+  While that is still a placeholder the form has NO backend and must not pretend to
+  have one: submitting only reveals the "email us directly" notice. Once it holds a URL
+  the form sends for real, with honest sending / sent / failed states and the mailto
+  fallback kept for the failure case.
+
+    · The POST is FormData with `Accept: application/json`, the convention Formspree,
+      Getform and Basin all follow, and any 2xx counts as sent.
+    · `action` + `method` are also set on the <form>, so with JavaScript unavailable
+      the browser still posts it natively.
+    · Spam: a honeypot field named `_gotcha` (Formspree's own name for it), hidden
+      from people and from assistive tech. A bot that fills it is told "sent" and
+      nothing is posted.
+    · Still to do by the client: confirm which mailbox receives submissions (it is
+      configured at the provider, not here) — ROADMAP Q4.
 */
-const showFallback = ref(false)
-function onSubmit () {
-  showFallback.value = true
+const endpoint = filled(contactPage.form.endpoint) ? contactPage.form.endpoint : ''
+const state = ref('idle')   // idle | offline | sending | sent | failed
+
+async function onSubmit (event) {
+  if (!endpoint) {
+    state.value = 'offline'
+    return
+  }
+  const form = event.target
+  const data = new FormData(form)
+  if (data.get('_gotcha')) {
+    state.value = 'sent'
+    return
+  }
+  data.delete('_gotcha')
+  state.value = 'sending'
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' }
+    })
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    state.value = 'sent'
+    form.reset()
+  } catch {
+    state.value = 'failed'
+  }
 }
 
 /* Browser autofill hints, keyed to the field names in contactPage.form.fields. */
@@ -85,7 +112,17 @@ const autocompleteFor = {
         <Reveal class="cb__formcol" variant="fade" :delay="100">
           <h2 class="cb__h">{{ contactPage.form.heading }}</h2>
 
-          <form class="cb__form" @submit.prevent="onSubmit">
+          <form
+            class="cb__form"
+            :action="endpoint || undefined"
+            :method="endpoint ? 'post' : undefined"
+            @submit.prevent="onSubmit"
+          >
+            <!-- honeypot: invisible to people and to assistive tech; see onSubmit -->
+            <div class="cb__trap" aria-hidden="true">
+              <label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+            </div>
+
             <div
               v-for="field in contactPage.form.fields"
               :key="field.name"
@@ -117,8 +154,8 @@ const autocompleteFor = {
             <p class="cb__reqnote"><span aria-hidden="true">*</span> Required field.</p>
 
             <div class="cb__foot">
-              <button type="submit" class="btn btn--arrow">
-                <span class="btn__label">{{ contactPage.form.submit }}</span>
+              <button type="submit" class="btn btn--arrow" :disabled="state === 'sending'">
+                <span class="btn__label">{{ state === 'sending' ? contactPage.form.sending : contactPage.form.submit }}</span>
                 <svg
                   class="btn__arrow"
                   viewBox="0 0 16 12"
@@ -133,10 +170,17 @@ const autocompleteFor = {
               <!-- Live region is always in the DOM so the notice is announced when
                    it appears, rather than being inserted unnoticed. -->
               <div class="cb__status" role="status" aria-live="polite">
-                <p v-if="showFallback" class="cb__notice">
-                  This form is not connected yet, so nothing has been sent. Please email
+                <p v-if="state === 'offline'" class="cb__notice">
+                  {{ contactPage.form.offline }}
                   <a :href="`mailto:${company.email}`">{{ company.email }}</a>
-                  directly and include the details above.
+                  {{ contactPage.form.offlineAfter }}
+                </p>
+                <p v-else-if="state === 'sent'" class="cb__notice cb__notice--ok">
+                  {{ contactPage.form.sent }}
+                </p>
+                <p v-else-if="state === 'failed'" class="cb__notice">
+                  {{ contactPage.form.failed }}
+                  <a :href="`mailto:${company.email}`">{{ company.email }}</a>.
                 </p>
               </div>
             </div>
@@ -303,12 +347,24 @@ const autocompleteFor = {
   line-height: 1.55em;
   color: var(--c-text);
 }
+.cb__notice--ok { border-left-color: var(--c-brand-navy); }
 .cb__notice a {
   font-weight: 700;
   color: var(--c-link);
   overflow-wrap: anywhere;
 }
 .cb__notice a:hover { color: var(--c-hover); }
+
+/* the honeypot: out of the layout and out of reach, but still submitted */
+.cb__trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.cb__form .btn[disabled] { opacity: .6; cursor: progress; }
 
 /* ----------------------------------------------------------------- map */
 

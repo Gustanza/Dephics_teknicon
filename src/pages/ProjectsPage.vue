@@ -1,12 +1,14 @@
 <script setup>
 import PageHero from '../components/PageHero.vue'
-import Projects from '../components/Projects.vue'
+import CaseStudies from '../components/CaseStudies.vue'
+import ProjectRegister from '../components/ProjectRegister.vue'
 import Clients from '../components/Clients.vue'
 import SplitCta from '../components/SplitCta.vue'
 </script>
 
 <template>
-  <!-- IA section 4. Phase 3 adds filters and individual project pages. -->
+  <!-- IA section 4: featured case studies, then the full register with filters. Every
+       project links to its own page at /projects/<slug> (ProjectPage.vue). -->
   <PageHero
     eyebrow="Projects"
     :lines="['Proven on', 'the ground']"
@@ -15,7 +17,8 @@ import SplitCta from '../components/SplitCta.vue'
     :w="1367"
     :h="771"
   />
-  <Projects />
+  <CaseStudies />
+  <ProjectRegister />
   <Clients />
   <SplitCta />
 </template>

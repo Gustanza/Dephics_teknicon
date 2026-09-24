@@ -1,14 +1,18 @@
 <script setup>
 import { computed } from 'vue'
 import Button from './ui/Button.vue'
-
-/* `teaser` renders the Home-page subset with a link onward to the full page. Six of the
-   nine cards, so the grid still fills two complete rows of three. */
-const props = defineProps({ teaser: { type: Boolean, default: false } })
-const shown = computed(() => (props.teaser ? projects.items.slice(0, 6) : projects.items))
 import Reveal from './ui/Reveal.vue'
 import SectionHeading from './ui/SectionHeading.vue'
+import ProjectCard from './ProjectCard.vue'
 import { projects } from '../data/content.js'
+import { projectBySlug } from '../data/lookup.js'
+
+/* The photographed projects, in `projects.featured` order, each linking to its own page.
+   `teaser` renders the Home-page subset with a link onward to the full page — six, so
+   the grid still fills two complete rows of three. */
+const props = defineProps({ teaser: { type: Boolean, default: false } })
+const featured = projects.featured.map((slug) => projectBySlug[slug])
+const shown = computed(() => (props.teaser ? featured.slice(0, 6) : featured))
 </script>
 
 <template>
@@ -31,27 +35,11 @@ import { projects } from '../data/content.js'
       <ul class="prj__grid">
         <Reveal
           v-for="(item, i) in shown"
-          :key="item.title"
+          :key="item.slug"
           as="li"
-          class="prj"
           :delay="(i % 3) * 100"
         >
-          <!-- the letterboxed sources get a 16/9 frame instead of a 4:3 crop -->
-          <div class="prj__thumb" :class="{ 'prj__thumb--wide': item.wide }">
-            <img
-              :class="{ 'is-cropped': item.crop }"
-              :src="item.image"
-              :alt="item.alt"
-              loading="lazy"
-              :width="item.w"
-              :height="item.h"
-            />
-          </div>
-          <div class="prj__info">
-            <span class="prj__cat">{{ item.category }}</span>
-            <h3 class="prj__title">{{ item.title }}</h3>
-            <p class="prj__client">{{ item.client }}</p>
-          </div>
+          <ProjectCard :project="item" />
         </Reveal>
       </ul>
 
@@ -90,79 +78,15 @@ import { projects } from '../data/content.js'
   margin-top: var(--space-medium);
 }
 
-.prj { background-color: var(--c-bg-alt); }
-
-.prj__thumb {
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  background-color: var(--c-bg-alt-h);
-}
-.prj__thumb--wide { aspect-ratio: 16 / 9; }
-
-.prj__thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.01);
-  transition: transform var(--dur) var(--ease);
-  will-change: transform;
-}
-.prj:hover .prj__thumb img { transform: scale(1.07); }
-
-/* Several source photographs carry an orange camera date stamp burnt into the
-   lower right corner. Over-size the image box and anchor it top-left so the
-   overflow — and the stamp with it — is clipped away. */
-.prj__thumb img.is-cropped {
-  width: 126%;
-  height: 126%;
-  max-width: none;
-  transform-origin: 0 0;
-  transform: scale(1);
-}
-.prj:hover .prj__thumb img.is-cropped { transform: scale(1.05); }
-
-.prj__info { padding: 27px 30px 32px; }
-
-/* §11.4 — the same semantic slot as .svc__tag, so the same spec: 17px / 400,
-   sentence case. Tracked caps stay with the eyebrow. */
-.prj__cat {
-  display: block;
-  font-size: 17px;
-  line-height: 1.5em;
-  font-weight: 400;
-  letter-spacing: 0;
-  color: var(--c-text);
-}
-
-.prj__title {
-  margin: .15em 0 0;
-  font-size: clamp(19px, 17.5px + .2vw, 20px);
-  line-height: 1.2em;
-  letter-spacing: -.5px;
-  transition: color var(--dur) var(--ease);
-}
-@media (min-width: 1280px) {
-  .prj__title { font-size: var(--h5-size); line-height: 1.2em; }
-}
-
-.prj__client {
-  margin: 12px 0 0;
-  font-size: 15px;
-  line-height: 1.5em;
-  color: var(--c-text-light);
-}
-
 @media (max-width: 1023px) {
   .prj__head { grid-template-columns: 1fr; }
   .prj__footnote { margin-bottom: 0; }
 
-.prj__grid { grid-template-columns: repeat(2, 1fr); }
-  .prj__info { padding: 22px 24px 26px; }
+  .prj__grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 639px) {
-
-.prj__grid { grid-template-columns: 1fr; }
+  .prj__grid { grid-template-columns: 1fr; }
   .prj__footnote { font-size: 17px; letter-spacing: 0; }
 }
 </style>

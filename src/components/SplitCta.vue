@@ -24,6 +24,7 @@ import { splitCta } from '../data/content.js'
           class="cta__btn"
           variant="navy"
           size="sm"
+          :to="panel.button.to"
           :href="panel.button.href"
           :label="panel.button.label"
           :arrow="false"

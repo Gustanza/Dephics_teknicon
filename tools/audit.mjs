@@ -1,8 +1,13 @@
 import { chromium } from 'playwright'
+import { staticPaths } from '../src/data/lookup.js'
 
 const BASE = process.argv[2] || 'http://localhost:4173'
-const ROUTES = ['/', '/about', '/services', '/projects', '/sectors', '/insights', '/contact']
+// every prerendered path, from the same list vite.config.js hands to vite-ssg
+const ROUTES = staticPaths
 const KNOWN_ROUTES = new Set([...ROUTES])
+// ids present on each page, and every internal link that points at one — checked at the end
+const idsByRoute = new Map()
+const hashLinks = []
 
 const problems = []
 const note = (route, kind, msg) => problems.push({ route, kind, msg })
@@ -93,6 +98,7 @@ for (const route of ROUTES) {
       .filter((f) => !f.closest('article,aside,main,nav,section')).length
 
     return {
+      allIds: Object.keys(ids),
       title: document.title,
       h1s, headings, skips, dupIds, dupEyebrow,
       internal: [...new Set(internal)], external, empty,
@@ -120,11 +126,16 @@ for (const route of ROUTES) {
     if (i.alt === null && !i.hidden) note(route, 'ALT', `no alt and not aria-hidden: ${i.src}`)
     if (!i.dims) note(route, 'CLS', `no width/height: ${i.src}`)
   }
+  idsByRoute.set(route, new Set(data.allIds))
   for (const h of data.internal) {
     // static files under /downloads are real assets, not routes — check-assets.mjs
     // already guarantees they exist, so only flag them if the request actually failed
     if (h.startsWith('/downloads/')) continue
-    if (!KNOWN_ROUTES.has(h)) note(route, 'DEAD-INTERNAL-LINK', h)
+    // /projects?sector=mining#register -> path /projects, hash register
+    const [pathAndQuery, hash] = h.split('#')
+    const path = pathAndQuery.split('?')[0]
+    if (!KNOWN_ROUTES.has(path)) note(route, 'DEAD-INTERNAL-LINK', h)
+    else if (hash) hashLinks.push({ from: route, path, hash, href: h })
   }
   for (const e of data.external) {
     if (e.target !== '_blank') note(route, 'EXTERNAL-TARGET', `${e.href} (${e.text})`)
@@ -138,13 +149,19 @@ for (const route of ROUTES) {
   for (const f of failedReqs) note(route, 'FAILED-REQUEST', f)
 
   console.log(
-    route.padEnd(11) +
+    route.slice(0, 44).padEnd(45) +
     `words:${String(data.bodyWords).padStart(4)}  h1:${data.h1s.length}  headings:${String(data.headings.length).padStart(2)}  ` +
     `imgs:${String(data.imgs.length).padStart(2)}  links:${String(data.internal.length + data.external.length).padStart(2)}  ` +
     `og:${String(data.ogImage || '-').slice(0, 26)}`
   )
 
   await page.close()
+}
+
+// every #anchor link must land on an element that exists on the target page
+for (const l of hashLinks) {
+  const ids = idsByRoute.get(l.path)
+  if (ids && !ids.has(l.hash)) note(l.from, 'DEAD-ANCHOR', `${l.href} (no #${l.hash} on ${l.path})`)
 }
 
 console.log('\n' + '='.repeat(76))
@@ -157,7 +174,7 @@ if (!problems.length) {
   for (const [kind, list] of Object.entries(byKind).sort((a, b) => b[1].length - a[1].length)) {
     console.log(`${kind}  (${list.length})`)
     const shown = list.slice(0, 6)
-    for (const p of shown) console.log(`    ${p.route.padEnd(11)} ${p.msg}`)
+    for (const p of shown) console.log(`    ${p.route.padEnd(30)} ${p.msg}`)
     if (list.length > shown.length) console.log(`    ... and ${list.length - shown.length} more`)
   }
 }

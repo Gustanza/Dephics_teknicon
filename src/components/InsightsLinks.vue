@@ -78,10 +78,6 @@ const OUTBOUND = 'M10 6H6.5A1.5 1.5 0 0 0 5 7.5v10A1.5 1.5 0 0 0 6.5 19h10a1.5 1
           </li>
         </ul>
       </Reveal>
-
-      <Reveal class="il__closing" variant="fade">
-        {{ insights.note }}
-      </Reveal>
     </div>
   </section>
 </template>
@@ -178,15 +174,6 @@ const OUTBOUND = 'M10 6H6.5A1.5 1.5 0 0 0 5 7.5v10A1.5 1.5 0 0 0 6.5 19h10a1.5 1
 
 /* ------------------------------------------------------------- closing */
 
-.il__closing {
-  max-width: 62ch;
-  margin-top: var(--space-medium);
-  padding-top: 20px;
-  border-top: 1px solid var(--c-bd);
-  font-size: 15px;
-  line-height: 1.6em;
-  color: var(--c-text-light);
-}
 
 /* ---------------------------------------------------------- responsive */
 

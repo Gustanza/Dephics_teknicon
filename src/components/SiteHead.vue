@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useHead } from '@unhead/vue'
-import { absolute, SITE } from '../router/routes.js'
+import { absolute, headFor, SITE } from '../router/routes.js'
 
 /*
   Per-route <head>, driven entirely by the `meta` block in router/routes.js so the
@@ -24,7 +24,8 @@ import { absolute, SITE } from '../router/routes.js'
 const route = useRoute()
 
 const head = computed(() => {
-  const m = route.meta || {}
+  // detail routes compute their head from the data (routes.js, meta.head)
+  const m = headFor(route)
   const url = absolute(route.path)
   const image = m.image ? `${SITE}${m.image}` : null
 

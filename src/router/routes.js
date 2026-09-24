@@ -8,13 +8,16 @@
  * so titles, descriptions, canonicals and OG tags live in one table rather than being
  * scattered through the page components.
  *
- * Service and project detail routes are added in phases 2 and 3; their slugs are fixed
- * now so nothing has to be redirected later.
+ * Detail routes (/services/:slug, /projects/:slug) take their head from the data via
+ * `meta.head(params)`; vite.config.js enumerates every slug so each is prerendered.
  */
+import { filled, legal } from '../data/content.js'
+import { projectBySlug, projectName, serviceBySlug } from '../data/lookup.js'
 
 const SITE = 'https://www.teknicon.co.tz'
 const SUFFIX = 'Teknicon Ltd'
 const DEFAULT_OG = '/img/hero-tsf-embankment-luika.jpg'
+const NOT_FOUND = { title: `Page not found — ${SUFFIX}`, noindex: true }
 
 export const routes = [
   {
@@ -95,12 +98,91 @@ export const routes = [
     }
   },
   {
+    path: '/services/:slug',
+    name: 'service',
+    component: () => import('../pages/ServicePage.vue'),
+    meta: {
+      head: ({ slug }) => {
+        const s = serviceBySlug[slug]
+        if (!s) return null
+        return {
+          title: `${s.title} — ${SUFFIX}`,
+          description: s.overview[0],
+          image: s.image
+        }
+      }
+    }
+  },
+  {
+    path: '/projects/:slug',
+    name: 'project',
+    component: () => import('../pages/ProjectPage.vue'),
+    meta: {
+      head: ({ slug }) => {
+        const p = projectBySlug[slug]
+        if (!p) return null
+        const facts = [p.client, p.scope, ...p.facts].filter(filled).join('. ')
+        return {
+          title: `${projectName(p)} — ${SUFFIX}`,
+          description: `${projectName(p)}. ${facts}.`,
+          image: p.image ? p.image.src : DEFAULT_OG
+        }
+      }
+    }
+  },
+  {
+    path: '/privacy',
+    name: 'privacy',
+    component: () => import('../pages/LegalPage.vue'),
+    props: { doc: 'privacy' },
+    meta: {
+      title: `Privacy Policy — ${SUFFIX}`,
+      description: legal.privacy.lede,
+      image: DEFAULT_OG,
+      // not indexed until the client supplies the actual policy text
+      noindex: !filled(legal.privacy.body)
+    }
+  },
+  {
+    path: '/terms',
+    name: 'terms',
+    component: () => import('../pages/LegalPage.vue'),
+    props: { doc: 'terms' },
+    meta: {
+      title: `Terms of Use — ${SUFFIX}`,
+      description: legal.terms.lede,
+      image: DEFAULT_OG,
+      noindex: !filled(legal.terms.body)
+    }
+  },
+  /*
+    P1-12. vite-ssg cannot prerender the catch-all below (it has no concrete path), so
+    static hosts had no 404.html to serve. This named copy of the same page is
+    prerendered to dist/404.html; Netlify, Cloudflare Pages, GitHub Pages and Apache
+    (ErrorDocument 404 /404.html) all pick that file up. On the client, an unknown URL
+    still resolves to the catch-all, which renders the same component, so hydration
+    matches.
+  */
+  {
+    path: '/404',
+    name: 'not-found-static',
+    component: () => import('../pages/NotFoundPage.vue'),
+    meta: NOT_FOUND
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import('../pages/NotFoundPage.vue'),
-    meta: { title: `Page not found — ${SUFFIX}`, noindex: true }
+    meta: NOT_FOUND
   }
 ]
+
+/** Head fields for a route: the static `meta`, or `meta.head(params)` on detail routes. */
+export function headFor (route) {
+  const m = route.meta || {}
+  if (typeof m.head !== 'function') return m
+  return m.head(route.params || {}) || NOT_FOUND
+}
 
 /** Absolute URL for a route path — used for canonical and og:url. */
 export const absolute = (path) => `${SITE}${path === '/' ? '/' : path.replace(/\/$/, '')}`

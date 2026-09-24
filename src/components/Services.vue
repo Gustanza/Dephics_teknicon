@@ -3,10 +3,16 @@ import Button from './ui/Button.vue'
 import Reveal from './ui/Reveal.vue'
 import SectionHeading from './ui/SectionHeading.vue'
 import { services } from '../data/content.js'
+import { servicePath } from '../data/lookup.js'
 
-/* On the Home page all three cards stay — they are the core offer and cutting one would
-   misrepresent it. `teaser` only adds the link onward to the full Services page. */
-defineProps({ teaser: { type: Boolean, default: false } })
+/* Service cards, each linking to its own page. On Home (`teaser`) it is one row of
+   three — `services.home` in content.js — then the "All services" button (client
+   request, 2026-09-23). Without `teaser`, all five: 3 + 2, the short row centred, as
+   the theme centres its service cards (THEME_DNA §11.9). */
+const props = defineProps({ teaser: { type: Boolean, default: false } })
+const items = props.teaser
+  ? services.home.map((slug) => services.items.find((s) => s.slug === slug))
+  : services.items
 </script>
 
 <template>
@@ -24,7 +30,7 @@ defineProps({ teaser: { type: Boolean, default: false } })
 
       <ul class="svc__grid">
         <Reveal
-          v-for="(item, i) in services.items"
+          v-for="(item, i) in items"
           :key="item.title"
           as="li"
           class="svc"
@@ -50,7 +56,7 @@ defineProps({ teaser: { type: Boolean, default: false } })
           <p class="svc__body">{{ item.body }}</p>
 
           <div class="svc__info">
-            <Button :href="item.href" :label="item.link" size="sm" />
+            <Button :to="servicePath(item.slug)" :label="services.cardLink" size="sm" />
           </div>
         </Reveal>
       </ul>
@@ -66,11 +72,14 @@ defineProps({ teaser: { type: Boolean, default: false } })
 .svc__more { margin-top: var(--space-medium); text-align: center; }
 
 .svc__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* flex, not grid, so an incomplete last row centres instead of hugging the left */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--grid-gap);
   margin-top: var(--space-small);
 }
+.svc__grid > .svc { flex: 0 0 calc((100% - 2 * var(--grid-gap)) / 3); min-width: 0; }
 
 .svc {
   display: flex;
@@ -153,11 +162,10 @@ defineProps({ teaser: { type: Boolean, default: false } })
    image from the call to action. */
 .svc__info .btn { margin-top: 1.5em; }
 
-/* three cards in a two-column grid orphan the third at half width, so the grid
-   drops straight from 3-up to 1-up rather than through a ragged 2-up */
+/* 3-up down to 1024; below that the cards are too narrow for three, and a 2-up
+   would strand the fifth card, so it drops straight to one column */
 @media (max-width: 1023px) {
-
-.svc__grid { grid-template-columns: 1fr; }
+  .svc__grid > .svc { flex-basis: 100%; }
   .svc { padding: 1.9em; }
 }
 </style>

@@ -8,7 +8,9 @@
     "build": "node tools/check-assets.mjs && vite-ssg build",
     "preview": "vite preview",
     "build:spa": "vite build",
-    "check:assets": "node tools/check-assets.mjs"
+    "check:assets": "node tools/check-assets.mjs",
+    "placeholders": "node tools/placeholders.mjs",
+    "audit": "node tools/audit.mjs"
   },
   "dependencies": {
     "vite-ssg": "^28.3.0",

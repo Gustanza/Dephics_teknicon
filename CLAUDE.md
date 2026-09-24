@@ -41,6 +41,7 @@ Never reintroduce them. Never redraw the logo — official artwork is in `public
 ## Conventions
 
 - All content in `src/data/content.js` — no prose hardcoded in templates
+- Anything the client must supply is `TBC` / `tbc('what')` (from `src/data/tbc.js`), never guessed
 - All tokens in `src/style.css` `:root` — no magic colour values in components
 - Keep `docs/ROADMAP.md` updated **as part of the work**, not afterwards
 
@@ -50,5 +51,7 @@ Never reintroduce them. Never redraw the logo — official artwork is in `public
 npm run dev                                      # localhost:5173
 npm run build                                    # -> dist/
 npx vite preview --port 4173 --strictPort        # serve the build
+npm run audit && node tools/census.mjs           # verify (both must be clean)
+npm run placeholders                             # client content still TBC
 node tools/shoot.mjs <url> docs/ref/build build  # screenshots
 ```

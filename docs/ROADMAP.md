@@ -4,9 +4,10 @@
 If you are picking this up in a fresh session, read this file top to bottom before
 touching anything. Everything you need is either here or linked from here.
 
-- **Last updated:** 2026-09-22 (Phase 1 in progress)
-- **Current phase:** **Phase 1 complete.** 7 prerendered pages, all audited clean.
-- **Status:** go-ahead given; the six open questions were answered with the recommended defaults (see §4)
+- **Last updated:** 2026-09-23
+- **Current phase:** **Phases 1–6 built.** 51 prerendered pages, audit and census clean.
+  Everything still missing is client input, held as `TBC` placeholders — see §5a.
+- **Status:** waiting on the client for the placeholder content (§5a) and Q4 / Q6 (§7)
 
 ---
 
@@ -86,24 +87,42 @@ Vue 3.5 · Vite 8.2 · **vue-router 5.3** · **vite-ssg 28.3** (static prerender
 Playwright 1.62 for verification. No CSS framework.
 Tokens in `src/style.css`, all content in `src/data/content.js`.
 
-### Routes — 7 pages, each prerendered to static HTML
-`/` · `/about` · `/services` · `/projects` · `/sectors` · `/insights` · `/contact`
-plus a catch-all 404. Defined with their `<head>` meta in `src/router/routes.js`.
+### Routes — 51 pages, each prerendered to static HTML
+`/` · `/about` · `/services` · `/projects` · `/sectors` · `/insights` · `/contact` ·
+`/privacy` · `/terms` · `/404` (emitted as `dist/404.html`) · 5 × `/services/<slug>` ·
+36 × `/projects/<slug>`, plus a client-side catch-all. Defined in `src/router/routes.js`;
+detail routes take their `<head>` from the data via `meta.head(params)`. The list of
+paths to prerender is `staticPaths` in `src/data/lookup.js`, read by `vite.config.js`,
+`tools/audit.mjs` and `tools/census.mjs`, so a new project or service is picked up by
+all three automatically.
 
 `src/App.vue` is now a layout shell only: `SiteHead · SiteHeader · <RouterView> ·
 SiteFooter · ScrollTop`. Page composition lives in `src/pages/`.
 
 ### Page composition
-- **Home** — Hero · Credentials · HomeIntro · Services(teaser) · Projects(teaser) ·
-  SectorsList(teaser) · Counters · Clients · SplitCta
+- **Home** — Hero · Credentials · HomeIntro · Services(one row of 3 — `services.home` — then "All services") ·
+  Projects(teaser) · SectorsList(teaser) · Counters · Clients · SplitCta
 - **About** — PageHero · About · Vision · Quality · **OrgChart** · Licences · SplitCta
-- **Services / Projects / Sectors / Insights / Contact** — PageHero + their section(s)
+- **Services** — PageHero · ServicesIndex (5 ruled rows) · Quality · ConsultCta
+- **Service page** — PageHero · overview / scope / deliverables / sectors (split rows) ·
+  related projects · prev/next · ConsultCta
+- **Projects** — PageHero · CaseStudies (3) · ProjectRegister (36, filterable) · Clients · SplitCta
+- **Project page** — PageHero · sticky fact sheet + photo / case study / gallery / services
+  / sectors · similar work · ConsultCta
+- **Sectors** — PageHero · SectorsList (descriptions TBC, evidence linked to project pages)
+- **Insights** — PageHero · InsightsLinks · InsightsMore (downloads, news, careers)
+- **Contact** — PageHero · ContactBlock · **Privacy / Terms** — LegalPage
 
 ### Components
-`src/components/` — About, Clients, ContactBlock, Counters, Credentials, Hero, HomeIntro,
-InsightsLinks, Licences, OrgChart, PageHero, Projects, Quality, SectorsList, SiteFooter,
-SiteHead, SiteHeader, SplitCta, Vision
-`src/components/ui/` — Button (supports `to` for routes), Logo, Reveal, ScrollTop, SectionHeading
+`src/components/` — About, CaseStudies, Clients, ConsultCta, ContactBlock, Counters,
+Credentials, Hero, HomeIntro, InsightsLinks, InsightsMore, Licences, OrgChart, PageHero
+(image optional, breadcrumbs), ProjectCard, ProjectRegister, Projects, Quality,
+SectorsList, ServicesIndex, SiteFooter, SiteHead, SiteHeader, SplitCta, Vision
+`src/components/ui/` — Button (supports `to` for routes), Logo, Reveal, ScrollTop,
+SectionHeading, **Tbc** (the placeholder chip)
+`src/pages/` — adds ServicePage, ProjectPage, LegalPage
+`src/data/` — `content.js` (all copy), `tbc.js` (placeholders + launch switch),
+`lookup.js` (slug joins, filter options, `staticPaths`; throws on a dangling slug)
 `src/composables/useReveal.js` — one shared IntersectionObserver
 
 > **`Team.vue` is retired.** It published six named engineers, which conflicts with client
@@ -129,10 +148,14 @@ Official artwork supplied by the client, in `public/img/`:
 `logo-header.png` / `-white.png` (mark + wordmark, tagline removed).
 An earlier hand-traced SVG was wrong and has been deleted. **Never redraw the mark.**
 
-### Verified state as of last build
-0 non-`0`/`50%` border-radii · 0 box-shadows · one `<h1>` · all images have alt text ·
-no horizontal overflow at 360/390/768/1024/1280/1440/1920 · zero console messages ·
-zero failed requests · `prefers-reduced-motion` fully honoured · dist ≈ 3.5 MB.
+### Verified state as of last build (2026-09-23)
+`npm run audit` — NO PROBLEMS FOUND on all 51 pages (h1, heading order, ids, dead links,
+**dead #anchors** (new), external rel, images, CLS, labels, landmarks, SEO, console).
+`npm run census` — CLEAN: 0 non-`0`/`50%` radii, 0 box-shadows, no horizontal overflow
+at 360/390/768/1024/1280/1440/1920, all text ≥ AA. The census was proven against a
+canary element (1.92:1 grey, 6px radius, a shadow — all three caught).
+Filters, deep links, sector → register links and the form's offline state exercised in
+Chromium with zero console errors. dist ≈ 12 MB, of which 6.8 MB is the profile PDF.
 
 Two known contrast exceptions, both deliberate: `ab__dept-n` and `tm__index`, the ghost
 index numerals at 1.69:1. They are decorative, matching the theme's own ghost-numeral
@@ -171,10 +194,10 @@ Every round of client comments, with status. **Nothing here gets silently droppe
 ### Round C — Information Architecture (PDF + WhatsApp, 1:03–1:05 PM)
 | # | Comment | Status |
 |---|---|---|
-| C1 | **Nav must link to real pages, not in-page sections** | ⏳ Planned — Phase 1 |
-| C2 | "Request a Consultation" → **"Contact us"** | ⏳ Planned — **needs decision, see §7 Q2** |
-| C3 | Leadership shown as **positions, not individuals** — use the org chart | ⏳ Planned — **breaks the current Team section, see §5 P1-6** |
-| C4 | Insights = curated external links (ERB, IET, OSHA Tanzania, TANROADS, TARURA, FIDIC, TBS) | ⏳ Planned — Phase 1 |
+| C1 | **Nav must link to real pages, not in-page sections** | ✅ Done — Phase 1 |
+| C2 | "Request a Consultation" → **"Contact us"** | ✅ Done — P1-10 |
+| C3 | Leadership shown as **positions, not individuals** — use the org chart | ✅ Done — P1-6 |
+| C4 | Insights = curated external links (ERB, IET, OSHA Tanzania, TANROADS, TARURA, FIDIC, TBS) | ✅ Done — P1-9 |
 | C5 | Adopt information from the company profile; select projects as seen fit, then iterate | ✅ Accepted as standing authority |
 
 ---
@@ -197,6 +220,21 @@ Decisions already made, with reasoning, so they are not relitigated.
 | Team names published as individuals | ⚠️ **NOW REVERSED by C3** — must become positions |
 | Hover-pause removed from the hero section | The hero is ~full viewport, so a resting cursor froze autoplay permanently |
 | Nav order must match page order | The scroll-spy sorts by document position; a menu disagreeing with the page reads as broken |
+| **Missing client content is a visible `TBC` chip, never a guess** | Rule 1. One switch (`SHOW_PLACEHOLDERS` in `src/data/tbc.js`) hides every unfilled field for launch. The chip's dashed red border is a deliberate, temporary departure from the theme — nothing else on the site is dashed — so a gap can never pass for finished content |
+| **The designed PDF outranks the Word file** | Nine placeholders turned out to be answered in the PDF (scopes, locations, Royal Soap's client METL, Songwe Region for New Luika). BRIEF §5.2 records each with its page. Lesson: search BOTH sources before marking anything TBC |
+| Project scopes come from the profile's own list, not BRIEF §5's summary | BRIEF §5 had summarised several scopes away. The Word profile words them per project; transcribed into **BRIEF §5.1** before use |
+| A project with no photograph of its own gets **no** photograph | Borrowing another project's image is the REVIEW-1 defect. Imageless projects get the plain navy masthead and a typographic card |
+| Three dropped images restored for project pages | Ulongoni bridge (renamed `project-ulongoni-bridge.jpg`), ZMT terminal, energy dissipater — the dissipater's date stamp cropped out of the file itself |
+| TRA ITA hero alt corrected | It said "a completed … block"; the manifest records the frame as an architectural **rendering** |
+| Home services: one row of three cards, then "All services" | Client request (2026-09-23). Structural, Civil and Water/Dams/Mining — the first three of the IA's four Home highlights. Set in `services.home`. `/services` lists all five |
+| Service "typical deliverables" drawn only from outputs the profile names | P2-4 said "not in any source". Each line traces to BRIEF §3–§5 (calculations, GA drawings, tender documents, ESIA, progress reports, IPC review…). Client should still read them once |
+| Service overviews restate BRIEF §3–§4 | No new claims; the "front end of a commission" framing in Design & Consultancy is the only descriptive gloss |
+| Same-band sections collapse to one rhythm step | Two `.section`s on the same ground back to back gave 147 + 147 = 294px of empty colour (client flagged it under Home Services, 2026-09-23). A global rule in `style.css` drops the second one's top padding. Hit Home, `/services`, `/projects` and `/insights`; all now 147px |
+| Every project card uses one 4:3 photo frame | Client flagged ragged rows (2026-09-24): a 16:9 frame for letterboxed sources (TIPER, Mnekezi) made photos and text start at different heights. Now every photo in a row is the same height and every card in a row is the same height |
+| `/sectors`: aligned pairs, not a staggered register | The Phase 1 stagger (right column one rhythm step lower, THEME_DNA §4.3) compounded once descriptions made blocks uneven, and read as a bug (client, 2026-09-24). Now 01|02, 03|04… share a top line, and a CSS subgrid lines up head, description, list and link across each pair. No-subgrid browsers fall back to a plain stack per sector |
+| Footer headings promoted h3 → h2 | On pages without their own h2 (`/privacy`, `/404`) the footer skipped a level. Styling is by class, nothing moved |
+| Split-CTA buttons → real routes | `#contact` scrolled to the footer and `#clients` did not exist on most pages |
+| Consultation band uses red + navy buttons | The client's chosen brand pair (P0-1); an outline button hovers navy and vanishes on the dark band |
 
 ---
 
@@ -235,7 +273,7 @@ Status key: `[ ]` not started · `[~]` in progress · `[x]` done · `[!]` blocke
   see §6. The 14 named personnel stay in BRIEF §6 as internal reference only.*
 - [x] **P1-7** `OrgChart.vue` — native HTML, 1px hairline connectors, no image
 - [x] **P1-8** Footer restructured to the five IA parts; Services and Quick Links are derived from `content.js` so they stay in sync
-- [ ] **P1-12** Emit a `404.html` for static hosting (catch-all route is not prerendered)
+- [x] **P1-12** `dist/404.html` emitted — a named `/404` route renders the same page as the catch-all, so hydration matches
 - [x] **P1-9** `InsightsLinks.vue` — 7 links, `target="_blank"` + `rel="noopener noreferrer"`.
       6 of 7 returned HTTP 200; **IET is flagged `unverified` in the data** and needs a manual check.
 - [x] **P1-10** `primaryCta` = "Contact us"; header, hero and footer updated
@@ -325,44 +363,74 @@ offering `mailto:` instead, skip-link as first tab stop, and the 404 route rende
 
 ### P2 — Services
 
-- [?] **P2-1** Three departments or the IA's five services? — **see §7 Q5**
-- [ ] **P2-2** Services index page
-- [ ] **P2-3** Five service pages on the IA's fixed template: overview · scope of work ·
-      typical deliverables · relevant sectors · selected related projects · CTA
-- [ ] **P2-4** Write "typical deliverables" per service *(not in any source — needs drafting)*
+- [x] **P2-1** Five services (Q5)
+- [x] **P2-2** Services index page — `ServicesIndex.vue`
+- [x] **P2-3** Five service pages at `/services/<slug>` on the IA's fixed template
+- [x] **P2-4** Deliverables drafted **from source nouns only** (see §4). *Client to review once.*
 
 ### P3 — Projects
 
-- [ ] **P3-1** Projects index with filters (sector, service, location, status)
-- [ ] **P3-2** Select the launch project set from the profile *(authority granted in C5)*
-- [ ] **P3-3** Project detail template: client · location · year · services · value · gallery · related services
-- [ ] **P3-4** 2–3 featured case studies: challenge · scope · solution · facts · images · outcome
-      *[!] Blocked — this narrative does not exist in any source. Needs client interviews.*
+- [x] **P3-1** Register with filters — type tabs + sector, service, location; the status
+      filter appears by itself once any project has a status. State lives in the URL query
+- [x] **P3-2** Launch set = **all 36** projects in the profile
+- [x] **P3-3** `/projects/<slug>` — year, status, value and gallery are `TBC` for every project
+- [~] **P3-4** Case studies built (galleries filled from the PDF 2026-09-23) for TRA ITA, Zimbili Bridge and TSF2 New Luika — scope and
+      facts filled from source; **challenge / solution / outcome are TBC** (client interviews)
 
 ### P4 — Sectors
 
-- [?] **P4-1** Seven pages or one page with seven blocks? — **see §7 Q3**
-- [ ] **P4-2** Write seven sector descriptions *("sector" is not a concept in the profile)*
-- [ ] **P4-3** Build
+- [x] **P4-1** One page, seven blocks; anchors `/sectors#<slug>` reserve the slugs (Q3)
+- [x] **P4-2** Seven sector descriptions — written from BRIEF §5 projects only; client may reword
+- [x] **P4-3** Built — evidence lines link to project pages; "All projects in this sector (n)"
+      opens the register pre-filtered
 
 ### P5 — Contact & Legal
 
-- [?] **P5-1** Choose enquiry-form backend — **see §7 Q4**
+- [~] **P5-1** Form code is done: posts FormData to `contactPage.form.endpoint` with
+      sending / sent / failed states, a `_gotcha` honeypot and a native no-JS fallback.
+      **Endpoint is TBC** — paste a Formspree-style URL and it goes live (§7 Q4)
 - [x] **P5-2** Contact page built — address, phone, email, working hours
 - [x] **P5-3** Google Maps `<iframe>` (no API key needed); verified it resolves to NATAI PLAZA
-- [!] **P5-4** Form markup built with real labels — **deliberately inert.** On submit it tells
-      the visitor to email directly rather than faking a send. Blocked on P5-1.
-- [ ] **P5-5** Privacy Policy *(needs drafting, arguably legal input)*
-- [ ] **P5-6** Terms of Use *(same)*
+- [x] **P5-4** Until the endpoint exists it still tells the visitor to email directly — never fakes a send
+- [~] **P5-5** `/privacy` — drafted 2026-09-23 from what the site actually does. **Needs client / legal approval**
+- [~] **P5-6** `/terms` — drafted, standard informational-site terms. **Needs client / legal approval**
 
 ### P6 — Later
 
-- [ ] **P6-1** Insights: News & Updates
-- [ ] **P6-2** Insights: Publications / Downloads
-- [ ] **P6-3** Insights: Careers
-- [ ] **P6-4** Image compression pass before launch (`tools/optimize_images.py`)
+- [~] **P6-1** News & Updates — block built, items TBC; hidden entirely when placeholders are off
+- [x] **P6-2** Publications / Downloads — ships with the company profile; further downloads TBC
+- [~] **P6-3** Careers — block built, TBC; set `items: []` to say "no open positions"
+- [x] **P6-4** Already done — every photo is JPEG, largest 396 KB, `public/img` 3.9 MB.
+      (The "needs compression" flags left in `image-manifest.json` are stale.)
 
----
+### 5a. Placeholders — what the client still has to supply
+
+**2026-09-23: the client asked for no "To be confirmed" boxes anywhere.** Done in two parts:
+
+1. **Filled from the sources** — everything that had one:
+   - 54 photographs from the designed PDF (pp. 16–42), each viewed and matched to its
+     caption: 35 of 36 projects now have a main photo (Mtili–Ifwagi–Mkuta shares its
+     only photo with Wenda–Mgama, so has none), 12 have galleries. `public/img/projects/`,
+     listed in `image-manifest.json` → `projectsFromPdf`. None carries a date stamp.
+   - 9 project facts from the PDF (BRIEF §5.2).
+   - 7 sector descriptions, written only from the projects named in BRIEF §5.
+   - Privacy Policy and Terms of Use — **drafted, not legally reviewed.** The privacy text
+     states only what the site actually does. Client (ideally with legal advice) to approve.
+2. **Hidden** — `SHOW_PLACEHOLDERS = false` in `src/data/tbc.js`. What no source contains
+   is not invented; it simply does not render until it is supplied.
+
+Still needed from the client (`npm run placeholders` — 128 on 2026-09-23), none visible:
+
+| What | Where in `content.js` | Count |
+|---|---|---|
+| Project **year**, **status**, **value** (value only if publishable — else `null`) | `projectList[*]` | 36 · 36 · 35 |
+| Case-study **challenge / solution / outcome** | `projectList[*].caseStudy` | 3 × 3 |
+| Clients named in neither source | Oysterbay, Lafarge, Furahisha, Matomondo–Mlale | 4 |
+| Social media URLs (footer Follow block appears once one is real) | `footer.columns[Follow]` | 4 |
+| Form endpoint (Q4) — until then the form tells visitors to email | `contactPage.form.endpoint` | 1 |
+| News items, careers, further downloads | `insights` | 3 |
+
+To review gaps visually, set `SHOW_PLACEHOLDERS = true` locally — the chips come back.
 
 ## 6. Content & asset register
 
@@ -395,7 +463,7 @@ Board of Directors
 ### Still missing — needs the client
 | Item | Notes |
 |---|---|
-| Social media handles | Footer links are `#` placeholders right now |
+| Social media handles | `TBC` in `content.js`; the Follow block stays hidden until one is filled |
 | Project **years** and **locations** | Almost entirely absent from both source documents |
 | Case-study narratives | Challenge / solution / outcome exist nowhere — needs interviews |
 | Mission & Values | Profile has **Vision only** |
@@ -447,8 +515,11 @@ Three images were removed from the build when the hero changed and are recoverab
 ### Commands
 ```bash
 npm run dev                                     # localhost:5173
-npm run build                                   # -> dist/
+npm run build                                   # -> dist/ (runs check-assets first)
 npx vite preview --port 4173 --strictPort       # serve the build
+npm run audit                                   # structural audit, all 51 pages
+node tools/census.mjs                           # radius / shadow / overflow / contrast
+npm run placeholders                            # every TBC still outstanding (-- --all)
 node tools/shoot.mjs <url> docs/ref/build build # screenshot tiles + full page + mobile
 python tools/optimize_images.py --dry-run       # image compression preview
 ```

@@ -11,10 +11,10 @@
   in mining" into "TSF2 Phases 1 to 3B, New Luika Gold Mine". So they are set at body
   size on their own ruled lines, not shrunk into a caption.
 
-  Layout follows the theme's asymmetry vocabulary (THEME_DNA §11.9) rather than seven
-  identical stacked panels: an unequal head row, then a two-column register in which
-  the right-hand column is dropped by one --space-medium step — the same deliberate
-  non-baseline-aligned offset the theme uses for its staggered card pairs (§4.3).
+  Layout: an unequal head row (THEME_DNA §11.9), then a two-column register of aligned
+  pairs — 01 beside 02, 03 beside 04. It used to stagger the right column one rhythm
+  step down (§4.3), but once the sector descriptions went in the blocks varied so much
+  in height that the offset compounded row by row and read as a bug (client, 2026-09-24).
   Nothing is a box: entries are separated by 1px rules and a tonal step only (§11.2).
 */
 /* `hideHeading` is set by the page that already opens with a PageHero. The PageHero
@@ -28,7 +28,13 @@ defineProps({
 
 import Reveal from './ui/Reveal.vue'
 import SectionHeading from './ui/SectionHeading.vue'
-import { sectors } from '../data/content.js'
+import Tbc from './ui/Tbc.vue'
+import { sectors, shown } from '../data/content.js'
+import { projectBySlug, projectName, projectPath, projectsInSector, sectorPath } from '../data/lookup.js'
+
+/* "All N projects in this sector" opens the register pre-filtered (ProjectRegister.vue
+   reads the query) and scrolled to it. */
+const allLink = (slug) => ({ path: '/projects', query: { sector: slug }, hash: '#register' })
 </script>
 
 <template>
@@ -64,8 +70,10 @@ import { sectors } from '../data/content.js'
           class="sl__cell"
           :delay="(i % 4) * 100"
         >
-          <span class="sl__cell-n" aria-hidden="true">{{ s.n }}</span>
-          <span class="sl__cell-name">{{ s.name }}</span>
+          <RouterLink class="sl__cell-link" :to="sectorPath(s.slug)">
+            <span class="sl__cell-n" aria-hidden="true">{{ s.n }}</span>
+            <span class="sl__cell-name">{{ s.name }}</span>
+          </RouterLink>
         </Reveal>
         <!--
           Seven names in a four-up grid leave a three-cell final row. An eighth empty
@@ -80,6 +88,7 @@ import { sectors } from '../data/content.js'
       <ul v-else class="sl__register">
         <Reveal
           v-for="(s, i) in sectors.items"
+          :id="s.slug"
           :key="s.n"
           as="li"
           class="sec"
@@ -87,13 +96,28 @@ import { sectors } from '../data/content.js'
         >
           <div class="sec__head">
             <span class="sec__n" aria-hidden="true">{{ s.n }}</span>
-            <component :is="hideHeading ? 'h2' : 'h3'" :id="`sector-${s.n}`" class="sec__name">{{ s.name }}</component>
+            <component :is="hideHeading ? 'h2' : 'h3'" :id="`sector-${s.slug}`" class="sec__name">{{ s.name }}</component>
+          </div>
+
+          <!-- P4-2: the write-up has to come from the client; until then a placeholder -->
+          <div v-if="shown(s.description)" class="sec__desc">
+            <Tbc :value="s.description" block v-slot="{ value }"><p>{{ value }}</p></Tbc>
           </div>
 
           <!-- labelled by the sector name, so the list needs no invented heading -->
-          <ul class="sec__ev" :aria-labelledby="`sector-${s.n}`">
-            <li v-for="e in s.evidence" :key="e" class="sec__ev-item">{{ e }}</li>
+          <ul class="sec__ev" :aria-labelledby="`sector-${s.slug}`">
+            <li v-for="e in s.evidence" :key="e" class="sec__ev-item">
+              <RouterLink :to="projectPath(e)">{{ projectName(projectBySlug[e]) }}</RouterLink>
+            </li>
           </ul>
+
+          <RouterLink class="sl__link sec__all" :to="allLink(s.slug)">
+            <span>{{ sectors.allLink }} ({{ projectsInSector(s.slug).length }})</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </RouterLink>
         </Reveal>
       </ul>
     </div>
@@ -164,6 +188,15 @@ import { sectors } from '../data/content.js'
 .sl__cell:nth-child(4n + 1) { padding-left: 0; }
 .sl__cell:not(.sl__cell--empty):hover { background-color: var(--c-bg); }
 
+.sl__cell-link {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sl__cell-link:hover .sl__cell-name,
+.sl__cell-link:focus-visible .sl__cell-name { color: var(--c-link); }
+.sl__cell-name { transition: color var(--dur) var(--ease); }
+
 .sl__cell-n {
   font-size: 15px;
   line-height: 1;
@@ -182,23 +215,27 @@ import { sectors } from '../data/content.js'
   color: var(--c-heading);
 }
 
-/* --------------------------------------------- full: staggered register */
+/* ------------------------------------------------ full: aligned register */
 
 /*
-  Explicit column assignment keeps the DOM in 01…07 order while letting the two
-  columns run independently; the even column is dropped one rhythm step so the pair
-  never baseline-aligns (§4.3, §11.9).
+  Two columns of aligned pairs. Each sector spans four rows of the register and takes
+  them as a SUBGRID — head, description, project list, "all projects" link — so the
+  four parts line up across a pair even when one title wraps to three lines and its
+  neighbour's to two. The gap between pairs is the register's row gap; inside a
+  sector the subgrid sets its own gap to 0 and the parts keep their own margins.
 */
 .sl__register {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-small) 80px;
+  gap: var(--space-medium) 80px;
 }
-.sec:nth-child(odd) { grid-column: 1; }
-.sec:nth-child(even) { grid-column: 2; margin-top: var(--space-medium); }
 
 .sec {
-  align-self: start;
+  display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  align-content: start;
   min-width: 0;
   padding-top: 22px;
   border-top: 1px solid var(--c-bd);
@@ -236,7 +273,34 @@ import { sectors } from '../data/content.js'
    the theme gives its accent marks (menu underline, outline-button border, the
    About objective's rule) rather than at the 1px of a structural hairline: a 1px
    red line lands on a half device pixel at DPR 1 and greys out. */
+.sec {
+  /* the fixed header covers the top of an anchored sector otherwise */
+  scroll-margin-top: 110px;
+}
+
+.sec__desc { margin-top: 20px; }
+.sec__desc p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: var(--body-lh);
+  color: var(--c-text);
+}
+
 .sec__ev { margin-top: 24px; }
+.sec__ev-item a {
+  color: var(--c-text-dark);
+  transition: color var(--dur) var(--ease);
+}
+.sec__ev-item a:hover,
+.sec__ev-item a:focus-visible { color: var(--c-link); }
+
+.sec__all { margin-top: 18px; justify-self: start; align-self: start; }
+
+/* browsers without subgrid: each sector is a plain stack; pairs still share a top line */
+@supports not (grid-template-rows: subgrid) {
+  .sec { display: block; grid-row: auto; align-self: start; }
+  .sec__all { display: inline-flex; }
+}
 
 .sec__ev-item {
   position: relative;
@@ -277,7 +341,6 @@ import { sectors } from '../data/content.js'
 
   /* one column: the stagger has nothing left to stagger against */
   .sl__register { grid-template-columns: minmax(0, 1fr); gap: var(--space-medium); }
-  .sec:nth-child(odd), .sec:nth-child(even) { grid-column: 1; margin-top: 0; }
 }
 
 @media (max-width: 639px) {

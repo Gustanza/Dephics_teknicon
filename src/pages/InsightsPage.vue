@@ -1,6 +1,7 @@
 <script setup>
 import PageHero from '../components/PageHero.vue'
 import InsightsLinks from '../components/InsightsLinks.vue'
+import InsightsMore from '../components/InsightsMore.vue'
 import SplitCta from '../components/SplitCta.vue'
 </script>
 
@@ -15,6 +16,9 @@ import SplitCta from '../components/SplitCta.vue'
     :w="1070"
     :h="775"
   />
-  <InsightsLinks hide-heading />
+  <!-- flush-bottom: InsightsMore continues the same list of groups directly below -->
+  <InsightsLinks hide-heading class="section--flush-bottom" />
+  <!-- P6: publications & downloads, news, careers -->
+  <InsightsMore />
   <SplitCta />
 </template>

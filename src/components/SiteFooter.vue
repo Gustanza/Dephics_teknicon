@@ -1,11 +1,13 @@
 <script setup>
 import Logo from './ui/Logo.vue'
-import { company, footer, nav, services } from '../data/content.js'
+import { company, filled, footer, legal, nav, services } from '../data/content.js'
+import { SHOW_PLACEHOLDERS } from '../data/tbc.js'
+import { servicePath } from '../data/lookup.js'
 
 /*
   The IA's five-part footer (ROADMAP P1-8):
     1. About Teknicon   — profile blurb + the company profile download
-    2. Services         — the capability areas, all linking to /services
+    2. Services         — the five capability areas, each linking to its own page
     3. Quick Links      — About Us, Projects, Sectors, Contact Us
     4. Contact Details   — address, phone, email, web, and the social links
     5. Legal            — Privacy Policy, Terms of Use, copyright
@@ -16,7 +18,7 @@ import { company, footer, nav, services } from '../data/content.js'
 
 /* Columns 2 and 3 are derived from the existing data rather than duplicated, so a
    new service or a nav change reaches the footer automatically. */
-const serviceLinks = services.items.map((item) => item.title)
+const serviceLinks = services.items.map((item) => ({ label: item.title, to: servicePath(item.slug) }))
 const quickPaths = ['/about', '/projects', '/sectors', '/contact']
 const quickLinks = quickPaths
   .map((path) => nav.find((item) => item.to === path))
@@ -29,29 +31,27 @@ const byHeading = (heading) => footer.columns.find((col) => col.heading === head
 const office = byHeading('Office')
 const contact = byHeading('Contact')
 /*
-  Social handles: content.js still holds '#' for every one, because the client has not
+  Social handles: content.js still holds TBC for every one, because the client has not
   supplied them (ROADMAP P0-2). Four links that go nowhere, on every page of the site,
   is worse than no links — so the block renders only once at least one has a real URL.
   Drop the real hrefs into content.js and it appears on its own; nothing else to change.
   Never guess a URL here.
 */
 const socialGroup = byHeading('Follow')
-const socialLinks = (socialGroup?.links || []).filter((l) => l.href && l.href !== '#')
+const socialLinks = (socialGroup?.links || []).filter((l) => filled(l.href))
 const social = socialLinks.length ? { ...socialGroup, links: socialLinks } : null
 
 /* P1-11: compressed to 6.8 MB and shipped in public/downloads/. */
 const profileHref = '/downloads/teknicon-company-profile.pdf'
 
 /*
-  TODO P5-5 / P5-6 — /privacy and /terms have no route, so linking to them sent every
-  page's footer to the 404. They are marked `ready: false` and filtered out until the
-  pages exist: write the copy (it has to come from the client — do not draft policy
-  text from nothing), add the routes so vite-ssg prerenders them, then flip the flags.
+  P5-5 / P5-6 — /privacy and /terms now exist (LegalPage.vue). The link appears once a
+  page has real text in content.js, or while placeholders are being shown for review;
+  with placeholders switched off, a policy that is still TBC is not linked.
 */
-const legalLinks = [
-  { label: 'Privacy Policy', to: '/privacy', ready: false },
-  { label: 'Terms of Use', to: '/terms', ready: false }
-].filter((l) => l.ready)
+const legalLinks = [legal.privacy, legal.terms]
+  .filter((doc) => filled(doc.body) || SHOW_PLACEHOLDERS)
+  .map((doc) => ({ label: doc.label, to: doc.path }))
 
 /* 24x24 stroke glyphs for the contact lines. Inline, matching Quality.vue, so
    the page still ships no icon font. */
@@ -73,10 +73,14 @@ const paths = {
   <footer id="contact" class="ftr">
     <div class="container ftr__inner">
       <div class="ftr__grid">
+        <!-- Footer part headings are <h2>/<h3>: the footer is its own landmark, and on
+             a page with no <h2> of its own (/privacy, /404) the old <h3>s skipped a
+             level straight from the page's <h1>. Styling is by class, so nothing moves. -->
+
         <!-- 1 -------------------------------------------- About Teknicon -->
         <div class="ftr__col ftr__col--brand">
           <Logo variant="knockout" size="lg" />
-          <h3 class="ftr__heading ftr__heading--brand">About Teknicon</h3>
+          <h2 class="ftr__heading ftr__heading--brand">About Teknicon</h2>
           <p class="ftr__blurb">{{ footer.blurb }}</p>
           <ul class="ftr__links">
             <li>
@@ -94,17 +98,17 @@ const paths = {
 
         <!-- 2 --------------------------------------------------- Services -->
         <div class="ftr__col">
-          <h3 class="ftr__heading">Services</h3>
+          <h2 class="ftr__heading">Services</h2>
           <ul class="ftr__links">
-            <li v-for="title in serviceLinks" :key="title">
-              <RouterLink to="/services"><span>{{ title }}</span></RouterLink>
+            <li v-for="link in serviceLinks" :key="link.to">
+              <RouterLink :to="link.to"><span>{{ link.label }}</span></RouterLink>
             </li>
           </ul>
         </div>
 
         <!-- 3 ------------------------------------------------ Quick Links -->
         <div class="ftr__col">
-          <h3 class="ftr__heading">Quick Links</h3>
+          <h2 class="ftr__heading">Quick Links</h2>
           <ul class="ftr__links">
             <li v-for="link in quickLinks" :key="link.to">
               <RouterLink :to="link.to"><span>{{ link.label }}</span></RouterLink>
@@ -112,9 +116,11 @@ const paths = {
           </ul>
         </div>
 
-        <!-- 4 -------------------------------------------- Contact Details -->
+        <!-- 4 -------------------------------------------- Contact Details
+             (social links open off-site, so they get target/rel like every other
+             external link on the site) -->
         <div class="ftr__col">
-          <h3 class="ftr__heading">Contact Details</h3>
+          <h2 class="ftr__heading">Contact Details</h2>
 
           <address v-if="office" class="ftr__address">
             <span v-for="line in office.lines" :key="line">{{ line }}</span>
@@ -140,10 +146,10 @@ const paths = {
           </ul>
 
           <template v-if="social">
-            <h4 class="ftr__subheading">{{ social.heading }}</h4>
+            <h3 class="ftr__subheading">{{ social.heading }}</h3>
             <ul class="ftr__links">
               <li v-for="link in social.links" :key="link.label">
-                <a :href="link.href">
+                <a :href="link.href" target="_blank" rel="noopener noreferrer">
                   <svg
                     v-if="link.icon"
                     class="ftr__icon"

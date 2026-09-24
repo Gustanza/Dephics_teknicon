@@ -1,21 +1,22 @@
 <script setup>
 import PageHero from '../components/PageHero.vue'
-import Services from '../components/Services.vue'
+import ServicesIndex from '../components/ServicesIndex.vue'
 import Quality from '../components/Quality.vue'
-import SplitCta from '../components/SplitCta.vue'
+import ConsultCta from '../components/ConsultCta.vue'
 </script>
 
 <template>
-  <!-- IA section 3. Phase 2 adds the five individual service pages beneath this index. -->
+  <!-- IA section 3: the capability menu. Each of the five rows links to its own page
+       at /services/<slug> (ServicePage.vue). -->
   <PageHero
     eyebrow="Services"
     :lines="['What a client', 'hires us to do']"
-    lede="Multidisciplinary consulting engineering across the whole project lifecycle — feasibility study, detailed design, tender documentation, construction supervision, contract administration and close-out."
+    lede="Five services, one engineering practice — from feasibility study to the end of the Defects Liability Period."
     image="/img/project-kilombero-pump-station.jpg"
     :w="1600"
     :h="1200"
   />
-  <Services />
+  <ServicesIndex />
   <Quality />
-  <SplitCta />
+  <ConsultCta />
 </template>
