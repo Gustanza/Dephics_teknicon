@@ -20,6 +20,12 @@ const menuOpen = ref(false)
 
 function onScroll () { fixed.value = window.scrollY > 120 }
 function closeMenu () { menuOpen.value = false }
+
+/* A parent with a sub-menu stays marked while any of its pages is open. The routes
+   are flat, so vue-router's own active class does not reach /insights from
+   /insights/resources. */
+const inSection = (item) =>
+  !!item.children && item.children.some((c) => route.path === c.to)
 function onKeydown (e) { if (e.key === 'Escape') closeMenu() }
 
 /* a route change must never leave the mobile panel hanging open */
@@ -48,8 +54,25 @@ onBeforeUnmount(() => {
 
       <nav class="hdr__nav" aria-label="Primary">
         <ul class="menu">
-          <li v-for="item in nav" :key="item.to">
-            <RouterLink :to="item.to"><span>{{ item.label }}</span></RouterLink>
+          <li v-for="item in nav" :key="item.to" :class="{ 'has-sub': item.children }">
+            <RouterLink
+              :to="item.to"
+              :class="{ 'router-link-active': inSection(item) }"
+              :aria-haspopup="item.children ? 'true' : undefined"
+            >
+              <span>{{ item.label }}</span>
+              <svg v-if="item.children" class="menu__caret" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+            </RouterLink>
+            <!-- the theme's sub-menu (THEME_DNA §9.4): dark panel, 14px labels that
+                 step right 9px and draw a 1px rule on hover. Opens on hover and on
+                 keyboard focus inside the item. -->
+            <ul v-if="item.children" class="menu__sub">
+              <li v-for="child in item.children" :key="child.to">
+                <RouterLink :to="child.to" exact-active-class="is-current"><span>{{ child.label }}</span></RouterLink>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>
@@ -76,7 +99,16 @@ onBeforeUnmount(() => {
     <div id="mobile-menu" class="mnav" :hidden="!menuOpen">
       <ul class="mnav__list">
         <li v-for="item in nav" :key="item.to">
-          <RouterLink :to="item.to" @click="closeMenu">{{ item.label }}</RouterLink>
+          <RouterLink
+            :to="item.to"
+            :class="{ 'router-link-active': inSection(item) }"
+            @click="closeMenu"
+          >{{ item.label }}</RouterLink>
+          <ul v-if="item.children" class="mnav__sub">
+            <li v-for="child in item.children" :key="child.to">
+              <RouterLink :to="child.to" exact-active-class="is-current" @click="closeMenu">{{ child.label }}</RouterLink>
+            </li>
+          </ul>
         </li>
       </ul>
       <div class="mnav__foot">
@@ -121,7 +153,9 @@ onBeforeUnmount(() => {
 }
 .hdr--fixed .hdr__row::before { opacity: 0; }
 
-.hdr__brand { display: inline-flex; }
+/* never shrinks: at 1280-1440 the nowrap menu claimed the space and squeezed the
+   5:1 lockup into a 46px square — the artwork itself must not be distorted */
+.hdr__brand { display: inline-flex; flex-shrink: 0; }
 
 .hdr__nav { margin-left: 1.6vw; }
 
@@ -163,6 +197,74 @@ onBeforeUnmount(() => {
 
 .hdr--fixed .menu > li > a { color: var(--c-text-dark); }
 
+/* ---------------- sub-menu (THEME_DNA §9.4) ---------------- */
+.menu > li { position: relative; }
+.menu__caret {
+  display: inline-block;
+  width: 9px;
+  height: 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+  transition: transform .2s var(--ease);
+}
+.menu > li.has-sub:hover .menu__caret,
+.menu > li.has-sub:focus-within .menu__caret { transform: rotate(180deg); }
+
+.menu__sub {
+  position: absolute;
+  z-index: 20;
+  top: 100%;
+  left: -.7em;
+  min-width: 200px;
+  padding: 1.1em 0;
+  /* the theme's extra-dark panel — the deepest rung of the navy ladder; square, no
+     shadow, whether the header is transparent or fixed */
+  background-color: var(--d-bg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity .2s var(--ease), transform .2s var(--ease), visibility 0s linear .2s;
+}
+.menu > li.has-sub:hover > .menu__sub,
+.menu > li.has-sub:focus-within > .menu__sub {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity .2s var(--ease), transform .2s var(--ease), visibility 0s;
+}
+.menu__sub a {
+  display: block;
+  padding: .45em 1.7em;
+  font-size: 14px;
+  line-height: 1.5em;
+  font-weight: 400;
+  color: var(--d-text);
+  white-space: nowrap;
+}
+.menu__sub a > span {
+  position: relative;
+  display: inline-block;
+  transition: padding-left .2s var(--ease);
+}
+.menu__sub a > span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width .2s var(--ease), left .2s var(--ease);
+}
+.menu__sub a:hover,
+.menu__sub a:focus-visible,
+.menu__sub a.is-current { color: #fff; }
+.menu__sub a:hover > span,
+.menu__sub a:focus-visible > span { padding-left: 9px; }
+.menu__sub a:hover > span::after,
+.menu__sub a:focus-visible > span::after { left: 9px; width: calc(100% - 9px); }
+.menu__sub a.is-current > span::after { width: 100%; }
+
 /*
   Over the hero the row sits on photography, so navy would disappear — there the
   underline alone carries hover and the label just brightens to pure white.
@@ -199,6 +301,21 @@ onBeforeUnmount(() => {
 .hdr--fixed .hdr__phone:hover { color: var(--c-link); opacity: 1; }
 
 .hdr__cta { flex-shrink: 0; }
+
+/*
+  Laptop widths. At full size the row (230px logo, seven items at .9em, phone, CTA)
+  needs ~1500px; between 1280 and ~1470 it ran up to 184px past the 70px edge and
+  the red CTA hung off the page — the squeezed logo had been hiding the shortfall.
+  Below 1500 the phone number steps out (it stays one click away in the contact
+  panel, the footer and on /contact); below 1380 the menu tightens from .9em to
+  .7em. Measured fit at every 10px from 1280 to 1500.
+*/
+@media (min-width: 1280px) and (max-width: 1499px) {
+  .hdr__phone { display: none; }
+}
+@media (min-width: 1280px) and (max-width: 1379px) {
+  .menu > li > a { padding-inline: .7em; }
+}
 
 .hdr__burger {
   display: none;
@@ -257,6 +374,18 @@ onBeforeUnmount(() => {
   background-position: 0 100%;
   background-size: 100% 2px;
 }
+.mnav__sub { padding: 0 0 12px 18px; }
+.mnav__sub a {
+  padding: 7px 0;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--d-text);
+}
+.mnav__sub a.router-link-active { color: var(--d-text); background-image: none; }
+.mnav__sub a.is-current,
+.mnav__sub a:hover { color: var(--c-link); }
+
 .mnav__foot {
   display: flex;
   flex-direction: column;

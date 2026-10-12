@@ -1,28 +1,27 @@
 <script setup>
-import Logo from './ui/Logo.vue'
-import { company, filled, footer, legal, nav, services } from '../data/content.js'
+import { company, filled, footer, legal, services } from '../data/content.js'
 import { SHOW_PLACEHOLDERS } from '../data/tbc.js'
 import { servicePath } from '../data/lookup.js'
 
 /*
-  The IA's five-part footer (ROADMAP P1-8):
+  The IA's footer parts (ROADMAP P1-8):
     1. About Teknicon   — profile blurb + the company profile download
     2. Services         — the five capability areas, each linking to its own page
-    3. Quick Links      — About Us, Projects, Sectors, Contact Us
-    4. Contact Details   — address, phone, email, web, and the social links
-    5. Legal            — Privacy Policy, Terms of Use, copyright
+    3. Contact Details  — address, phone, email, web, and the social links
+    4. Legal            — Privacy Policy, Terms of Use, copyright
+
+  The IA also lists "Professional Credentials" — removed 2026-09-29 at the team's
+  call (registration details are private company information). And "Quick Links: About Us, Projects, Sectors, Contact". Removed
+  2026-09-27 at the team's call: every one of them is already in the primary nav,
+  which stays on screen (sticky header), so the column only repeated it.
 
   Every label and value below is read out of content.js. Nothing is written inline
   except the five part names and the two legal link labels.
 */
 
-/* Columns 2 and 3 are derived from the existing data rather than duplicated, so a
-   new service or a nav change reaches the footer automatically. */
+/* Derived from the existing data rather than duplicated, so a new service reaches
+   the footer automatically. */
 const serviceLinks = services.items.map((item) => ({ label: item.title, to: servicePath(item.slug) }))
-const quickPaths = ['/about', '/projects', '/sectors', '/contact']
-const quickLinks = quickPaths
-  .map((path) => nav.find((item) => item.to === path))
-  .filter(Boolean)
 
 /* The Office / Contact / Follow groups the footer has always carried, now folded
    into the single "Contact Details" part. Looked up by heading so the wording stays
@@ -79,9 +78,16 @@ const paths = {
 
         <!-- 1 -------------------------------------------- About Teknicon -->
         <div class="ftr__col ftr__col--brand">
-          <Logo variant="knockout" size="lg" />
-          <h2 class="ftr__heading ftr__heading--brand">About Teknicon</h2>
+          <!-- no logo here (team decision 2026-09-29): the header already carries it,
+               and without it the three column headings share one top line. The
+               vision statement fills the column to the others' length with real
+               content rather than space. -->
+          <h2 class="ftr__heading">About Teknicon</h2>
           <p class="ftr__blurb">{{ footer.blurb }}</p>
+          <figure class="ftr__vision">
+            <figcaption class="ftr__vision-label">{{ footer.visionLabel }}</figcaption>
+            <blockquote class="ftr__vision-quote">{{ company.vision }}</blockquote>
+          </figure>
           <ul class="ftr__links">
             <li>
               <a :href="profileHref" download>
@@ -106,17 +112,7 @@ const paths = {
           </ul>
         </div>
 
-        <!-- 3 ------------------------------------------------ Quick Links -->
-        <div class="ftr__col">
-          <h2 class="ftr__heading">Quick Links</h2>
-          <ul class="ftr__links">
-            <li v-for="link in quickLinks" :key="link.to">
-              <RouterLink :to="link.to"><span>{{ link.label }}</span></RouterLink>
-            </li>
-          </ul>
-        </div>
-
-        <!-- 4 -------------------------------------------- Contact Details
+        <!-- 3 -------------------------------------------- Contact Details
              (social links open off-site, so they get target/rel like every other
              external link on the site) -->
         <div class="ftr__col">
@@ -130,8 +126,7 @@ const paths = {
             <li v-for="link in contact.links" :key="link.label">
               <component
                 :is="link.to ? 'RouterLink' : 'a'"
-                :to="link.to || undefined"
-                :href="link.href || undefined"
+                v-bind="link.to ? { to: link.to } : { href: link.href }"
                 :class="{ 'is-strong': link.strong }"
               >
                 <svg
@@ -164,7 +159,7 @@ const paths = {
         </div>
       </div>
 
-      <!-- 5 ------------------------------------------------------- Legal -->
+      <!-- 4 ------------------------------------------------------- Legal -->
       <div class="ftr__bar">
         <ul class="ftr__legal">
           <li v-for="link in legalLinks" :key="link.to">
@@ -172,7 +167,6 @@ const paths = {
           </li>
         </ul>
         <p>{{ footer.copyright }}</p>
-        <p>{{ footer.registrations }}</p>
       </div>
     </div>
 
@@ -200,7 +194,9 @@ const paths = {
 
 .ftr__grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  /* three columns since Quick Links went: Services gets the width to set each
+     service name on one line, and Contact to keep the address lines whole */
+  grid-template-columns: 1.3fr 1.1fr 1fr;
   gap: var(--grid-gap);
 }
 
@@ -223,7 +219,25 @@ const paths = {
   color: var(--d-text-dark);
 }
 /* the logo sits above this one, so it needs air the other three headings do not */
-.ftr__heading--brand { margin-top: 24px; }
+/* the vision statement — the About page's quote treatment (2px brand-red rule on
+   the left), at footer scale */
+.ftr__vision { margin: 0 0 22px; }
+.ftr__vision-label {
+  margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 1.4em;
+  color: var(--d-text-light);
+}
+.ftr__vision-quote {
+  margin: 0;
+  padding-left: 18px;
+  border-left: 2px solid var(--c-brand-red);
+  font-size: 19px;
+  line-height: 1.45em;
+  font-weight: 500;
+  letter-spacing: -.3px;
+  color: var(--d-text-dark);
+}
 
 .ftr__subheading {
   margin: var(--space-tiny) 0 6px;
@@ -300,6 +314,11 @@ const paths = {
 }
 .ftr__legal a:hover,
 .ftr__legal a:focus-visible { color: var(--c-link); border-bottom-color: var(--c-link); }
+
+/* narrower three-column widths: a smaller quote keeps About level with Contact */
+@media (max-width: 1279px) {
+  .ftr__vision-quote { font-size: 17px; letter-spacing: 0; }
+}
 
 @media (max-width: 1023px) {
   .ftr__grid { grid-template-columns: 1fr 1fr; row-gap: var(--space-small); }

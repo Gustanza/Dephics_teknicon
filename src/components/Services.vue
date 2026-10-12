@@ -62,7 +62,7 @@ const items = props.teaser
       </ul>
 
       <div v-if="teaser" class="svc__more">
-        <Button to="/services" label="All services" variant="navy" />
+        <Button to="/services" :label="services.allLink" variant="navy" />
       </div>
     </div>
   </section>
@@ -71,19 +71,32 @@ const items = props.teaser
 <style scoped>
 .svc__more { margin-top: var(--space-medium); text-align: center; }
 
+/*
+  Cards in a row share their row tracks (subgrid): tag+title, photo, description,
+  button. A title that runs to three lines ("Water, Dams & Tailings Storage Facilities")
+  used to push that card's photo and button below its neighbours'; now every
+  track is as tall as its tallest card, so photos start and buttons sit on one line
+  across the row whatever the copy does. Same technique as /sectors.
+
+  Six columns, two per card, so an incomplete last row can still be centred (the
+  theme centres its service cards, THEME_DNA §11.9) — the full, non-teaser set
+  is 3 + 2. Home shows one row of three.
+*/
 .svc__grid {
-  /* flex, not grid, so an incomplete last row centres instead of hugging the left */
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: var(--grid-gap);
   margin-top: var(--space-small);
 }
-.svc__grid > .svc { flex: 0 0 calc((100% - 2 * var(--grid-gap)) / 3); min-width: 0; }
+.svc__grid > .svc { grid-column: span 2; min-width: 0; }
+.svc__grid > .svc:nth-last-child(2):nth-child(3n + 1) { grid-column: 2 / span 2; }
+.svc__grid > .svc:last-child:nth-child(3n + 1) { grid-column: 3 / span 2; }
 
 .svc {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
+  row-gap: 0; /* the card's own spacing is its margins; the grid gap is between cards */
   padding: 2.4em;
   text-align: center;
   background-color: var(--c-bg-alt);
@@ -144,7 +157,7 @@ const items = props.teaser
 
 .svc__info {
   position: relative;
-  margin-top: auto;
+  align-self: end;
   padding-top: .7em;
 }
 .svc__info::before {
@@ -163,9 +176,17 @@ const items = props.teaser
 .svc__info .btn { margin-top: 1.5em; }
 
 /* 3-up down to 1024; below that the cards are too narrow for three, and a 2-up
-   would strand the fifth card, so it drops straight to one column */
-@media (max-width: 1023px) {
-  .svc__grid > .svc { flex-basis: 100%; }
+   would strand the fifth card, so it drops straight to one column */@media (max-width: 1023px) {
+  .svc__grid { grid-template-columns: minmax(0, 1fr); }
+  .svc__grid > .svc,
+  .svc__grid > .svc:nth-last-child(2):nth-child(3n + 1),
+  .svc__grid > .svc:last-child:nth-child(3n + 1) { grid-column: 1; }
   .svc { padding: 1.9em; }
+}
+
+/* no subgrid (older browsers): each card falls back to its own column stack */
+@supports not (grid-template-rows: subgrid) {
+  .svc { display: flex; flex-direction: column; grid-row: auto; }
+  .svc__info { margin-top: auto; }
 }
 </style>

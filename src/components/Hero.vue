@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import Button from './ui/Button.vue'
 import { heroSlides } from '../data/content.js'
 
 const root = ref(null)
@@ -119,16 +120,17 @@ onBeforeUnmount(() => {
           <span v-for="(line, i) in current.title" :key="i" class="hero__line">{{ line }}</span>
         </h1>
         <p class="hero__lede">{{ current.lede }}</p>
+        <!-- Button, not a bare <a>: the slide data carries router `to` paths, and
+             the old template read `.href`, which left both buttons without a link -->
         <div class="hero__actions">
-          <a class="btn btn--arrow" :href="current.cta.href">
-            <span class="btn__label">{{ current.cta.label }}</span>
-            <svg class="btn__arrow" viewBox="0 0 16 12" fill="none" aria-hidden="true">
-              <path d="M1 6h13M9.5 1 15 6l-5.5 5" stroke="currentColor" stroke-width="1.6" />
-            </svg>
-          </a>
-          <a v-if="current.cta2" class="btn btn--navy" :href="current.cta2.href">
-            <span class="btn__label">{{ current.cta2.label }}</span>
-          </a>
+          <Button :to="current.cta.to" :label="current.cta.label" />
+          <Button
+            v-if="current.cta2"
+            :to="current.cta2.to"
+            :label="current.cta2.label"
+            variant="navy"
+            :arrow="false"
+          />
         </div>
       </div>
 
@@ -238,7 +240,9 @@ onBeforeUnmount(() => {
 }
 
 .hero__content {
-  max-width: 900px;
+  /* wide enough for the IA's slide-1 headline to hold the theme's two lines at the
+     full 87px (1920) — at 900px it broke into four. The lede keeps its own 60ch. */
+  max-width: 1240px;
   animation: hero-in .8s var(--ease-soft) both;
 }
 @keyframes hero-in {
@@ -273,6 +277,7 @@ onBeforeUnmount(() => {
   font-size: 1rem;
   line-height: 1.65em;
   color: rgba(255, 255, 255, .84);
+  text-wrap: pretty; /* no one-word last line ("management.") */
 }
 
 .hero__actions {
@@ -322,7 +327,17 @@ onBeforeUnmount(() => {
     gap: 28px;
   }
   .hero__eyebrow { font-size: 14px; letter-spacing: 1px; }
-  .hero__title { margin-left: 0; }
+  /* The authored two-line split cannot hold at phone width, so the lines flow as
+     one sentence and balance, rather than each line breaking on its own ("We are /
+     Consulting / Engineers…"). The size steps down from 44px only as far as keeps
+     "Project Managers" on one line at 390. */
+  .hero__title {
+    margin-left: 0;
+    font-size: clamp(34px, 10.3vw, 44px);
+    text-wrap: balance;
+  }
+  .hero__line { display: inline; }
+  .hero__line + .hero__line::before { content: " "; }
   .hero__counter { font-size: 20px; align-self: flex-end; }
   .hero__actions .btn { flex: 1 1 auto; }
 }

@@ -5,7 +5,7 @@
  * (filter options, related projects, route paths) are worked out here so every page
  * computes them the same way.
  */
-import { filled, projectCategories, projectList, sectors, services } from './content.js'
+import { filled, insightsResources, projectCategories, projectList, sectors, services, shown } from './content.js'
 
 const index = (list) => Object.fromEntries(list.map((item) => [item.slug, item]))
 
@@ -50,13 +50,43 @@ export function relatedProjects (slugs, cards = 3) {
   return { cards: withImage, rest: list.filter((p) => !withImage.includes(p)) }
 }
 
-/** Other projects sharing a sector with this one, photographed first. */
+/**
+ * The projects most like this one. Ranked by what a visitor means by "similar": the
+ * same project type first (a bridge next to bridges, not a workshop that happens to
+ * share a sector), then how closely the services match, then the sectors. Overlap is
+ * shared ÷ combined (Jaccard), not a raw count — a count favoured whichever project
+ * listed the most services, so bus terminals outranked bridges on a bridge page.
+ * Photographed projects lead within equal scores; ties keep register order.
+ */
 export function projectsLike (project, limit = 3) {
-  const others = projectList.filter(
-    (p) => p.slug !== project.slug && p.sectors.some((s) => project.sectors.includes(s))
-  )
-  return [...others.filter((p) => p.image), ...others.filter((p) => !p.image)].slice(0, limit)
+  const overlap = (a, b) => {
+    const union = new Set([...a, ...b]).size
+    return union ? a.filter((x) => b.includes(x)).length / union : 0
+  }
+  return projectList
+    .filter((p) => p.slug !== project.slug)
+    .map((p, i) => ({
+      p,
+      i,
+      score: (p.category === project.category ? 100 : 0)
+        + 10 * overlap(p.services, project.services)
+        + overlap(p.sectors, project.sectors)
+    }))
+    .filter((r) => r.score > 0)
+    .sort((a, b) => b.score - a.score || Number(!!b.p.image) - Number(!!a.p.image) || a.i - b.i)
+    .slice(0, limit)
+    .map((r) => r.p)
 }
+
+/**
+ * A featured project counts as a case study only once it has its narrative. The IA's
+ * case study is "challenge, scope, solution, project facts, images and outcome";
+ * until the client supplies the three narrative parts, calling the page a case study
+ * would promise depth it does not have, so it is labelled a featured project instead.
+ */
+export const hasCaseStudy = (project) =>
+  !!project.caseStudy &&
+  ['challenge', 'solution', 'outcome'].some((k) => shown(project.caseStudy[k]))
 
 export const projectsInSector = (slug) => projectList.filter((p) => p.sectors.includes(slug))
 
@@ -74,10 +104,20 @@ export const filterOptions = {
     .sort(sortBy('label'))
 }
 
+/* Insights 2 — articles and vacancies. Items marked `sample: true` exist only while
+   insightsResources.showSamples is on; switching it off removes them (and their
+   article pages) everywhere at once. */
+const showable = (item) => insightsResources.showSamples || !item.sample
+export const posts = insightsResources.news.posts.filter(showable)
+export const vacancies = insightsResources.careers.vacancies.filter(showable)
+export const postBySlug = index(posts)
+export const postPath = (slug) => `/insights/resources/${slug}`
+
 /** Every prerenderable path — read by vite.config.js (includedRoutes) and tools/audit.mjs. */
 export const staticPaths = [
-  '/', '/about', '/services', '/projects', '/sectors', '/insights', '/contact',
+  '/', '/about', '/services', '/projects', '/sectors', '/insights', '/insights/resources', '/contact',
   '/privacy', '/terms', '/404',
   ...services.items.map((s) => servicePath(s.slug)),
-  ...projectList.map((p) => projectPath(p.slug))
+  ...projectList.map((p) => projectPath(p.slug)),
+  ...posts.map((p) => postPath(p.slug))
 ]

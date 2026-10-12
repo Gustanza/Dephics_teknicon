@@ -35,7 +35,13 @@ defineProps({
 }
 .sh--center .sh__title { margin-left: 0; }
 
-.sh__line { display: block; }
+.sh__line {
+  display: block;
+  /* balance each authored line when it has to wrap: at some widths (e.g. a laptop at
+     80% zoom, ~1800px) greedy wrapping left a lone word — "A Tanzanian consulting /
+     practice," — where balancing gives "A Tanzanian / consulting practice," */
+  text-wrap: balance;
+}
 
 .sh__descr {
   margin-top: 1.35em;

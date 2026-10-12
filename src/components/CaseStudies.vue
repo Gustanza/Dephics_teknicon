@@ -2,7 +2,7 @@
 import Reveal from './ui/Reveal.vue'
 import SectionHeading from './ui/SectionHeading.vue'
 import { projectList, projects } from '../data/content.js'
-import { categoryBySlug, projectLine, projectPath } from '../data/lookup.js'
+import { categoryBySlug, hasCaseStudy, projectLine, projectPath } from '../data/lookup.js'
 import { filled } from '../data/tbc.js'
 
 /*
@@ -11,13 +11,18 @@ import { filled } from '../data/tbc.js'
   theme's unequal pairing (§11.9), not three identical tiles.
 */
 const cases = projectList.filter((p) => p.caseStudy)
+
+/* "Case study" wording only once a narrative exists (hasCaseStudy); until then the
+   same three read as featured projects — see projects.caseStudies in content.js */
+const copy = cases.some(hasCaseStudy) ? projects.caseStudies : projects.caseStudies.pending
+const labelFor = (p) => (hasCaseStudy(p) ? projects.caseStudies.label : projects.caseStudies.pending.label)
 </script>
 
 <template>
   <section class="section band--paper cs">
     <div class="container">
       <Reveal variant="fade">
-        <SectionHeading :eyebrow="projects.caseStudies.eyebrow" :lines="projects.caseStudies.title" />
+        <SectionHeading :eyebrow="copy.eyebrow" :lines="copy.title" />
       </Reveal>
 
       <ul class="cs__grid">
@@ -40,7 +45,7 @@ const cases = projectList.filter((p) => p.caseStudy)
             />
           </div>
           <div class="cs__info">
-            <span class="cs__cat">Case study · {{ categoryBySlug[p.category].name }}</span>
+            <span class="cs__cat">{{ labelFor(p) }} · {{ categoryBySlug[p.category].name }}</span>
             <h3 class="cs__title">
               <RouterLink class="cs__link" :to="projectPath(p.slug)">{{ p.title }}</RouterLink>
             </h3>

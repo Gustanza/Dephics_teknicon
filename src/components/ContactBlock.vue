@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import Reveal from './ui/Reveal.vue'
-import { company, contactPage, filled } from '../data/content.js'
+import { company, contactPage, filled, shown } from '../data/content.js'
 
 /*
   IA section 7 — the contact page body: office address, telephone, email, working
@@ -81,8 +81,6 @@ const autocompleteFor = {
       <div class="cb__grid">
         <!-- ---------------------------------------------- office + hours -->
         <Reveal class="cb__details" variant="fade">
-          <p class="cb__lede">{{ contactPage.lede }}</p>
-
           <h2 class="cb__h">Office</h2>
           <address class="cb__address">
             <span v-for="line in company.address" :key="line">{{ line }}</span>
@@ -99,13 +97,29 @@ const autocompleteFor = {
             </div>
           </dl>
 
-          <h2 class="cb__h cb__h--spaced">Working hours</h2>
-          <dl class="cb__rows">
-            <div v-for="slot in contactPage.hours" :key="slot.days" class="cb__row">
-              <dt>{{ slot.days }}</dt>
-              <dd>{{ slot.time }}</dd>
-            </div>
-          </dl>
+          <!-- hours are client input (not in the profile): hidden until supplied -->
+          <template v-if="shown(contactPage.hours) && Array.isArray(contactPage.hours)">
+            <h2 class="cb__h cb__h--spaced">Working hours</h2>
+            <dl class="cb__rows">
+              <div v-for="slot in contactPage.hours" :key="slot.days" class="cb__row">
+                <dt>{{ slot.days }}</dt>
+                <dd>{{ slot.time }}</dd>
+              </div>
+            </dl>
+          </template>
+
+          <!-- the map sits under the office it shows, and fills the column down to the
+               end of the form — full width below, it left the office column half empty
+               once the (invented) working hours were withdrawn -->
+          <div class="cb__map">
+            <iframe
+              class="cb__frame"
+              :src="mapSrc"
+              :title="`Map of the Teknicon office — ${contactPage.mapQuery}`"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </Reveal>
 
         <!-- ------------------------------------------------ enquiry form -->
@@ -188,16 +202,6 @@ const autocompleteFor = {
         </Reveal>
       </div>
 
-      <!-- ------------------------------------------------------ the map -->
-      <Reveal class="cb__map" variant="fade">
-        <iframe
-          class="cb__frame"
-          :src="mapSrc"
-          :title="`Map of the Teknicon office — ${contactPage.mapQuery}`"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        />
-      </Reveal>
     </div>
   </section>
 </template>
@@ -207,8 +211,9 @@ const autocompleteFor = {
   display: grid;
   grid-template-columns: 1fr 1.05fr;
   gap: var(--grid-gap) 80px;
-  align-items: start;
+  align-items: stretch; /* the office column runs the form's full height */
 }
+.cb__details { display: flex; flex-direction: column; }
 
 /* ---------------------------------------------------------- shared type */
 
@@ -225,14 +230,6 @@ const autocompleteFor = {
   color: var(--c-heading);
 }
 .cb__h--spaced { margin-top: var(--space-medium); }
-
-.cb__lede {
-  margin: 0 0 var(--space-small);
-  max-width: 46ch;
-  font-size: 1rem;
-  line-height: var(--body-lh);
-  color: var(--c-text);
-}
 
 /* ------------------------------------------------------ office details */
 
@@ -369,9 +366,9 @@ const autocompleteFor = {
 /* ----------------------------------------------------------------- map */
 
 .cb__map {
-  display: block;
-  margin-top: var(--space-medium);
-  aspect-ratio: 21 / 9;
+  flex: 1 1 auto;
+  min-height: 320px;
+  margin-top: var(--space-small);
   border: var(--hairline) solid var(--c-bd);
   border-radius: var(--rad);
   background-color: var(--c-bg);
@@ -392,7 +389,7 @@ const autocompleteFor = {
 
 @media (max-width: 1023px) {
   .cb__grid { grid-template-columns: 1fr; gap: var(--space-medium); }
-  .cb__map { aspect-ratio: 16 / 9; }
+  .cb__map { flex: none; min-height: 0; aspect-ratio: 16 / 9; }
 }
 
 @media (max-width: 767px) {

@@ -29,7 +29,7 @@ const pad = (i) => String(i + 1).padStart(2, '0')
 </script>
 
 <template>
-  <section id="licences" class="section band--white lc">
+  <section id="licences" class="section band--paper lc">
     <div class="container">
       <Reveal variant="fade">
         <SectionHeading :eyebrow="licences.eyebrow" :lines="licences.title">
@@ -40,7 +40,7 @@ const pad = (i) => String(i + 1).padStart(2, '0')
       <ul class="lc__grid">
         <Reveal
           v-for="(item, i) in licences.items"
-          :key="item.ref"
+          :key="item.name"
           as="li"
           class="lc__cell"
           :delay="(i % 2) * 100"
@@ -91,7 +91,9 @@ const pad = (i) => String(i + 1).padStart(2, '0')
 }
 .lc__cell:nth-child(2n + 1) { padding-left: 0; }
 .lc__cell:nth-child(2n) { padding-right: 0; border-right-width: 0; }
-.lc__cell:hover { background-color: var(--c-bg); }
+/* paper band (so it steps off the white Quality section above it); the hover is
+   the same one-step tonal shift, reversed */
+.lc__cell:hover { background-color: var(--c-bg-alt); }
 
 .lc__n {
   flex-shrink: 0;

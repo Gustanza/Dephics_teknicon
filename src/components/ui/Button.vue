@@ -18,6 +18,15 @@ const props = defineProps({
 })
 
 const tag = computed(() => (props.to ? 'RouterLink' : props.href ? 'a' : 'button'))
+
+/* Only the attribute the chosen element needs. Passing `href: undefined` to a
+   RouterLink is not harmless: Vue merges fallthrough attrs over the link's own
+   props, so the undefined overwrote RouterLink's computed href and every internal
+   button rendered as an <a> with no href — clickable through JS, but unfocusable
+   by keyboard and invisible to crawlers. */
+const linkAttrs = computed(() =>
+  props.to ? { to: props.to } : props.href ? { href: props.href } : { type: 'button' }
+)
 const classes = computed(() => [
   'btn',
   props.variant !== 'solid' ? `btn--${props.variant}` : '',
@@ -29,9 +38,7 @@ const classes = computed(() => [
 <template>
   <component
     :is="tag"
-    :to="to || undefined"
-    :href="href || undefined"
-    :type="!to && !href ? 'button' : undefined"
+    v-bind="linkAttrs"
     :class="classes"
   >
     <span class="btn__label">{{ label }}</span>

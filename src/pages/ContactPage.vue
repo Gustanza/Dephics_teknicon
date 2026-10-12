@@ -1,14 +1,15 @@
 <script setup>
 import PageHero from '../components/PageHero.vue'
 import ContactBlock from '../components/ContactBlock.vue'
+import { contactPage } from '../data/content.js'
 </script>
 
 <template>
   <!-- IA section 7 -->
   <PageHero
-    eyebrow="Contact us"
-    :lines="['Talk to a registered', 'consulting engineer']"
-    lede="For proposals, tender enquiries and technical questions."
+    :eyebrow="contactPage.eyebrow"
+    :lines="contactPage.title"
+    :lede="contactPage.lede"
     image="/img/site-supervision-crew.jpg"
     :w="808"
     :h="611"

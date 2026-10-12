@@ -10,7 +10,7 @@ import Tbc from '../components/ui/Tbc.vue'
 import NotFoundPage from './NotFoundPage.vue'
 import { projects } from '../data/content.js'
 import {
-  categoryBySlug, projectBySlug, projectsLike, sectorBySlug, sectorPath, serviceBySlug, servicePath
+  categoryBySlug, hasCaseStudy, projectBySlug, projectsLike, sectorBySlug, sectorPath, serviceBySlug, servicePath
 } from '../data/lookup.js'
 import { filled, shown } from '../data/tbc.js'
 
@@ -40,7 +40,15 @@ const facts = computed(() =>
 const serviceList = computed(() => project.value.services.map((s) => serviceBySlug[s]))
 const sectorList = computed(() => project.value.sectors.map((s) => sectorBySlug[s]))
 const similar = computed(() => projectsLike(project.value))
-const caseStudy = computed(() => project.value.caseStudy)
+/* the case-study block renders only once its narrative exists: without challenge /
+   solution / outcome it was a lone "Scope" that repeated the fact sheet word for word */
+const caseStudy = computed(() => (hasCaseStudy(project.value) ? project.value.caseStudy : null))
+const eyebrow = computed(() => {
+  const cat = categoryBySlug[project.value.category].name
+  if (!project.value.caseStudy) return cat
+  const cs = projects.caseStudies
+  return `${hasCaseStudy(project.value) ? cs.label : cs.pending.label} · ${cat}`
+})
 
 const crumbs = [
   { label: 'Home', to: '/' },
@@ -53,7 +61,7 @@ const crumbs = [
 
   <template v-else>
     <PageHero
-      :eyebrow="caseStudy ? `Case study · ${categoryBySlug[project.category].name}` : categoryBySlug[project.category].name"
+      :eyebrow="eyebrow"
       :lines="[project.title]"
       :lede="filled(project.place) ? project.place : ''"
       :image="project.image ? project.image.src : ''"

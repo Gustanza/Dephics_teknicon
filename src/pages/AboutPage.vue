@@ -19,10 +19,13 @@ import SplitCta from '../components/SplitCta.vue'
     :w="1024"
     :h="768"
   />
+  <!-- in the IA's order: overview · vision (+ objective, principles) · leadership &
+       organisation structure (one section — C3 made the chart the team) · quality,
+       HSE & compliance · licences (+ the profile download) -->
   <About />
   <Vision />
-  <Quality />
   <OrgChart />
+  <Quality hse />
   <Licences />
   <SplitCta />
 </template>

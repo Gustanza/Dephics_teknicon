@@ -1,11 +1,19 @@
 <script setup>
 import Button from './ui/Button.vue'
 import { splitCta } from '../data/content.js'
+
+/* The theme's two half-width photo panels (THEME_DNA §7.6). Pages pass their own
+   `panels` where the pair should say something else — Home uses it for the IA's
+   contact / enquiry strip. A panel's title may carry `titleHref` (a phone number). */
+defineProps({
+  panels: { type: Array, default: () => splitCta },
+  label: { type: String, default: 'Contact and clients' }
+})
 </script>
 
 <template>
-  <section class="cta" aria-label="Contact and clients">
-    <div v-for="panel in splitCta" :key="panel.title" class="cta__panel">
+  <section class="cta" :aria-label="label">
+    <div v-for="panel in panels" :key="panel.title" class="cta__panel">
       <img
         class="cta__img"
         :class="{ 'is-cropped': panel.crop }"
@@ -19,7 +27,10 @@ import { splitCta } from '../data/content.js'
       <div class="cta__scrim" aria-hidden="true" />
       <div class="cta__body">
         <span class="eyebrow eyebrow--light">{{ panel.eyebrow }}</span>
-        <p class="cta__title">{{ panel.title }}</p>
+        <p class="cta__title">
+          <a v-if="panel.titleHref" class="cta__title-link" :href="panel.titleHref">{{ panel.title }}</a>
+          <template v-else>{{ panel.title }}</template>
+        </p>
         <Button
           class="cta__btn"
           variant="navy"
@@ -29,7 +40,12 @@ import { splitCta } from '../data/content.js'
           :label="panel.button.label"
           :arrow="false"
         />
-        <p v-if="panel.note" class="cta__note">{{ panel.note }}</p>
+        <p v-if="panel.note" class="cta__note">
+          <template v-if="Array.isArray(panel.note)">
+            <span v-for="line in panel.note" :key="line" class="cta__note-line">{{ line }}</span>
+          </template>
+          <template v-else>{{ panel.note }}</template>
+        </p>
       </div>
     </div>
   </section>
@@ -82,6 +98,9 @@ import { splitCta } from '../data/content.js'
 .cta__body {
   position: relative;
   z-index: 1;
+  /* full panel width (to the cap), not shrink-to-title: the hanging note is
+     positioned against this box, and a short title left it ~230px at 390 */
+  width: 100%;
   max-width: 620px;
   text-align: center;
 }
@@ -100,6 +119,18 @@ import { splitCta } from '../data/content.js'
   line-height: 1.5em;
   color: rgba(255, 255, 255, .82);
 }
+
+/* the phone number as the panel's title: same white, same size — it underlines on
+   hover like every other text link rather than changing colour on a photo */
+.cta__title-link {
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.cta__title-link:hover,
+.cta__title-link:focus-visible { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .12em; }
+
+.cta__note-line { display: block; }
 
 .cta__title {
   margin: 0 0 1.1em;

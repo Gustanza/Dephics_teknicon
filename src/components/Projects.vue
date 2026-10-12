@@ -44,7 +44,7 @@ const shown = computed(() => (props.teaser ? featured.slice(0, 6) : featured))
       </ul>
 
       <div v-if="teaser" class="prj__more">
-        <Button to="/projects" label="See all projects" variant="navy" />
+        <Button to="/projects" :label="projects.allLink" variant="navy" />
       </div>
     </div>
   </section>
@@ -69,7 +69,7 @@ const shown = computed(() => (props.teaser ? featured.slice(0, 6) : featured))
   color: var(--c-text-dark);
 }
 
-.prj__more { margin-top: var(--space-medium); }
+.prj__more { margin-top: var(--space-medium); text-align: center; }  /* centred, as "All Services" above it */
 
 .prj__grid {
   display: grid;

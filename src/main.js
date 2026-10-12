@@ -44,6 +44,11 @@ export const createApp = ViteSSG(
           requestAnimationFrame(() => requestAnimationFrame(resolve))
         })
 
+      // Same page, only the query changed — the project register's filters write
+      // their state to ?category=…&sector=…. That is not a navigation: stay exactly
+      // where the visitor is. (It used to jump to the top, or re-scroll to #register.)
+      if (to.path === from.path && to.hash === from.hash) return false
+
       if (to.hash) {
         return settled().then(() => ({ el: to.hash, top: 90, behavior: 'smooth' }))
       }

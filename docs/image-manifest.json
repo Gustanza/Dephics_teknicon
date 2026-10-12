@@ -2,6 +2,30 @@
   "_note": "Curated from tekres/_extract/word/media. Project attribution derived from the caption paragraph that immediately follows each image in word/document.xml reading order, cross-checked against docs/BRIEF.md. Do not invent facts beyond BRIEF.md.",
   "hero": [
     {
+      "file": "img/hero-crane-yard-dusk.jpg",
+      "source": "Pexels — pexels-alshreef-29290955.jpg (6858×4572), resized to 2880 wide, JPEG q70",
+      "licence": "Pexels License: free for commercial use, no attribution required; must not imply endorsement by people or brands shown",
+      "w": 2880,
+      "h": 1920,
+      "alt": "A heavy mobile crane parked in an industrial yard at dusk, low sun behind stacked timber crates",
+      "project": null,
+      "client": null,
+      "confidence": "STOCK — not a Teknicon project",
+      "note": "Hero slide 1 only (2026-09-27, for resolution — boss flagged the slider as low quality). Slide 1's headline names no project, so stock is acceptable there. Never use this image for a project, sector or service claim. Replaces img/project-tiper-hardstand.jpg on slide 1 (client's choice of 2026-08-27); that file stays on the Projects grid."
+    },
+    {
+      "file": "img/hero-dam-reservoir.jpg",
+      "source": "Pexels — pexels-brianna-eisman-547922903-35818435.jpg (4972×3217), resized to 2880 wide, JPEG q74",
+      "licence": "Pexels License — free for commercial use, no attribution required",
+      "w": 2880,
+      "h": 1863,
+      "alt": "A curved concrete arch dam holding back a deep blue reservoir between red sandstone canyon walls",
+      "project": null,
+      "client": null,
+      "confidence": "STOCK — Glen Canyon Dam, Arizona, USA. NOT a Teknicon project",
+      "note": "Hero slide 2 (team decision 2026-09-29). The slide's caption names Teknicon's real clients; this photograph is illustrative only. Never use it for a project, service or sector claim."
+    },
+    {
       "file": "img/project-tiper-hardstand.jpg",
       "source": "PDF p24 xref609 (docx image26.jpeg is the same photo at 1020x459 — the PDF embed is a materially higher-quality source)",
       "w": 1646,
@@ -1256,6 +1280,28 @@
       "project": "ifakara-water-supply-irrigation",
       "confidence": "confident",
       "note": "Gallery photo from the designed profile PDF. No date stamp."
+    }
+  ],
+  "stock": [
+    {
+      "file": "img/insights-tower-crane.jpg",
+      "source": "Pexels — pexels-efeburakbaydar-36065437.jpg (6000×4000); cropped y 1850–4000 to remove the crane counterweight's 'AVCILAR' sign; resized 2400×860",
+      "licence": "Pexels License — free for commercial use, no attribution required",
+      "w": 2400,
+      "h": 860,
+      "alt": "",
+      "use": "Masthead of Insights 2 (/insights/resources) only — a page that makes no project claim",
+      "confidence": "STOCK — not a Teknicon project"
+    },
+    {
+      "file": "img/insight-rebar-cage.jpg",
+      "source": "Pexels — pexels-davidelocatelli-2383649.jpg (6000×4000); cropped x 1250–3400, y 2000–3612 to exclude PERI and TOI TOI brand marks; resized 1600×1199",
+      "licence": "Pexels License — free for commercial use, no attribution required",
+      "w": 1600,
+      "h": 1199,
+      "alt": "A site crew in hard hats and high-visibility vests guiding a tall reinforcement cage into position between formwork props",
+      "use": "Illustration for the sample technical note 'Checked before it is issued' only — never for a project, service or sector claim",
+      "confidence": "STOCK — not a Teknicon project"
     }
   ]
 }

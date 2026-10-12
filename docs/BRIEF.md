@@ -45,6 +45,36 @@ wordmark, with the tagline "Consulting Engineers and Project Managers" beneath i
 
 > "To improve the quality of life for human beings through engineering excellence."
 
+### 2a. Positioning and lifecycle (profile p.5 and the Services introduction, verbatim)
+
+> "The company maintains an independent consulting position and focuses on professional
+> judgement, responsive client service and practical engineering solutions suited to
+> Local, Regional and Global project conditions."
+
+(Designed PDF p.7 wording, used on the site. The Word file reads "local and regional".)
+
+> "TEKNICON delivers multidisciplinary consulting engineering and project management
+> services, spanning the entire project lifecycle, from feasibility studies and concept
+> development through detailed design, tender documentation, construction supervision,
+> contract administration, and project close-out."
+
+Used by the Home "Why work with Teknicon" section and the About overview.
+
+### 2b. Overall team strength (designed PDF p.46)
+
+- The team combines senior consulting engineers, registered professional engineers,
+  junior engineers, a quantity surveyor, and senior civil technicians.
+- Core strengths include civil and structural engineering design, construction
+  supervision, project coordination, project management, quantity surveying, and site
+  quality control.
+- The listed staff have accumulated experience ranging from 7 to 34 years, with exposure
+  mainly in Tanzania and abroad.
+
+### 2c. Licences statement (profile p.47)
+
+> "We ensure all our licenses and certifications remain continuously active and compliant."
+
+
 ## 3. Three technical departments (the core service triad)
 
 1. **Structural and Bridge Engineering**

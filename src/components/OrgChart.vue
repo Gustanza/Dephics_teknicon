@@ -109,8 +109,19 @@ const pad = (i) => String(i + 1).padStart(2, '0')
         </ul>
       </Reveal>
 
-      <Reveal class="oc__note" variant="fade" :delay="200">
-        {{ orgChart.note }}
+      <!-- IA "qualifications, disciplines and experience" — for the team as a whole,
+           since staff are shown as positions (C3). Profile p.46. -->
+      <Reveal class="oc__strength" variant="fade" :delay="200">
+        <h3 class="eyebrow oc__strength-h">{{ orgChart.strength.label }}</h3>
+        <dl class="oc__strength-grid">
+          <div v-for="item in orgChart.strength.items" :key="item.label" class="oc__strength-cell">
+            <dt class="oc__strength-label">{{ item.label }}</dt>
+            <dd class="oc__strength-text">
+              <span v-if="item.figure" class="oc__strength-figure">{{ item.figure }}</span>
+              {{ item.text }}
+            </dd>
+          </div>
+        </dl>
       </Reveal>
     </div>
   </section>
@@ -301,14 +312,46 @@ const pad = (i) => String(i + 1).padStart(2, '0')
 
 /* ---------- note ---------- */
 
-.oc__note {
-  margin-top: var(--space-medium);
-  padding-top: 20px;
+/* team strength: three hairline cells — Disciplines · Core strengths · Experience */
+.oc__strength { margin-top: var(--space-large); }
+.oc__strength-h { display: block; margin: 0 0 1.4em; }
+.oc__strength-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
   border-top: 1px solid var(--c-bd);
-  max-width: 68ch;
-  font-size: 15px;
-  line-height: 1.6em;
-  color: var(--c-text-light);
+}
+.oc__strength-cell { padding: 24px 30px 0 0; }
+.oc__strength-cell + .oc__strength-cell { padding-left: 30px; border-left: 1px solid var(--c-bd); }
+.oc__strength-label {
+  font-size: var(--h6-size);
+  line-height: var(--h6-lh);
+  font-weight: 700;
+  letter-spacing: var(--h6-ls);
+  color: var(--c-heading);
+}
+.oc__strength-text {
+  margin: .6em 0 0;
+  font-size: 1rem;
+  line-height: var(--body-lh);
+  color: var(--c-text);
+}
+/* the one figure: set at h3 scale, the way the theme lets a number lead a cell */
+.oc__strength-figure {
+  display: block;
+  margin-bottom: .15em;
+  font-size: var(--h3-size);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: var(--h3-ls);
+  color: var(--c-heading);
+}
+
+@media (max-width: 1023px) {
+  .oc__strength-grid { grid-template-columns: 1fr; }
+  .oc__strength-cell,
+  .oc__strength-cell + .oc__strength-cell { padding: 20px 0; border-left: 0; }
+  .oc__strength-cell + .oc__strength-cell { border-top: 1px solid var(--c-bd); }
 }
 
 /* ---------- responsive ---------- */

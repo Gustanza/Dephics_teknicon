@@ -148,7 +148,7 @@ Official artwork supplied by the client, in `public/img/`:
 `logo-header.png` / `-white.png` (mark + wordmark, tagline removed).
 An earlier hand-traced SVG was wrong and has been deleted. **Never redraw the mark.**
 
-### Verified state as of last build (2026-09-23)
+### Verified state as of last build (2026-09-27)
 `npm run audit` — NO PROBLEMS FOUND on all 51 pages (h1, heading order, ids, dead links,
 **dead #anchors** (new), external rel, images, CLS, labels, landmarks, SEO, console).
 `npm run census` — CLEAN: 0 non-`0`/`50%` radii, 0 box-shadows, no horizontal overflow
@@ -200,6 +200,60 @@ Every round of client comments, with status. **Nothing here gets silently droppe
 | C4 | Insights = curated external links (ERB, IET, OSHA Tanzania, TANROADS, TARURA, FIDIC, TBS) | ✅ Done — P1-9 |
 | C5 | Adopt information from the company profile; select projects as seen fit, then iterate | ✅ Accepted as standing authority |
 
+### Round G — Sectors, Insights, Contact and Footer measured against the IA document (2026-09-27)
+| # | IA item | Status |
+|---|---|---|
+| G1 | Primary nav: Home · About Us · Services · Projects · Sectors · Insights · Contact Us | ✅ Exact, in order |
+| G2 | Sectors: the seven, and "service vs sector" | ✅ All seven names verbatim; each evidenced by linked projects. Removed the definition said twice in a row (header + intro) |
+| G3 | Insights: News & Updates · Publications / Downloads · Career; not an empty menu item | ⚠️ Publications (company profile) ✅ + the C4 curated links ✅. **News and Career: no content exists** — hidden until supplied. Josephat's WhatsApp reply (Media & Resources / Industry Trends / News…) was cut off in the screenshot — full text needed |
+| G4 | Contact: address, telephone/mobile, email, social links | ⚠️ Address, landline, email ✅. **Mobile** — none in the profile. **Social** — no handles supplied (P0-2) |
+| G5 | Contact: Google map of the office | ✅ Now in the office column beside the form (was full width below) |
+| G6 | Contact: enquiry form — name, organisation, email, phone, enquiry | ✅ All, plus Subject. ⚠️ Not connected to an inbox yet (Q4); it tells visitors to email until then |
+| G7 | Contact: working hours | ⚠️ **The hours shown were invented** (Mon–Fri 08:00–17:00, weekends closed — in no source). Withdrawn 2026-09-27, now a client placeholder, hidden. Also removed the unsourced promise "We respond to every enquiry received during working hours" |
+| G8 | Footer: About Teknicon + profile download · Services · Contact details · Legal | ✅ |
+| G9 | Footer: Quick Links | ❌ Removed by team decision (see §4) |
+| G10 | Footer: Professional Credentials — logos or accreditations | ✅ New ruled row: ERB LCF 122 · ACET 061 · OSHA 313-102-022 · BRELA 71672 (text; logos if supplied). Replaces the bottom-bar registration line |
+
+### Round F — Services and Projects measured against the IA document (2026-09-27)
+| # | IA item | Status |
+|---|---|---|
+| F1 | Services: five capability areas, named as the IA names them | ✅ All five; water service uses the IA's Home name (Round D) |
+| F2 | Services: each area's scope bullets | ✅ All 25 lines verbatim (checked programmatically against the PDF) |
+| F3 | Service page format: overview · scope · typical deliverables · relevant sectors · related projects · consultation CTA | ✅ All five pages, in that order. CTA reads "Contact us" (C2) |
+| F4 | Projects: All Projects, filter by sector, service, location **and status** | ⚠️ Type, sector, service, location built. **Status**: no project has one in any source — the filter appears by itself once the client fills `status` |
+| F5 | Projects: three categories | ✅ Buildings & Facilities 14 · Transport & Urban Infrastructure 12 · Water, Dams & TSF 10 |
+| F6 | Featured Project Case Studies: challenge, scope, solution, facts, images, outcome | ⚠️ Three chosen. Narratives exist in no source → labelled **"Featured project"** until they do (`hasCaseStudy()` switches the wording to "Case study" by itself). Removed the lone "Scope" block that repeated the fact sheet |
+| F7 | Project page: client, location, year, services delivered, value if publishable, gallery, related services | ⚠️ Client, location, services, related services on all 36; value on 1 (only TRA ITA's is in the source); gallery on 12. **Year** on none — client input |
+| F8 | "Similar work" on project pages | ✅ Fixed: ranked by type, then service overlap (Jaccard), then sector — was sector-only, so a bridge page led with a workshop, then a bus terminal |
+| F9 | /projects header claimed work "delivered across … Uganda" | ✅ Fixed — the Uganda High Commission is in Dodoma. Now "across Tanzania, including Zanzibar, and in Rwanda" |
+| F10 | /projects closing panel "Who do we work for? → See our clients" linked to the Clients section just above it | ✅ Replaced with the contact panel, as on Home |
+
+### Round E — About Us measured against the IA document, item by item (2026-09-27)
+| # | IA About item | Status |
+|---|---|---|
+| E1 | Company Overview: background, establishment, ownership, office location, professional positioning | ✅ Positioning statement (PDF p.7 wording) + fact row: Established · Ownership · Head office |
+| E2 | Vision, Mission & Values: vision, quality-driven approach, core principles | ⚠️ Vision + "Our objective" + four "Core principles", all profile wording. **No Mission or Values labels** — neither exists in any source. Client to supply |
+| E3 | Leadership & Our Team (→ positions, C3) incl. qualifications, disciplines, experience | ✅ Org chart + "Overall team strength" (Disciplines · Core strengths · Experience 7–34 yrs), PDF p.46. Removed an invented line ("names provided on request and in tender submissions") |
+| E4 | Quality, HSE & Compliance | ⚠️ Heading adopted on /about; QA steps + a "Health, safety & compliance" step (OSHA 313-102-022, licences "continuously active and compliant"). **No HSE policy in any source** — client to supply |
+| E5 | Organisation Structure | ✅ Merged with E3. Open: Q6 (fourth HOD); and the About intro's three departments (Structural · Civil · PM) disagree with the chart's (Structural & Bridges · Dams & Water · Civil & Highway) — both are the profile's own; see Q9 |
+| E6 | Licences & Professional Memberships | ✅ All 10. ⚠️ Business licence expires 2026-11-19; tax clearance and ERB practising licence 2026-12-31 — must be refreshed |
+| E7 | Download Company Profile (+ any capability statement) | ✅ PDF. No capability statement exists |
+
+Page order now follows the IA: Overview · Vision · Leadership/Organisation · Quality/HSE · Licences. Licences moved to the paper band so the page alternates.
+
+### Round D — Home page measured against the IA document, item by item (2026-09-27)
+| # | IA Home item | Status |
+|---|---|---|
+| D1 | Slide 1: "We are Consulting Engineers and Project Managers" + supporting message + two CTAs | ✅ Done — IA headline and supporting message verbatim. Buttons: "Explore our services" → `/services`, **"Contact us"** → `/contact` (C2 overrides the IA's "Request a Consultation"). Image: stock (Pexels) since 2026-09-27 — see §4 |
+| D2 | Slides 2–3/4: "Teknicon to provide…" captions | ✅ Drafted — slides 2–3 now open "TEKNICON provides…", sourced from BRIEF, each linking to its service. **Client to approve wording.** Kept at 3 slides: no 4th hero-grade photograph |
+| D3 | Brief intro → About, *or* CEO foreword | ✅ Intro option done. CEO foreword exists in no source — client to supply if wanted |
+| D4 | Four service highlights | ⚠️ Three shown, per the client's 2026-09-23 request (PM reached via "All services"). **Client to choose 3 or 4** (§7 Q7). Water service now carries the IA's Home name |
+| D5 | Featured projects | ✅ Done (6 cards). Case-study narratives still client input (§5a) |
+| D6 | Sectors served | ✅ Done (7) |
+| D7 | Why work with Teknicon — 4 differentiators | ✅ **New section** (`WhyTeknicon.vue`). "Established since 2009" set as "Established in 2009" |
+| D8 | Client and partner logos | ⚠️ 11 mining/water/industrial logos only. Public-sector logos (TRA, TIPER, MSD, TARURA, ministries, Judiciary, UDSM) and any partner marks: client to supply files + permission |
+| D9 | Contact / enquiry strip | ✅ Done — Home's second CTA panel now carries phone (tap-to-call), email and address instead of "Who do we work for?" |
+
 ---
 
 ## 4. Decision log
@@ -235,6 +289,23 @@ Decisions already made, with reasoning, so they are not relitigated.
 | Footer headings promoted h3 → h2 | On pages without their own h2 (`/privacy`, `/404`) the footer skipped a level. Styling is by class, nothing moved |
 | Split-CTA buttons → real routes | `#contact` scrolled to the footer and `#clients` did not exist on most pages |
 | Consultation band uses red + navy buttons | The client's chosen brand pair (P0-1); an outline button hovers navy and vanishes on the dark band |
+| Home hero slide 1 uses the IA's headline verbatim | Round D. The previous "Engineering that holds Tanzania together" was ours, not the client's. Hero content widened 900 → 1240px so the longer headline keeps the theme's two lines at 87px; on phones the lines flow and balance |
+| "Why work with Teknicon" reuses the Quality split | Fuse's sticky-column + node-timeline (THEME_DNA §4.2 / §12 row 5). Both now render through one `NodeSplit.vue`; Quality is a thin wrapper. Paper band so it steps off the white Sectors above |
+| Home contact strip = the Fuse CTA panel row, second panel repurposed | THEME_DNA §7.6 is two photo panels, not a thin strip, so the row stays; only panel 2's content changes. Other pages keep "Who do we work for?" (`SplitCta` takes a `panels` prop) |
+| **`Button` binds only the attribute its element needs** | Bug found 2026-09-27: `href: undefined` passed to RouterLink overwrote its computed href, so **every internal button site-wide** shipped as `<a>` with no href — JS-clickable but unfocusable and uncrawlable. Same defect fixed in the footer website link (all pages) and About's departments link (read `.href`, data had `to`). Build now has 0 href-less anchors |
+| **Insights shipped in two versions, side by side** (team decision 2026-09-29) | The menu item keeps its name; hovering it opens a Fuse sub-menu (THEME_DNA §9.4): **Insights 1** = `/insights`, the client's WhatsApp version (C4 links); **Insights 2** = `/insights/resources`, the IA's own spec (News & Updates · Publications / Downloads · Career), so the client can choose. News holds two real, sourced 2026 items (revised profile; ERB practising licence) — no invented news. Career shows the org chart's roles and a career-enquiries line to info@ (**client to approve — Q12**). Sub-menu labels are placeholders; rename in `nav` once the client picks |
+| **Insights 2 filled with SAMPLE news and vacancies** (team decision 2026-09-29) | The client has supplied no news and no openings, so Insights 2 carries demonstration content for review: 4 articles (each with its own page at `/insights/resources/<slug>`) and 3 vacancies. Article facts are the profile's own (New Luika TSF2 phases; Zimbili & Ulongoni; the QA procedure; 2026 registrations) — only dates and framing are sample. Vacancies use the org chart's real departments; roles, requirements and closing dates are sample. Every item shows a **"Sample"** tag. **Before launch: set `insightsResources.showSamples = false`** in content.js — that removes every sample item and its page in one go. Stock images (Insights 2 masthead; the QA note) are logged under `stock` in image-manifest.json |
+| **All buttons in title case** (2026-09-29) | Major words capitalised; a, an, the, and, or, of, to, in, on, for, at, by, with lower case unless first ("See the Projects", "Reach Out to Us"). Split-CTA "Request a proposal" → **"Reach Out to Us"**. Email-address buttons left as typed. Verified against every `.btn` in the built site (15 labels, 56 pages). Text links (e.g. "Read article") keep sentence case |
+| Filters no longer move the page | Bug (2026-09-29): each project-register filter rewrites the URL query, and `scrollBehavior` in main.js treated that as a navigation — jump to top, or re-scroll to #register. Now a same-path, same-hash change returns `false` (stay put). Verified: 4 tab clicks + 2 selects, scroll position unchanged; real page navigation still starts at the top |
+| **Hero slide 2 → stock photograph of Glen Canyon Dam** (team decision 2026-09-29) | The TSF-embankment frame did not read as "dams", and Teknicon's own 350 ML masonry-dam photo was judged not strong enough. Of the three stock downloads (Hoover Dam ×2, Glen Canyon Dam) Glen Canyon was used: dam and reservoir in one frame, no flag. ⚠️ Recorded risk: a recognisable US landmark sits under a caption naming Shanta / Buckreef / Matongo / Anglo de Beers — replace with an original client photograph or drone shot when available. Logged as STOCK in image-manifest.json |
+| **Footer "Professional Credentials" row removed** (team decision 2026-09-29) | Deliberate departure from the IA footer, like Quick Links. Footer is now About · Services · Contact Details + the legal bar |
+| **No registration numbers anywhere on the site** (team decision 2026-09-29) | Treated as private company information. Removed from: footer credentials (now names + standing), About licences (all 10 kept by name with a standing line; numbers and expiry dates dropped), About HSE step, Home "Why Teknicon", Insights 1 link notes, the sample "Registrations 2026" article. `credentials` data and Credentials.vue deleted. Scan of all 56 built pages: none left. Numbers stay in BRIEF §7 for internal use. ⚠️ The downloadable company-profile PDF still contains every number (p.47) — see Q13 |
+| **Home registration strip removed** (team decision 2026-09-29) | ERB · ACET · OSHA · BRELA · NSSF numbers under the hero were judged internal information. `Credentials.vue` is no longer on Home; its data still feeds the footer's Professional Credentials row. Open: the footer row and the About licences table (which also lists TIN, VAT, tax clearance) carry the same kind of numbers — see Q13 |
+| **Hero slide 1 uses a stock photograph** (Pexels, `hero-crane-yard-dusk.jpg`) | 2026-09-27, for resolution: the TIPER frame (1646×602) ran at ~2.9× on a retina laptop and looked soft. Allowed on slide 1 only, because its headline names no project; slides 2–3 name real work and keep Teknicon's photographs. Rejected candidates: a Chinese crane truck showing a stranger's phone number; European (PERI / TOI TOI) and US sites; a Turkish tower crane ("AVCILAR" sign). Recorded in image-manifest.json as STOCK. The real fix is still the client's original camera files |
+| **Footer Quick Links column removed** (deliberate departure from the IA footer) | Team call, 2026-09-27: About Us / Projects / Sectors / Contact are all in the primary nav, which is sticky, so the column only repeated it. Footer is now three columns (About · Services · Contact Details) + the legal bar. Note the IA also asks for a **Professional Credentials** footer part (registration/membership logos) — not built; the bottom bar carries ERB · ACET · TIN as text. Needs logo files from the client if wanted |
+| Water service renamed **"Water, Dams & Tailings Storage Facilities"** | The IA used two names (Home + Projects: "Tailings Storage Facilities"; Services: "Mining Infrastructure"). Client instruction 2026-09-27: use the Home wording. Title, card tag ("Water & Tailings"), route (`/services/water-dams-tailings-storage-facilities` — safe, site not yet live) and `/services` meta all changed; now matches the hero slide 2 eyebrow and the Projects category |
+| Service cards share row tracks (CSS subgrid) | Client flagged (2026-09-27): a three-line title ("Water, Dams & Mining Infrastructure" at 1024–1280) pushed that card's photo and button below its neighbours'. Now header / photo / description / button are shared tracks, so every row aligns whatever the copy. Six-column grid keeps an incomplete last row centred. Verified aligned at 1024–1920 |
+| Header at laptop widths (1280–1499): phone number hidden, menu tightened below 1380 | The nowrap menu had squeezed the 5:1 logo into a 46px square at 1280 (seen in the client's screenshot); un-squeezing it showed the row was up to 184px too wide and the CTA ran off the page. Logo now never shrinks. Swept every 10px 1280–1920, sticky and transparent: logo 5:1, no overflow |
 
 ---
 
@@ -499,6 +570,13 @@ Three images were removed from the build when the hero changed and are recoverab
 | **Q4** | Enquiry-form backend — Formspree, Netlify Forms, or client host? | Affects where we deploy. Needs answering before P5. |
 | ~~Q5~~ | **ANSWERED — five services** (Phase 2). | **Five.** The IA asks for it and the org chart corroborates it. |
 | **Q6** | Confirm the missing fourth HOD on the org chart | Client question. |
+| **Q7** | Home service highlights: 3 (their 23 Sep request) or the IA's 4? | Client decision. *(The water service's name is **settled**: "Water, Dams & Tailings Storage Facilities" everywhere, 2026-09-27 — see §4.)* |
+| **Q8** | Approve slide 2–3 captions; supply CEO foreword (optional) and public-sector client logos with permission | Client input. See Round D |
+| **Q9** | Which department structure is current? The profile text names Structural & Bridge · Civil · Project Management; its org chart names Structural & Bridges · Dams & Water · Civil & Highway. Both appear on /about | Client. The chart looks newer and matches the five-service IA |
+| **Q10** | Mission statement, Values, HSE policy, capability statement | Client input — none exist in the profile, so none were written |
+| **Q11** | Office working hours; a mobile number (the IA asks for "telephone/mobile"); social media URLs; News items and a Careers page for Insights; the rest of Josephat's "Insights → Media & Resources" message | Client input |
+| **Q12** | Insights: keep version 1 (links), version 2 (news · publications · career), or both? And may career enquiries go to info@teknicon.co.tz? | Client decision — see §4 |
+| **Q13** | The downloadable company profile PDF (on About, Insights and the footer) lists every registration number on p.47. Keep offering it, remove the download, or have the client supply a public version without p.47? | Team / client decision |
 
 ---
 

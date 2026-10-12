@@ -71,8 +71,18 @@ import { about } from '../data/content.js'
             <p v-for="para in about.paragraphs" :key="para" class="ab__para">{{ para }}</p>
           </Reveal>
 
-          <Reveal class="ab__objective-reveal" variant="fade" :delay="200">
-            <blockquote class="ab__objective">{{ about.objective }}</blockquote>
+          <!-- IA "Company Overview": professional positioning, then establishment,
+               ownership and office location as a ruled fact row. (The objective
+               statement that used to sit here moved to the vision band — the IA
+               files "quality-driven approach" under Vision, Mission & Values.) -->
+          <Reveal class="ab__statement-reveal" variant="fade" :delay="200">
+            <blockquote class="ab__statement">{{ about.positioning }}</blockquote>
+            <dl class="ab__facts">
+              <div v-for="f in about.facts" :key="f.label" class="ab__fact">
+                <dt class="ab__fact-label">{{ f.label }}</dt>
+                <dd class="ab__fact-value">{{ f.value }}</dd>
+              </div>
+            </dl>
           </Reveal>
         </div>
       </div>
@@ -80,13 +90,13 @@ import { about } from '../data/content.js'
       <Reveal class="ab__depts" variant="fade">
         <div class="ab__depts-head">
           <p class="ab__depts-intro">{{ about.departmentsIntro }}</p>
-          <a class="ab__depts-link" :href="about.departmentsLink.href">
+          <RouterLink class="ab__depts-link" :to="about.departmentsLink.to">
             {{ about.departmentsLink.label }}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
-          </a>
+          </RouterLink>
         </div>
         <ul class="ab__depts-grid">
           <li v-for="d in about.departments" :key="d.n" class="ab__dept">
@@ -213,7 +223,7 @@ import { about } from '../data/content.js'
   color: var(--c-text);
 }
 
-.ab__objective {
+.ab__statement {
   margin: var(--space-small) 0 0;
   padding-left: 30px;
   border-left: 2px solid var(--c-brand-red);
@@ -222,6 +232,30 @@ import { about } from '../data/content.js'
   font-weight: 500;
   letter-spacing: -.3px;
   color: var(--c-heading);
+}
+
+/* establishment · ownership · head office: hairline above, small label over value —
+   a ruled cell row at body scale */
+.ab__facts {
+  display: grid;
+  /* the two short values hug their width; the address takes the rest */
+  grid-template-columns: max-content max-content minmax(0, 1fr);
+  gap: 0 44px;
+  margin: var(--space-small) 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--c-bd);
+}
+.ab__fact-label {
+  font-size: 14px;
+  line-height: 1.4em;
+  color: var(--c-text-light);
+}
+.ab__fact-value {
+  margin: 4px 0 0;
+  font-size: 17px;
+  line-height: 1.4em;
+  font-weight: 700;
+  color: var(--c-text-dark);
 }
 
 /* ---------- departments ---------- */
@@ -311,7 +345,7 @@ import { about } from '../data/content.js'
     Below the two-column layout, a photo landing first with no label above it reads
     as a stray image rather than part of this section. .ab__body carries no styling
     of its own — display:contents drops its box and promotes its three Reveal
-    children (head, paragraphs, objective) to grid items alongside .ab__media, so
+    children (head, paragraphs, statement) to grid items alongside .ab__media, so
     they can be reordered into a heading → photo → copy narrative that always
     introduces the section before showing a picture of it.
   */
@@ -319,7 +353,7 @@ import { about } from '../data/content.js'
   .ab__head-reveal { order: 1; }
   .ab__media { order: 2; }
   .ab__paras-reveal { order: 3; }
-  .ab__objective-reveal { order: 4; }
+  .ab__statement-reveal { order: 4; }
   /* the overlap needs two columns to lean into — below that the frames stack */
   .ab__stack { padding-bottom: 0; }
   .ab__inset {
@@ -338,7 +372,8 @@ import { about } from '../data/content.js'
 
 @media (max-width: 639px) {
   .ab__index { display: none; }
-  .ab__objective { padding-left: 20px; font-size: 17px; letter-spacing: 0; }
+  .ab__statement { padding-left: 20px; font-size: 17px; letter-spacing: 0; }
+  .ab__facts { grid-template-columns: minmax(0, 1fr); row-gap: 14px; }
   .ab__line--accent { background-size: 100% 2px; padding-bottom: 4px; }
   .ab__depts-grid { grid-template-columns: 1fr; }
   .ab__dept { padding: 22px 0; }

@@ -1,5 +1,6 @@
 <script setup>
 import Button from '../components/ui/Button.vue'
+import { primaryCta } from '../data/content.js'
 </script>
 
 <template>
@@ -12,8 +13,8 @@ import Button from '../components/ui/Button.vue'
         reachable from the main menu.
       </p>
       <div class="nf__actions">
-        <Button to="/" label="Back to the homepage" />
-        <Button to="/contact" label="Contact us" variant="navy" />
+        <Button to="/" label="Back to the Homepage" />
+        <Button :to="primaryCta.to" :label="primaryCta.label" variant="navy" />
       </div>
     </div>
   </section>

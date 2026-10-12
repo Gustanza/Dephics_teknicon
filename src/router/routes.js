@@ -12,7 +12,7 @@
  * `meta.head(params)`; vite.config.js enumerates every slug so each is prerendered.
  */
 import { filled, legal } from '../data/content.js'
-import { projectBySlug, projectName, serviceBySlug } from '../data/lookup.js'
+import { postBySlug, projectBySlug, projectName, serviceBySlug } from '../data/lookup.js'
 
 const SITE = 'https://www.teknicon.co.tz'
 const SUFFIX = 'Teknicon Ltd'
@@ -49,7 +49,7 @@ export const routes = [
     meta: {
       title: `Services — ${SUFFIX}`,
       description:
-        'Engineering design and consultancy, structural and bridge engineering, civil engineering and infrastructure, water, dams and mining infrastructure, and project management and construction supervision.',
+        'Engineering design and consultancy, structural and bridge engineering, civil engineering and infrastructure, water, dams and tailings storage facilities, and project management and construction supervision.',
       image: DEFAULT_OG
     }
   },
@@ -84,6 +84,35 @@ export const routes = [
       description:
         'Professional and regulatory resources relevant to consulting engineering in Tanzania — ERB, IET, OSHA, TANROADS, TARURA, TBS and FIDIC.',
       image: DEFAULT_OG
+    }
+  },
+  {
+    /* "Insights 2" — the IA document's own version of Insights (see content.js) */
+    path: '/insights/resources',
+    name: 'insights-resources',
+    component: () => import('../pages/InsightsResourcesPage.vue'),
+    meta: {
+      title: `News, Publications & Careers — ${SUFFIX}`,
+      description:
+        'News and updates from Teknicon, the company profile to download, and careers at a Tanzanian consulting engineering practice.',
+      image: DEFAULT_OG
+    }
+  },
+  {
+    /* an Insights 2 article */
+    path: '/insights/resources/:slug',
+    name: 'insights-post',
+    component: () => import('../pages/InsightsPostPage.vue'),
+    meta: {
+      head: ({ slug }) => {
+        const p = postBySlug[slug]
+        if (!p) return null
+        return {
+          title: `${p.title} — ${SUFFIX}`,
+          description: p.excerpt,
+          image: p.image ? p.image.src : DEFAULT_OG
+        }
+      }
     }
   },
   {

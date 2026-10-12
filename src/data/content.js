@@ -40,38 +40,72 @@ export const nav = [
   { label: 'Services', to: '/services' },
   { label: 'Projects', to: '/projects' },
   { label: 'Sectors', to: '/sectors' },
-  { label: 'Insights', to: '/insights' },
+  /* Two versions of Insights, side by side for the client to compare (team decision
+     2026-09-29): 1 is the page as the client amended it on WhatsApp (C4 — curated
+     professional links); 2 is the IA document's own spec (News & Updates ·
+     Publications / Downloads · Career). The parent still opens version 1. */
+  {
+    label: 'Insights',
+    to: '/insights',
+    children: [
+      { label: 'Insights 1', to: '/insights' },
+      { label: 'Insights 2', to: '/insights/resources' }
+    ]
+  },
   { label: 'Contact Us', to: '/contact' }
 ]
 
 /* The primary call to action, per client comment C2: they asked for "Contact us"
    rather than "Request a Consultation". Contextual CTAs keep their own wording. */
-export const primaryCta = { label: 'Contact us', to: '/contact' }
+export const primaryCta = { label: 'Contact Us', to: '/contact' }
 
 /* ------------------------------------------------------------------ hero */
-/* Each slide's photograph is the subject its headline names. Natural pixel
-   dimensions come from docs/image-manifest.json. */
+/* Each slide's photograph is the subject its headline names — except slide 1,
+   whose headline names no project and which carries a stock photograph (see the
+   note on it). Natural pixel dimensions come from docs/image-manifest.json.
+
+   Wording follows the IA document's Home section:
+   - Slide 1 is the IA's text verbatim — headline, supporting message and the two
+     calls to action. The second button reads "Contact us", not "Request a
+     Consultation": client comment C2 came after the IA and renamed it.
+     Button labels are in title case ("Explore Our Services") — every button on the
+     site is, since 2026-09-29: major words capitalised; a, an, the, and, or, of, to,
+     in, on, for, at, by, with stay lower case unless first.
+   - Slides 2–3 are the IA's "Teknicon to provide…" captions. The IA leaves the
+     wording open, so each lede opens "TEKNICON provides…" and names only work
+     from BRIEF §3–§5, shown over a photograph of that same work. Each links to
+     the service it describes. Three slides in all: the IA allows "2 to 3/4", and
+     no fourth frame in the library holds a full-bleed hero (ROADMAP §6). */
 export const heroSlides = [
   {
-    image: '/img/project-tiper-hardstand.jpg',
-    w: 1646, h: 602,
-    alt: 'A concrete boom pump arcing across a clear blue sky to place concrete for a rigid pavement slab inside a fuel depot, with a mixer truck, a team of workers in high-visibility vests and rows of bulk storage tanks behind',
-    focus: '50% 55%',
-    eyebrow: 'Consulting engineers and project managers',
-    title: ['Engineering that holds', 'Tanzania together'],
-    lede: 'Structural, civil and project management consultancy — from feasibility study to defects liability. Established June 2009 and registered with the Engineers Registration Board.',
-    cta: { label: 'Explore our work', to: '/projects' },
-    cta2: { label: 'Contact us', to: '/contact' }
+    /* STOCK PHOTOGRAPH (Pexels, see image-manifest.json → hero) — the one slide whose
+       headline names no project, so it may carry an image that is not Teknicon's own
+       work. Swapped 2026-09-27 for sharpness: the TIPER frame it replaces was 1646×602
+       and ran at ~2.9× on a retina laptop. Slides 2–3 name real projects and keep
+       Teknicon's own photographs. */
+    image: '/img/hero-crane-yard-dusk.jpg',
+    w: 2880, h: 1920,
+    alt: 'A heavy mobile crane parked in an industrial yard at dusk, low sun behind stacked timber crates',
+    focus: '50% 58%',
+    eyebrow: 'Established June 2009 · Dar es Salaam',
+    title: ['We are Consulting Engineers', 'and Project Managers'],
+    lede: 'We do multidisciplinary engineering, design, construction supervision and project management.',
+    cta: { label: 'Explore Our Services', to: '/services' },
+    cta2: primaryCta
   },
   {
-    image: '/img/hero-tsf-embankment-luika.jpg',
-    w: 1467, h: 964,
-    alt: 'A yellow vibrating roller compacting the crest of a rockfill tailings embankment under a deep blue sky at a gold mine site',
-    focus: '50% 45%',
-    eyebrow: 'Tailings storage facilities & water',
-    title: ['Dams and tailings', 'built to be audited'],
-    lede: 'Design, design review and construction supervision of TSFs, clear-water dams and reservoirs for Shanta, Buckreef, Matongo and Anglo de Beers.',
-    cta: { label: 'See the portfolio', to: '/projects' }
+    /* STOCK PHOTOGRAPH (Pexels — Glen Canyon Dam, USA; image-manifest.json → hero).
+       Team decision 2026-09-29: Teknicon's own dam photos were judged not strong
+       enough for a full-screen slide. Sharp at every size (2880 px). Replaces the
+       TSF-embankment frame, which did not read as "dams" at a glance. */
+    image: '/img/hero-dam-reservoir.jpg',
+    w: 2880, h: 1863,
+    alt: 'A curved concrete arch dam holding back a deep blue reservoir between red sandstone canyon walls',
+    focus: '60% 50%',
+    eyebrow: 'Water, dams & tailings storage facilities',
+    title: ['Tailings and water dams,', 'designed and supervised'],
+    lede: 'TEKNICON provides design, design review, construction supervision and structural audits of tailings storage facilities, water dams and reservoirs — for Shanta, Buckreef, Matongo and Anglo de Beers.',
+    cta: { label: 'View Capability', to: '/services/water-dams-tailings-storage-facilities' }
   },
   {
     image: '/img/project-tra-ita-hotel.jpg',
@@ -81,10 +115,10 @@ export const heroSlides = [
        does not support. */
     alt: 'Architectural rendering of a seven-storey accommodation block with a green and white facade and deep balconies, framed by palm trees',
     focus: '50% 45%',
-    eyebrow: 'Buildings, bridges & infrastructure',
-    title: ['From a 40m span', 'to a 7-storey block'],
-    lede: 'Zimbili and Ulongoni bridges for the Dar es Salaam Metropolitan Development Project. The TZS 15.94 billion (VAT incl.) TRA ITA building at Mikocheni. Storage warehouses for MSD at Keko and Mbeya.',
-    cta: { label: 'See the portfolio', to: '/projects' }
+    eyebrow: 'Structural & bridge engineering',
+    title: ['From a 40 m span', 'to a seven-storey block'],
+    lede: 'TEKNICON provides structural design and construction supervision for buildings and bridges — the Zimbili and Ulongoni bridges in Dar es Salaam, and the TZS 15.94 billion (VAT incl.) TRA ITA building at Mikocheni.',
+    cta: { label: 'View Capability', to: '/services/structural-bridge-engineering' }
   }
 ]
 
@@ -95,8 +129,8 @@ export const heroSlides = [
    the diagram's amber is a colour that exists nowhere else on the site. The
    departments are named and linked to the Services section instead. */
 export const about = {
-  eyebrow: 'Introduction',
-  index: '01',                       /* the profile tabs this section "01 INTRODUCTION" */
+  eyebrow: 'Company Overview',       /* the IA's name for this part (2026-09-27); the profile calls it "Introduction" */
+  index: '01',                       /* the profile tabs this section "01" */
   title: ['Multidisciplinary consultants,'],
   titleAccent: 'wholly Tanzanian-owned',   /* carries the theme's accent underline */
   paragraphs: [
@@ -104,7 +138,16 @@ export const about = {
     'The firm is wholly owned by Tanzanian nationals and is legally registered under the Companies Act. TEKNICON is also a member of the Association of Consulting Engineers Tanzania (ACET), confirming its standing within the professional consulting engineering sector.',
     'From its offices in Dar es Salaam, TEKNICON delivers practical, cost-effective and quality-driven engineering solutions for buildings, infrastructure, warehouses, bridges, hospitals, terminals and industrial developments — combining strong technical capability with hands-on project management and construction-stage support.'
   ],
-  objective: 'The company’s objective is to deliver clients’ precise requirements with the highest level of quality, within the agreed budget and timeframe. This is achieved through constant dialogue with clients, disciplined coordination and strict adherence to internal quality control and assurance procedures.',
+  /* IA "Company Overview … and professional positioning". Profile p.7 "Professional
+     Positioning", in the designed PDF's wording ("Local, Regional and Global" — the
+     Word file says "local and regional"; the PDF outranks it, ROADMAP §4). */
+  positioning: 'The company maintains an independent consulting position and focuses on professional judgement, responsive client service and practical engineering solutions suited to local, regional and global project conditions.',
+  /* IA "establishment, ownership, office location" — as a fact row. BRIEF §1 and §9. */
+  facts: [
+    { label: 'Established', value: 'June 2009' },
+    { label: 'Ownership', value: 'Wholly Tanzanian\u2011owned' }, /* non-breaking hyphen */
+    { label: 'Head office', value: 'Natai Plaza, 4th Floor, Mikocheni, Dar\u00a0es\u00a0Salaam' } /* city kept on one line */
+  ],
   departmentsIntro: 'The firm is organised around three technical departments',
   departments: [
     { n: '01', name: 'Structural and Bridge Engineering' },
@@ -128,17 +171,29 @@ export const about = {
   }
 }
 
-/* ----------------------------------------------------------- credentials */
-export const credentials = {
-  items: [
-    { label: 'Engineers Registration Board', value: 'LCF 122' },
-    { label: 'ACET member', value: '061' },
-    { label: 'OSHA', value: '313-102-022' },
-    { label: 'Incorporated (BRELA)', value: '71672' },
-    { label: 'NSSF', value: '1026954' },
-    { label: 'Established', value: 'June 2009' }
-  ],
-  caption: 'Fully registered, continuously compliant, wholly Tanzanian-owned.'
+/* ------------------------------------------------------------- vision */
+/* IA "Vision, Mission & Values — vision statement, quality-driven approach and core
+   principles". The profile has a Vision but NO mission and NO values, so neither
+   label is used: inventing either would break Rule 1 (ROADMAP §6 lists both as client
+   input). What the profile does have is shown under its own names:
+     objective   — profile p.5, verbatim: the "quality-driven approach"
+     principles  — the four things the Professional Positioning statement (p.7) says
+                   the firm focuses on, in its words */
+export const visionBand = {
+  eyebrow: 'Our vision',
+  objective: {
+    label: 'Our objective',
+    text: 'To deliver clients’ precise requirements with the highest level of quality, within the agreed budget and timeframe — through constant dialogue with clients, disciplined coordination and strict adherence to internal quality control and assurance procedures.'
+  },
+  principles: {
+    label: 'Core principles',
+    items: [
+      'An independent consulting position',
+      'Professional judgement',
+      'Responsive client service',
+      'Practical engineering solutions'
+    ]
+  }
 }
 
 /* -------------------------------------------------------------- services */
@@ -165,8 +220,9 @@ export const services = {
   title: ['From feasibility study', 'to defects liability'],
   lede: 'TEKNICON delivers multidisciplinary consulting engineering and project management services across the entire project lifecycle — feasibility study, concept and detailed design, tender documentation, construction supervision, contract administration and project close-out.',
   cardLink: 'View Capability',
+  allLink: 'All Services',  /* Home teaser button (title case, 2026-09-29) */
   /* the first three of the IA's Home "service highlights" */
-  home: ['structural-bridge-engineering', 'civil-engineering-infrastructure', 'water-dams-mining-infrastructure'],
+  home: ['structural-bridge-engineering', 'civil-engineering-infrastructure', 'water-dams-tailings-storage-facilities'],
   items: [
     {
       slug: 'engineering-design-consultancy',
@@ -264,10 +320,13 @@ export const services = {
       crop: false
     },
     {
-      slug: 'water-dams-mining-infrastructure',
+      slug: 'water-dams-tailings-storage-facilities',
       n: '04',
-      tag: 'Water & Mining',
-      title: 'Water, Dams & Mining Infrastructure',
+      tag: 'Water & Tailings',
+      /* The IA names this service twice: "Water, Dams & Tailings Storage Facilities"
+         (Home highlights, Projects categories) and "… & Mining Infrastructure"
+         (Services list). The client chose the first, 2026-09-27 — one name everywhere. */
+      title: 'Water, Dams & Tailings Storage Facilities',
       body: 'Dams, reservoirs, irrigation and TSFs.',
       overview: [
         'A large share of TEKNICON’s work is in the mining and water sectors: tailings storage facilities (TSF) and their auxiliary infrastructure, water dams, irrigation, and the training of water courses — covering design, design review, construction supervision and structural audits.',
@@ -363,6 +422,20 @@ export const quality = {
   ]
 }
 
+/* The About page's version of the QA section is the IA's "Quality, HSE & Compliance".
+   The profile has no HSE policy (ROADMAP §6 — client input); what it does have is the
+   OSHA registration (§7) and the statement that every licence is kept "continuously
+   active and compliant" (p.47). That is the one extra step. /services keeps the
+   plain QA version. */
+export const qualityAbout = {
+  eyebrow: 'Quality, HSE & compliance',
+  extraStep: {
+    icon: 'registered',
+    title: 'Health, safety & compliance',
+    body: 'Registered with the Occupational Safety and Health Authority (OSHA), with every statutory and professional licence kept continuously active and compliant.'
+  }
+}
+
 /* -------------------------------------------------------------- projects */
 /*
   The full project register — every project named in BRIEF §5, with the scope wording
@@ -396,7 +469,7 @@ const SV = {
   design: 'engineering-design-consultancy',
   structural: 'structural-bridge-engineering',
   civil: 'civil-engineering-infrastructure',
-  water: 'water-dams-mining-infrastructure',
+  water: 'water-dams-tailings-storage-facilities',
   pm: 'project-management-construction-supervision'
 }
 
@@ -1183,9 +1256,19 @@ export const projects = {
     'mwaoga-tsf1',
     'mnekezi-tsf2'
   ],
+  /* IA "Featured Project Case Studies". `pending` is what shows while the narratives
+     (challenge / solution / outcome) are still with the client — see hasCaseStudy()
+     in lookup.js. It switches to the case-study wording by itself once one is filled. */
+  allLink: 'View All Projects',  /* Home teaser button (2026-09-29) */
   caseStudies: {
     eyebrow: 'Featured case studies',
-    title: ['Three projects,', 'in more depth']
+    title: ['Three projects,', 'in more depth'],
+    label: 'Case study',
+    pending: {
+      eyebrow: 'Featured projects',
+      title: ['Three priority', 'projects'],
+      label: 'Featured project'
+    }
   },
   register: {
     eyebrow: 'All projects',
@@ -1284,7 +1367,7 @@ export const splitCta = [
     title: 'Have a project?',
     /* real routes: the old '#contact' / '#clients' anchors predate routing, and
        '#clients' did not exist on most of the pages this panel appears on */
-    button: { label: 'Request a proposal', to: '/contact' },
+    button: { label: 'Reach Out to Us', to: '/contact' },
     /* was the Luika stilling basin — swapped once a near-identical frame of the same
        structure became hero slide 1, so the two would not read as a duplicate */
     image: '/img/project-mnekezi-box-culvert.jpg',
@@ -1299,13 +1382,38 @@ export const splitCta = [
     eyebrow: 'Our clients',
     title: 'Who do we work for?',
     note: 'TRA · TIPER · MSD · TARURA · Shanta · Buckreef',
-    button: { label: 'See our clients', to: '/projects#clients' },
+    button: { label: 'See Our Clients', to: '/projects#clients' },
     image: '/img/project-tobacco-plant-morogoro.jpg',
     w: 1015, h: 768,
     alt: 'A steel portal-frame building under erection, with a mobile crane lifting a rafter into place and workers on ladders securing steelwork',
     focus: '50% 45%'
   }
 ]
+
+/* Home's (and /projects') closing pair is the IA's "Contact / enquiry strip": the enquiry panel as
+   everywhere else, then a contact panel carrying the office's phone, email and
+   address (BRIEF §9) in place of "Who do we work for?" — on Home that panel
+   pointed at the Clients section sitting directly above it. The theme's CTA row
+   (THEME_DNA §7.6) is kept as it is; only what the second panel says changes. */
+export const homeContactCta = {
+  label: 'Contact and enquiries',
+  panels: [
+    splitCta[0],
+    {
+      eyebrow: 'Contact the office',
+      title: company.phone,
+      titleHref: `tel:${company.phoneHref}`,
+      button: { label: company.email, href: `mailto:${company.email}` },
+      /* two set lines, not one wrapped string — a wrapped "A · B · C" left a
+         separator hanging at a line end. The full address is in the footer below. */
+      note: [company.address[0], 'Coca Cola Road, Mikocheni, Dar es Salaam'],
+      image: '/img/project-tobacco-plant-morogoro.jpg',
+      w: 1015, h: 768,
+      alt: 'A steel portal-frame building under erection, with a mobile crane lifting a rafter into place and workers on ladders securing steelwork',
+      focus: '50% 45%'
+    }
+  ]
+}
 
 /* ------------------------------------------------------- consult CTA */
 /* The IA's "consultation call-to-action" that closes every service page. The button
@@ -1314,12 +1422,12 @@ export const consultCta = {
   eyebrow: 'Start a conversation',
   title: 'Have a project that needs this?',
   lede: 'Talk to a registered consulting engineer about scope, programme and fees.',
-  secondary: { label: 'See the projects', to: '/projects' }
+  secondary: { label: 'See the Projects', to: '/projects' }
 }
 
 /* ---------------------------------------------------------------- footer */
 export const footer = {
-  blurb: 'A multidisciplinary consulting engineering firm registered with the Engineers Registration Board as a Local Engineering Consulting Firm. Wholly Tanzanian-owned. Member, ACET.',
+  blurb: 'A multidisciplinary consulting engineering firm registered with the Engineers Registration Board as a Local Engineering Consulting Firm. Wholly Tanzanian\u2011owned. Member, ACET.' /* non-breaking hyphen: it split across lines */,
   columns: [
     {
       heading: 'Office',
@@ -1352,7 +1460,9 @@ export const footer = {
     }
   ],
   copyright: 'Teknicon Ltd © 2026. All rights reserved.',
-  registrations: 'ERB LCF 122 · ACET 061 · TIN 108-536-756'
+  visionLabel: 'Our vision'
+  /* The IA's "Professional Credentials" footer part was removed 2026-09-29 at the
+     team's call — registration details are private company information. */
 }
 
 /* ------------------------------------------------------------ home intro */
@@ -1362,7 +1472,41 @@ export const homeIntro = {
   eyebrow: 'Who we are',
   title: ['A Tanzanian consulting practice,', 'registered and independent'],
   body: 'TEKNICON LTD is a multidisciplinary local consultancy firm, established in June 2009 and registered with the Engineers Registration Board as a Local Engineering Consulting Firm. Wholly owned by Tanzanian nationals and a member of the Association of Consulting Engineers Tanzania.',
-  cta: { label: 'Find out more about Teknicon', to: '/about' }
+  cta: { label: 'Find Out More About Teknicon', to: '/about' }
+}
+
+/* ------------------------------------------------------ why teknicon */
+/* IA section 1: "Why work with Teknicon / key differentiators". Eyebrow and title are
+   the IA's own two phrases. The four item titles are the IA's four differentiators,
+   with one wording change: "Established since 2009" reads "Established in 2009".
+   Every supporting line is from the profile — BRIEF §1, §2a and §7. No registration
+   numbers (private, 2026-09-29). */
+export const whyTeknicon = {
+  eyebrow: 'Key differentiators',
+  title: ['Why work with Teknicon'],
+  body: 'TEKNICON maintains an independent consulting position and focuses on professional judgement, responsive client service and practical engineering solutions suited to local, regional and global project conditions.',
+  items: [
+    {
+      icon: 'local',
+      title: 'Tanzanian-owned local consultancy',
+      body: 'Wholly owned by Tanzanian nationals and registered under the Companies Act, with offices in Dar es Salaam.'
+    },
+    {
+      icon: 'registered',
+      title: 'ERB-registered consulting firm',
+      body: 'Registered with the Engineers Registration Board as a Local Engineering Consulting Firm, and a member of the Association of Consulting Engineers Tanzania.'
+    },
+    {
+      icon: 'since',
+      title: 'Established in 2009',
+      body: 'In practice since June 2009, for public and private sector clients.'
+    },
+    {
+      icon: 'lifecycle',
+      title: 'Design-to-construction support',
+      body: 'One firm across the entire project lifecycle — feasibility study, detailed design, tender documentation, construction supervision, contract administration and project close-out.'
+    }
+  ]
 }
 
 /* --------------------------------------------------- organisation chart */
@@ -1397,7 +1541,18 @@ export const orgChart = {
       roles: ['HR & Admin Manager', 'Accountant', 'Legal Officer (Company Secretary)', 'IT & Systems Administrator']
     }
   ],
-  note: 'Individual staff names, qualifications and years of service are provided on request and in tender submissions.'
+  /* IA "short biographies, qualifications, disciplines and experience" — at team
+     level, because C3 rules out named individuals. Profile p.46 "Overall Team's
+     Strength", verbatim in substance. (Replaces a line saying names were "provided
+     on request and in tender submissions" — a policy no source states.) */
+  strength: {
+    label: 'Overall team strength',
+    items: [
+      { label: 'Disciplines', text: 'Senior consulting engineers, registered professional engineers, junior engineers, a quantity surveyor and senior civil technicians.' },
+      { label: 'Core strengths', text: 'Civil and structural engineering design, construction supervision, project coordination, project management, quantity surveying and site quality control.' },
+      { label: 'Experience', figure: '7–34', text: 'Years of individual experience across the team, gained mainly in Tanzania and abroad.' }
+    ]
+  }
 }
 
 /* --------------------------------------------------------------- licences */
@@ -1407,19 +1562,22 @@ export const licences = {
   title: ['Registered, and', 'continuously compliant'],
   lede: 'TEKNICON maintains full, up-to-date statutory and professional registrations for consulting engineering in Tanzania.',
   items: [
-    { name: 'Certificate of Incorporation (BRELA)', ref: '71672' },
-    { name: 'VAT Registration (TRA)', ref: 'VRN 40-004932-P' },
-    { name: 'Taxpayer Identification Number (TRA)', ref: 'TIN 108-536-756' },
-    { name: 'Business Licence', ref: 'BL01396912025-2600017652', expires: '19 November 2026' },
-    { name: 'Tax Clearance Certificate', ref: '131-0261-6147', expires: '31 December 2026' },
-    { name: 'Engineers Registration Board (ERB)', ref: 'LCF 122 / Reg. No. 0122' },
-    { name: 'ERB Annual Practising Licence 2026', ref: 'ERBT01341', expires: '31 December 2026' },
-    { name: 'Association of Consulting Engineers Tanzania (ACET)', ref: '061' },
-    { name: 'Occupational Safety and Health Authority (OSHA)', ref: '313-102-022' },
-    { name: 'National Social Security Fund (NSSF)', ref: '1026954' }
+    /* NO registration numbers and no expiry dates (team decision 2026-09-29: the
+       numbers are private company information; the dates would go stale). Each `ref`
+       states the standing, which BRIEF §7 supports. Numbers stay in BRIEF §7. */
+    { name: 'Certificate of Incorporation (BRELA)', ref: 'Incorporated under the Companies Act' },
+    { name: 'VAT Registration (TRA)', ref: 'VAT registered' },
+    { name: 'Taxpayer Identification Number (TRA)', ref: 'Registered taxpayer' },
+    { name: 'Business Licence', ref: 'Licensed' },
+    { name: 'Tax Clearance Certificate', ref: 'Tax clearance held' },
+    { name: 'Engineers Registration Board (ERB)', ref: 'Local Engineering Consulting Firm' },
+    { name: 'ERB Annual Practising Licence', ref: 'Practising licence held' },
+    { name: 'Association of Consulting Engineers Tanzania (ACET)', ref: 'Member' },
+    { name: 'Occupational Safety and Health Authority (OSHA)', ref: 'Registered workplace' },
+    { name: 'National Social Security Fund (NSSF)', ref: 'Registered employer' }
   ],
   download: {
-    label: 'Download the company profile',
+    label: 'Download the Company Profile',
     href: '/downloads/teknicon-company-profile.pdf',
     meta: 'PDF · 50 pages · 6.8 MB'
   }
@@ -1445,7 +1603,9 @@ export const licences = {
 export const sectors = {
   eyebrow: 'Sectors',
   title: ['Who we build for'],
-  lede: 'A sector is who or what the work serves. Every sector below is evidenced by named projects already delivered.',
+  /* the page header already gives the IA's service/sector distinction; this line only
+     adds the evidence claim, so the definition is not said twice in a row */
+  lede: 'Every sector below is evidenced by named projects already delivered.',
   allLink: 'All projects in this sector',
   items: [
     {
@@ -1519,9 +1679,9 @@ export const insights = {
     {
       heading: 'Regulators & professional bodies',
       links: [
-        { name: 'Engineers Registration Board (ERB)', href: 'https://www.erb.go.tz/', note: 'Registers engineers and consulting firms. Teknicon is LCF 122.' },
+        { name: 'Engineers Registration Board (ERB)', href: 'https://www.erb.go.tz/', note: 'Registers engineers and consulting firms. Teknicon is a registered Local Engineering Consulting Firm.' },
         { name: 'Institution of Engineers Tanzania (IET)', href: 'https://iet.or.tz/', note: 'The national professional institution for engineers.', unverified: true },
-        { name: 'Occupational Safety and Health Authority (OSHA)', href: 'https://www.osha.go.tz/', note: 'Workplace safety and health regulation. Teknicon is 313-102-022.' }
+        { name: 'Occupational Safety and Health Authority (OSHA)', href: 'https://www.osha.go.tz/', note: 'Workplace safety and health regulation. Teknicon is registered with OSHA.' }
       ]
     },
     {
@@ -1562,15 +1722,191 @@ export const insights = {
   }
 }
 
+/* ------------------------------------------------ insights 2 (IA version) */
+/*
+  "Insights 2": IA section 6 exactly as the document gives it — News & Updates,
+  Publications / Downloads, Career.
+
+  SAMPLE CONTENT (team decision 2026-09-29): the client has supplied no news and no
+  vacancies, so the page is filled with demonstration items for them to review.
+  Every item with `sample: true` is marked "Sample" on the page, and ONE switch —
+  `showSamples` below — removes all of them before launch.
+
+  How the samples stay honest:
+    posts      — the facts in each article are the company profile's own (BRIEF §4,
+                 §5, §5.1, §7); only publication dates and the explanatory framing
+                 are sample. Photographs are the project's own where the post is
+                 about a project; stock (marked in image-manifest.json) otherwise.
+    vacancies  — built on the real departments of the organisation chart; the roles,
+                 requirements and closing dates are sample.
+*/
+export const insightsResources = {
+  showSamples: true,
+  sampleLabel: 'Sample',
+  hero: {
+    eyebrow: 'Insights',
+    title: ['News, publications', 'and careers'],
+    lede: 'Project stories and technical notes from the practice, publications to download, and careers at Teknicon.',
+    /* STOCK (Pexels) — this page makes no project claim. Cropped below the crane's
+       counterweight so its "AVCILAR" sign is out of frame. */
+    image: '/img/insights-tower-crane.jpg', w: 2400, h: 860, focus: '50% 40%'
+  },
+  news: {
+    eyebrow: 'News & Updates',
+    title: ['From the practice'],
+    sampleNote: 'Sample articles for review, written from the company profile — to be replaced with Teknicon’s own before launch.',
+    readMore: 'Read article',
+    posts: [
+      {
+        slug: 'new-luika-tsf2-five-phases',
+        sample: true,
+        date: '16 September 2026',
+        category: 'Project story',
+        title: 'Five phases of TSF2 at New Luika Gold Mine',
+        excerpt: 'Design review, design and construction supervision across every phase of a tailings storage facility for Shanta Mining — and the water infrastructure around it.',
+        image: { src: '/img/hero-tsf-embankment-luika.jpg', w: 1467, h: 964, alt: 'A yellow vibrating roller compacting the crest of a rockfill tailings embankment under a deep blue sky' },
+        body: [
+          'At New Luika Gold Mine in Songwe Region, TEKNICON has worked with Shanta Mining Company Ltd on TSF2 — the mine’s second tailings storage facility — through five successive phases.',
+          'For Phases 1, 2A and 2B the firm carried out design review and construction supervision. For Phase 3 it took on the design as well as the supervision, and for Phase 3B it provided construction supervision.',
+          'A tailings facility is raised in stages as a mine operates, so each phase has to be checked against the one before it. Reviewing designs and supervising each lift is how an owner keeps that growing structure consistent with its design basis.',
+          'Around the facility, TEKNICON also designed and supervised the energy dissipater for TSF2 supernatant water, a 150 ML water reservoir and a 350 ML masonry water dam — all for Shanta at New Luika.'
+        ],
+        project: 'new-luika-tsf2',
+        service: 'water-dams-tailings-storage-facilities'
+      },
+      {
+        slug: 'two-bridges-for-dmdp',
+        sample: true,
+        date: '2 September 2026',
+        category: 'Project story',
+        title: 'Zimbili and Ulongoni: two bridges for Dar es Salaam',
+        excerpt: 'Feasibility study, design and construction supervision of two bridges under the Dar es Salaam Metropolitan Development Project, for Ilala Municipal Council.',
+        image: { src: '/img/project-ulongoni-bridge.jpg', w: 1080, h: 810, alt: 'A reinforced concrete bridge deck under construction across a sandy river channel, with workers, a wheel loader and an excavator' },
+        body: [
+          'Under the Dar es Salaam Metropolitan Development Project (DMDP), TEKNICON took two bridges for Ilala Municipal Council from feasibility study through design to construction supervision.',
+          'Zimbili Bridge spans 40 metres. Ulongoni Bridge was carried through the same three stages.',
+          'Taking a bridge from feasibility to supervision in one team means the assumptions made at the study stage — alignment, span, foundations — are the ones checked on site during construction.'
+        ],
+        project: 'zimbili-bridge',
+        service: 'structural-bridge-engineering'
+      },
+      {
+        slug: 'checked-before-it-is-issued',
+        sample: true,
+        date: '19 August 2026',
+        category: 'Technical note',
+        title: 'Checked before it is issued: how a design is reviewed',
+        excerpt: 'The quality assurance steps that sit between a design calculation and a construction site — and why each one is there.',
+        /* STOCK (Pexels), cropped to the cage and crew so no brand mark is in frame */
+        image: { src: '/img/insight-rebar-cage.jpg', w: 1600, h: 1199, alt: 'A site crew in hard hats and high-visibility vests guiding a tall reinforcement cage into position between formwork props', stock: true },
+        body: [
+          'TEKNICON applies quality assurance procedures that prescribe the checks and audits needed to ensure the soundness, correctness and interface compatibility of engineering solutions.',
+          'Design calculations and drawings are technically reviewed before they are issued. Structural, civil, architectural, mechanical, electrical and quantity surveying inputs are coordinated, so the drawings that reach site agree with one another.',
+          'During construction the checking continues: regular site inspections and reporting, review of contractor submissions, and monitoring of quality, schedule, budget and compliance with the contract documents.',
+          'The last step is close-out — final inspections, and support through the Defects Liability Period where it applies.'
+        ],
+        service: 'engineering-design-consultancy'
+      },
+      {
+        slug: 'registrations-2026',
+        sample: true,
+        date: '14 January 2026',
+        category: 'Company news',
+        title: 'Registrations current for 2026',
+        excerpt: 'TEKNICON’s ERB Annual Practising Licence, tax clearance and business licence are in place for 2026.',
+        body: [
+          'TEKNICON holds its Engineers Registration Board Annual Practising Licence for 2026. The firm is registered with the ERB as a Local Engineering Consulting Firm.',
+          'Its tax clearance and business licence are likewise current for the year.',
+          'The full list of the firm’s statutory and professional registrations is on the About page.'
+        ],
+        link: { label: 'All licences and registrations', to: '/about#licences' }
+      }
+    ]
+  },
+  /* labels on an article page */
+  post: {
+    asideLabel: 'At a glance',
+    category: 'Category',
+    published: 'Published',
+    project: 'Project',
+    service: 'Service',
+    seeAlso: 'See also',
+    sampleNote: 'Sample article for review, written from the company profile.',
+    moreTitle: ['More from the practice']
+  },
+  downloads: {
+    eyebrow: 'Publications / Downloads',
+    title: ['Publications', 'and downloads'],
+    button: 'Download PDF'
+    /* items: insights.downloads.items — one list, shared with Insights 1 */
+  },
+  careers: {
+    eyebrow: 'Career',
+    title: ['Working at', 'Teknicon'],
+    lede: 'Three technical departments and an administration team, organised by position.',
+    /* the organisation chart's four teams (ROADMAP §6), not new claims */
+    teamsLabel: 'The teams',
+    teams: [
+      { icon: 'bridge', name: 'Structural and Bridges', roles: 'Senior engineers · Junior engineers · Technicians' },
+      { icon: 'water', name: 'Dams and Water Infrastructure', roles: 'Senior engineers · Junior engineers · Technicians' },
+      { icon: 'road', name: 'Civil and Highway', roles: 'Senior engineers · Junior engineers · Technicians' },
+      { icon: 'office', name: 'Administration and Finance', roles: 'HR & admin · Accounts · Legal · IT' }
+    ],
+    openingsLabel: 'Current openings',
+    sampleNote: 'Sample vacancies, for review.',
+    applyLabel: 'Apply',
+    closesLabel: 'Closes',
+    howTo: {
+      text: 'Send a CV and covering letter, with the role title in the subject line.',
+      button: 'Email Your CV'
+    },
+    email: company.email,
+    vacancies: [
+      {
+        sample: true,
+        title: 'Senior Structural Engineer',
+        department: 'Structural and Bridges',
+        location: 'Dar es Salaam',
+        type: 'Full time',
+        closes: '31 Oct 2026',
+        summary: 'Structural design and supervision of buildings and bridges.',
+        tags: ['ERB Professional Engineer', '10+ years', 'Concrete & steel design']
+      },
+      {
+        sample: true,
+        title: 'Civil Engineer — Dams and Water',
+        department: 'Dams and Water Infrastructure',
+        location: 'Mine sites',
+        type: 'Full time',
+        closes: '15 Nov 2026',
+        summary: 'Design review and supervision of TSFs, dams and reservoirs.',
+        tags: ['ERB registered', '3+ years', 'Remote sites']
+      },
+      {
+        sample: true,
+        title: 'Senior Civil Technician',
+        department: 'Civil and Highway',
+        location: 'Site based',
+        type: 'Full time',
+        closes: '31 Oct 2026',
+        summary: 'Site supervision and quality control on roads and drainage.',
+        tags: ['FTC civil engineering', '5+ years on site', 'Setting out & testing']
+      }
+    ]
+  }
+}
+
 /* ---------------------------------------------------------- contact page */
 export const contactPage = {
   eyebrow: 'Contact us',
   title: ['Talk to a registered', 'consulting engineer'],
-  lede: 'For proposals, tender enquiries and technical questions. We respond to every enquiry received during working hours.',
-  hours: [
-    { days: 'Monday to Friday', time: '08:00 – 17:00 EAT' },
-    { days: 'Saturday, Sunday and public holidays', time: 'Closed' }
-  ],
+  /* The second sentence ("We respond to every enquiry received during working hours")
+     was removed 2026-09-27: a service promise no source makes. */
+  lede: 'For proposals, tender enquiries and technical questions.',
+  /* IA "Working hours". NOT in the company profile — the 08:00–17:00 / weekends-closed
+     rows that used to sit here were invented (found 2026-09-27) and are withdrawn.
+     Client to supply, as [{ days, time }]; the block is hidden until then. */
+  hours: tbc('Office working hours, e.g. [{ days: "Monday to Friday", time: "08:00 – 17:00" }]'),
   /* Google Maps embed for the registered office. Coordinates are not published in the
      company profile, so this searches the address rather than pinning a lat/long. */
   mapQuery: 'Natai Plaza, Coca Cola Road, Mikocheni Light Industrial Area, Dar es Salaam, Tanzania',
@@ -1595,7 +1931,7 @@ export const contactPage = {
       { name: 'subject', label: 'Subject', type: 'text', required: false },
       { name: 'message', label: 'Enquiry', type: 'textarea', required: true }
     ],
-    submit: 'Send enquiry',
+    submit: 'Send Enquiry',
     sending: 'Sending…',
     sent: 'Thank you — your enquiry has been sent. We will reply by email.',
     failed: 'Your enquiry could not be sent. Please try again, or email us directly at',
