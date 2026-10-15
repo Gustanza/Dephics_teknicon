@@ -4,6 +4,10 @@ import { useRoute } from 'vue-router'
 import Logo from './ui/Logo.vue'
 import { company, nav, primaryCta } from '../data/content.js'
 
+/* the desktop bar drops items marked `bar: false` (Contact Us — the CTA button covers
+   it); the slide-out menu below still lists every item */
+const barNav = nav.filter((item) => item.bar !== false)
+
 /*
   The scroll-spy that used to live here is gone. It existed because the whole site
   was one page with anchor navigation; the client rejected that (IA feedback C1), so
@@ -54,7 +58,7 @@ onBeforeUnmount(() => {
 
       <nav class="hdr__nav" aria-label="Primary">
         <ul class="menu">
-          <li v-for="item in nav" :key="item.to" :class="{ 'has-sub': item.children }">
+          <li v-for="item in barNav" :key="item.to" :class="{ 'has-sub': item.children }">
             <RouterLink
               :to="item.to"
               :class="{ 'router-link-active': inSection(item) }"
@@ -113,6 +117,7 @@ onBeforeUnmount(() => {
       </ul>
       <div class="mnav__foot">
         <a :href="`tel:${company.phoneHref}`">{{ company.phone }}</a>
+        <a v-for="m in company.mobiles" :key="m.href" :href="`tel:${m.href}`">{{ m.label }}</a>
         <a :href="`mailto:${company.email}`">{{ company.email }}</a>
       </div>
     </div>
@@ -157,7 +162,16 @@ onBeforeUnmount(() => {
    5:1 lockup into a 46px square — the artwork itself must not be distorted */
 .hdr__brand { display: inline-flex; flex-shrink: 0; }
 
-.hdr__nav { margin-left: 1.6vw; }
+.hdr__nav {
+  /* The menu fills the space between the logo and the right-hand rail and centres
+     in it, so leftover width splits evenly on both sides instead of pooling in one
+     gap before the button. That gap read as a missing item once "Contact Us" left
+     the bar (client, 2026-10-15). */
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
 
 .menu {
   display: flex;
@@ -286,7 +300,6 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   gap: 26px;
-  margin-left: auto;
 }
 
 .hdr__phone {
@@ -312,6 +325,12 @@ onBeforeUnmount(() => {
 */
 @media (min-width: 1280px) and (max-width: 1499px) {
   .hdr__phone { display: none; }
+}
+/* Above 1380 the space between menu items grows with the viewport — .9em at 1440,
+   ~1.5em at 1920 — so on wide screens the menu spreads to fill the bar rather than
+   sitting as a tight cluster with empty space either side of it. */
+@media (min-width: 1380px) {
+  .menu > li > a { padding-inline: clamp(.9em, 2vw - 13px, 1.5em); }
 }
 @media (min-width: 1280px) and (max-width: 1379px) {
   .menu > li > a { padding-inline: .7em; }

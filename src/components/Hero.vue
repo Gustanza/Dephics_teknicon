@@ -11,12 +11,17 @@ const DURATION = 7000
 let timer = null
 let observer = null
 
-const current = computed(() => heroSlides[index.value])
+/* Slides marked `frozen: true` in content.js are kept in the data but not shown. With
+   a single slide left the hero is a still: no autoplay, no counter, no announcements. */
+const slides = heroSlides.filter((s) => !s.frozen)
+const single = slides.length < 2
+
+const current = computed(() => slides[index.value])
 const pad = (n) => String(n + 1).padStart(2, '0')
-const total = pad(heroSlides.length - 1)
+const total = pad(slides.length - 1)
 
 function go (i) {
-  index.value = (i + heroSlides.length) % heroSlides.length
+  index.value = (i + slides.length) % slides.length
   restart()
 }
 const next = () => go(index.value + 1)
@@ -35,8 +40,8 @@ const reducedMotion = () =>
 
 function restart () {
   clearInterval(timer)
-  if (paused.value || !onScreen.value || reducedMotion()) return
-  timer = setInterval(() => { index.value = (index.value + 1) % heroSlides.length }, DURATION)
+  if (single || paused.value || !onScreen.value || reducedMotion()) return
+  timer = setInterval(() => { index.value = (index.value + 1) % slides.length }, DURATION)
 }
 
 function pause () { paused.value = true; clearInterval(timer) }
@@ -81,7 +86,7 @@ onBeforeUnmount(() => {
   >
     <div class="hero__stage">
       <div
-        v-for="(slide, i) in heroSlides"
+        v-for="(slide, i) in slides"
         :key="slide.image"
         class="hero__slide"
         :class="{ 'is-active': i === index }"
@@ -135,6 +140,7 @@ onBeforeUnmount(() => {
       </div>
 
       <button
+        v-if="!single"
         class="hero__counter"
         @mouseenter="pause"
         @mouseleave="resume"
@@ -148,8 +154,8 @@ onBeforeUnmount(() => {
       </button>
     </div>
 
-    <p class="visually-hidden" aria-live="polite">
-      Slide {{ index + 1 }} of {{ heroSlides.length }}: {{ current.title.join(' ') }}
+    <p v-if="!single" class="visually-hidden" aria-live="polite">
+      Slide {{ index + 1 }} of {{ slides.length }}: {{ current.title.join(' ') }}
     </p>
   </section>
 </template>

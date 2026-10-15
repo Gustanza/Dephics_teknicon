@@ -1,6 +1,6 @@
 <script setup>
 import Hero from '../components/Hero.vue'
-import HomeIntro from '../components/HomeIntro.vue'
+// import HomeIntro from '../components/HomeIntro.vue'   /* hidden — see the template */
 import Services from '../components/Services.vue'
 import Projects from '../components/Projects.vue'
 import SectorsList from '../components/SectorsList.vue'
@@ -17,7 +17,10 @@ import { homeContactCta } from '../data/content.js'
   <Hero />
   <!-- The registration-number strip that sat here was removed 2026-09-29: the numbers
        are private company information and are published nowhere on the site. -->
-  <HomeIntro />
+  <!-- HIDDEN (client, 2026-10-15): the "Who we are" intro did not sit well with the
+       client. Component and copy are kept (HomeIntro.vue, `homeIntro` in content.js);
+       to restore, uncomment this line and the import above. -->
+  <!-- <HomeIntro /> -->
   <Services teaser />
   <Projects teaser />
   <SectorsList teaser />

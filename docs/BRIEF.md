@@ -354,14 +354,19 @@ Council · Kilombero Plantation Ltd · Lafarge · GSM Ltd · Advanced Engineerin
 
 ## 9. Contact
 
-- **Physical:** Natai Plaza, 4th Floor, Suite No. RT 01B, Coca Cola Road, Plot 17,
-  Mikocheni Light Industrial Area, Dar es Salaam, Tanzania
-- **Postal:** P. O. Box 31653, Dar es Salaam
+> **Supplied by the client on 2026-10-15 as the CURRENT contact details.** They replace
+> the address and landline in both profile documents (Natai Plaza, 4th Floor, Suite
+> No. RT 01B, Coca Cola Road, Plot 17 · +255 22 2700403), which are now out of date and
+> must not reappear on the site.
+
+- **Address:** Natai Plaza, 17 Coca Cola Road, Mikocheni Light Industrial Area,
+  P. O. Box 31653, Dar es Salaam, Tanzania
   > House style, set by the client: write **`P. O. Box`** with spaced initials.
   > Both source documents write `P.O. Box`; the client's instruction overrides them.
+- **Tel:** +255 752 594 793 (client wrote +255752594793)
+- **Mobile:** +255 767 602 349 · +255 767 061 110 (client wrote +255767602349 / +255767061110)
 - **Email:** info@teknicon.co.tz
 - **Web:** www.teknicon.co.tz
-- **Phone:** +255 22 2700403
 
 ## 10. Defensible statistics (ONLY these may be used as counters)
 

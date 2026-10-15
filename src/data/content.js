@@ -18,17 +18,21 @@ export const company = {
   established: 'June 2009',
   vision: 'To improve the quality of life for human beings through engineering excellence.',
   visionAttribution: 'Teknicon Ltd — Vision Statement',
+  /* Contact details: CLIENT-SUPPLIED 2026-10-15, replacing the profile's (BRIEF §9).
+     Numbers are shown grouped for reading and dialled from the unspaced `href`. */
   email: 'info@teknicon.co.tz',
-  phone: '+255 22 2700403',
-  phoneHref: '+255222700403',
+  phone: '+255 752 594 793',          /* the office "Tel" line */
+  phoneHref: '+255752594793',
+  mobiles: [
+    { label: '+255 767 602 349', href: '+255767602349' },
+    { label: '+255 767 061 110', href: '+255767061110' }
+  ],
   web: 'www.teknicon.co.tz',
   webHref: 'https://www.teknicon.co.tz',
   address: [
-    'Natai Plaza, 4th Floor, Suite No. RT 01B',
-    'Coca Cola Road, Plot 17',
+    'Natai Plaza, 17 Coca Cola Road',
     'Mikocheni Light Industrial Area',
-    'Dar es Salaam, Tanzania',
-    'P. O. Box 31653'  /* client house style: spaced initials, not P.O. */
+    'P. O. Box 31653, Dar es Salaam, Tanzania'  /* client house style: spaced initials, not P.O. */
   ]
 }
 
@@ -52,7 +56,11 @@ export const nav = [
       { label: 'Insights 2', to: '/insights/resources' }
     ]
   },
-  { label: 'Contact Us', to: '/contact' }
+  /* `bar: false` — left out of the desktop menu bar, where the red "Contact Us"
+     button sits right beside it (client, 2026-10-15: "it is in the menu as well as
+     in the button"). It stays in the slide-out menu: below 640px that button is
+     hidden, and this item is the phone's way to the contact page. */
+  { label: 'Contact Us', to: '/contact', bar: false }
 ]
 
 /* The primary call to action, per client comment C2: they asked for "Contact us"
@@ -90,7 +98,7 @@ export const heroSlides = [
     eyebrow: 'Established June 2009 · Dar es Salaam',
     title: ['We are Consulting Engineers', 'and Project Managers'],
     lede: 'We do multidisciplinary engineering, design, construction supervision and project management.',
-    cta: { label: 'Explore Our Services', to: '/services' },
+    cta: { label: 'Services that we offer', to: '/services' },   /* client wording, 2026-10-15 */
     cta2: primaryCta
   },
   {
@@ -98,6 +106,9 @@ export const heroSlides = [
        Team decision 2026-09-29: Teknicon's own dam photos were judged not strong
        enough for a full-screen slide. Sharp at every size (2880 px). Replaces the
        TSF-embankment frame, which did not read as "dams" at a glance. */
+    /* FROZEN (client, 2026-10-15): only slide 1 shows for now. Delete the `frozen`
+       line to bring a slide back; the slider, counter and autoplay return by themselves. */
+    frozen: true,
     image: '/img/hero-dam-reservoir.jpg',
     w: 2880, h: 1863,
     alt: 'A curved concrete arch dam holding back a deep blue reservoir between red sandstone canyon walls',
@@ -108,6 +119,7 @@ export const heroSlides = [
     cta: { label: 'View Capability', to: '/services/water-dams-tailings-storage-facilities' }
   },
   {
+    frozen: true,   /* see above */
     image: '/img/project-tra-ita-hotel.jpg',
     w: 1367, h: 771,
     /* The frame is an architectural RENDERING (image-manifest.json), not a photograph of a
@@ -146,7 +158,7 @@ export const about = {
   facts: [
     { label: 'Established', value: 'June 2009' },
     { label: 'Ownership', value: 'Wholly Tanzanian\u2011owned' }, /* non-breaking hyphen */
-    { label: 'Head office', value: 'Natai Plaza, 4th Floor, Mikocheni, Dar\u00a0es\u00a0Salaam' } /* city kept on one line */
+    { label: 'Head office', value: 'Natai Plaza, Mikocheni, Dar\u00a0es\u00a0Salaam' } /* city kept on one line */
   ],
   departmentsIntro: 'The firm is organised around three technical departments',
   departments: [
@@ -223,41 +235,13 @@ export const services = {
   allLink: 'All Services',  /* Home teaser button (title case, 2026-09-29) */
   /* the first three of the IA's Home "service highlights" */
   home: ['structural-bridge-engineering', 'civil-engineering-infrastructure', 'water-dams-tailings-storage-facilities'],
+  /* ORDER (client, 2026-10-15): the three Home cards lead, in the Home order, then the
+     rest — so /services, the footer, the "Service n of 5" labels and the prev/next
+     links all read the way Home does. Keep `home` above and this list in step. */
   items: [
     {
-      slug: 'engineering-design-consultancy',
-      n: '01',
-      tag: 'Design',
-      title: 'Engineering Design & Consultancy',
-      body: 'Feasibility studies, design and tender documents.',
-      overview: [
-        'The front end of a commission: establishing whether and how a project can be built, then designing it to the point where it can be priced and tendered. TEKNICON carries assignments from feasibility study through concept, preliminary and detailed design to the preparation of tender documents.',
-        'Design calculations and drawings are technically reviewed before issue, and structural, civil, architectural, mechanical, electrical and quantity surveying inputs are coordinated so the design goes out as one consistent set.'
-      ],
-      scope: [
-        'Feasibility studies',
-        'Concept, preliminary and detailed design',
-        'Technical assessments and rehabilitation advice',
-        'Tender documentation and design coordination'
-      ],
-      deliverables: [
-        'Feasibility studies',
-        'Environmental and Social Impact Assessment (ESIA)',
-        'Concept, preliminary and detailed designs',
-        'Design calculations and drawings, reviewed before issue',
-        'Tender documents',
-        'Rehabilitation advice and remedial works proposals'
-      ],
-      sectors: ['government', 'transport', 'health-education', 'buildings'],
-      projects: ['wenda-mgama-road', 'binguni-hospital-zanzibar', 'zimbili-bridge', 'rau-bridge-moshi', 'matomondo-mlale-road', 'mtili-ifwagi-mkuta-road', 'uganda-high-commission-dodoma'],
-      image: '/img/site-survey-team.jpg',
-      w: 1070, h: 775,
-      alt: 'Two engineers in yellow high-visibility vests, one printed Teknicon Ltd, taking notes on a clipboard during a route survey in open bush country',
-      crop: true
-    },
-    {
       slug: 'structural-bridge-engineering',
-      n: '02',
+      n: '01',
       tag: 'Structural',
       title: 'Structural & Bridge Engineering',
       body: 'Buildings, special structures and bridges.',
@@ -289,7 +273,7 @@ export const services = {
     },
     {
       slug: 'civil-engineering-infrastructure',
-      n: '03',
+      n: '02',
       tag: 'Civil',
       title: 'Civil Engineering & Infrastructure',
       body: 'Roads, pavements, drainage and water supply.',
@@ -321,7 +305,7 @@ export const services = {
     },
     {
       slug: 'water-dams-tailings-storage-facilities',
-      n: '04',
+      n: '03',
       tag: 'Water & Tailings',
       /* The IA names this service twice: "Water, Dams & Tailings Storage Facilities"
          (Home highlights, Projects categories) and "… & Mining Infrastructure"
@@ -351,6 +335,37 @@ export const services = {
       image: '/img/project-tsf-liner-mwaoga.jpg',
       w: 1521, h: 1140,
       alt: 'A wide tailings storage facility basin fully lined with geomembrane, with three workers kneeling on the liner in the middle distance and forested hills on the horizon',
+      crop: true
+    },
+    {
+      slug: 'engineering-design-consultancy',
+      n: '04',
+      tag: 'Design',
+      title: 'Engineering Design & Consultancy',
+      body: 'Feasibility studies, design and tender documents.',
+      overview: [
+        'The front end of a commission: establishing whether and how a project can be built, then designing it to the point where it can be priced and tendered. TEKNICON carries assignments from feasibility study through concept, preliminary and detailed design to the preparation of tender documents.',
+        'Design calculations and drawings are technically reviewed before issue, and structural, civil, architectural, mechanical, electrical and quantity surveying inputs are coordinated so the design goes out as one consistent set.'
+      ],
+      scope: [
+        'Feasibility studies',
+        'Concept, preliminary and detailed design',
+        'Technical assessments and rehabilitation advice',
+        'Tender documentation and design coordination'
+      ],
+      deliverables: [
+        'Feasibility studies',
+        'Environmental and Social Impact Assessment (ESIA)',
+        'Concept, preliminary and detailed designs',
+        'Design calculations and drawings, reviewed before issue',
+        'Tender documents',
+        'Rehabilitation advice and remedial works proposals'
+      ],
+      sectors: ['government', 'transport', 'health-education', 'buildings'],
+      projects: ['wenda-mgama-road', 'binguni-hospital-zanzibar', 'zimbili-bridge', 'rau-bridge-moshi', 'matomondo-mlale-road', 'mtili-ifwagi-mkuta-road', 'uganda-high-commission-dodoma'],
+      image: '/img/site-survey-team.jpg',
+      w: 1070, h: 775,
+      alt: 'Two engineers in yellow high-visibility vests, one printed Teknicon Ltd, taking notes on a clipboard during a route survey in open bush country',
       crop: true
     },
     {
@@ -1406,7 +1421,7 @@ export const homeContactCta = {
       button: { label: company.email, href: `mailto:${company.email}` },
       /* two set lines, not one wrapped string — a wrapped "A · B · C" left a
          separator hanging at a line end. The full address is in the footer below. */
-      note: [company.address[0], 'Coca Cola Road, Mikocheni, Dar es Salaam'],
+      note: [company.address[0], 'Mikocheni, Dar es Salaam'],
       image: '/img/project-tobacco-plant-morogoro.jpg',
       w: 1015, h: 768,
       alt: 'A steel portal-frame building under erection, with a mobile crane lifting a rafter into place and workers on ladders securing steelwork',
@@ -1440,6 +1455,7 @@ export const footer = {
       links: [
         { label: company.email, href: `mailto:${company.email}`, icon: 'mail' },
         { label: company.phone, href: `tel:${company.phoneHref}`, strong: true, icon: 'phone' },
+        ...company.mobiles.map((m) => ({ label: m.label, href: `tel:${m.href}`, icon: 'mobile' })),
         /* our own domain: an internal route, not an external link */
         { label: company.web, to: '/', icon: 'globe' }
       ]
@@ -1909,7 +1925,7 @@ export const contactPage = {
   hours: tbc('Office working hours, e.g. [{ days: "Monday to Friday", time: "08:00 – 17:00" }]'),
   /* Google Maps embed for the registered office. Coordinates are not published in the
      company profile, so this searches the address rather than pinning a lat/long. */
-  mapQuery: 'Natai Plaza, Coca Cola Road, Mikocheni Light Industrial Area, Dar es Salaam, Tanzania',
+  mapQuery: 'Natai Plaza, 17 Coca Cola Road, Mikocheni Light Industrial Area, Dar es Salaam, Tanzania',
   form: {
     heading: 'Send an enquiry',
     /*
@@ -1971,7 +1987,7 @@ export const legal = {
     updated: '23 September 2026',
     body: [
       { heading: 'Who we are', paragraphs: [
-        'This website is published by TEKNICON LTD, Natai Plaza, 4th Floor, Suite No. RT 01B, Coca Cola Road, Plot 17, Mikocheni Light Industrial Area, Dar es Salaam, Tanzania. TEKNICON LTD is responsible for personal information collected through it.'
+        'This website is published by TEKNICON LTD, Natai Plaza, 17 Coca Cola Road, Mikocheni Light Industrial Area, P. O. Box 31653, Dar es Salaam, Tanzania. TEKNICON LTD is responsible for personal information collected through it.'
       ] },
       { heading: 'What we collect', paragraphs: [
         'We collect only what you choose to give us: when you send an enquiry through the contact form, your name, organisation, email address, telephone number, subject and message; and when you email us, the contents of that email.',

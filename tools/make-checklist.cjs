@@ -167,7 +167,7 @@ const sections = [
   {
     h: '7. Contact Us',
     items: [
-      { t: 'Office address, telephone/mobile, email and social media links', ...N('Partly. Address, office telephone and email are there. No mobile number and no social media accounts were supplied.') },
+      { t: 'Office address, telephone/mobile, email and social media links', ...N('Partly. Address, telephone, both mobile numbers and email are there (updated 15 October 2026). No social media accounts were supplied.') },
       { t: 'Google map – office location', ...D() },
       { t: 'Enquiry form', ...N('Partly. The form is built, but it is not yet connected to an inbox, so for now it asks visitors to email. We need to choose where enquiries go.') },
       { lvl: 1, t: 'Name, organisation, email, phone, enquiry or comment and e.t.c', ...D('All of these, plus “Subject”.') },

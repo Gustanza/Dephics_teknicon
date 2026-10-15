@@ -122,7 +122,7 @@ export const routes = [
     meta: {
       title: `Contact Us — ${SUFFIX}`,
       description:
-        'Natai Plaza, Mikocheni Light Industrial Area, Dar es Salaam. Telephone +255 22 2700403, email info@teknicon.co.tz.',
+        'Natai Plaza, 17 Coca Cola Road, Mikocheni Light Industrial Area, Dar es Salaam. Telephone +255 752 594 793, mobile +255 767 602 349 / +255 767 061 110, email info@teknicon.co.tz.',
       image: DEFAULT_OG
     }
   },

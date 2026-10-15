@@ -16,7 +16,7 @@ unembellished. Never "we're passionate about". Always name the client and the nu
 - Nav: `Home · About · Services · Projects · Clients · Team · Contact`
   (single-page anchors — this is a landing page only; order must match page order,
   because the header runs a scroll-spy that highlights the section you are in)
-- Right rail: phone `+255 22 2700403` and a primary button **"Request a proposal"**
+- Right rail: phone `+255 752 594 793` and a primary button **"Request a proposal"**
 - Transparent over the hero; on scroll, becomes a fixed solid navy/white bar
 
 ---
@@ -211,16 +211,15 @@ List the six most senior, then a line: `…and eight more engineers, surveyors a
 **Col 1 — Teknicon**
 Logo (knockout) + `A multidisciplinary consulting engineering firm registered with the Engineers Registration Board as a Local Engineering Consulting Firm. Wholly Tanzanian-owned. Member, ACET.`
 
-**Col 2 — Office**
-`Natai Plaza, 4th Floor, Suite No. RT 01B`
-`Coca Cola Road, Plot 17`
+**Col 2 — Office** *(client-supplied 2026-10-15 — BRIEF §9)*
+`Natai Plaza, 17 Coca Cola Road`
 `Mikocheni Light Industrial Area`
-`Dar es Salaam, Tanzania`
-`P.O. Box 31653`
+`P. O. Box 31653, Dar es Salaam, Tanzania`
 
 **Col 3 — Contact**
 `info@teknicon.co.tz` (link)
-`+255 22 2700403` (link)
+`+255 752 594 793` (link — Tel)
+`+255 767 602 349` · `+255 767 061 110` (links — Mobile)
 `www.teknicon.co.tz`
 
 **Col 4 — Departments**

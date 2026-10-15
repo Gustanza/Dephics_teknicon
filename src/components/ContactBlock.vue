@@ -92,6 +92,12 @@ const autocompleteFor = {
               <dd><a :href="`tel:${company.phoneHref}`">{{ company.phone }}</a></dd>
             </div>
             <div class="cb__row">
+              <dt>Mobile</dt>
+              <dd class="cb__stack">
+                <a v-for="m in company.mobiles" :key="m.href" :href="`tel:${m.href}`">{{ m.label }}</a>
+              </dd>
+            </div>
+            <div class="cb__row">
               <dt>Email</dt>
               <dd><a :href="`mailto:${company.email}`">{{ company.email }}</a></dd>
             </div>
@@ -270,6 +276,8 @@ const autocompleteFor = {
   overflow-wrap: anywhere;
 }
 .cb__row dd a { color: var(--c-link); }
+/* two mobile numbers, one per line, still right-aligned with the other values */
+.cb__stack { display: flex; flex-direction: column; align-items: flex-end; }
 .cb__row dd a:hover { color: var(--c-hover); }
 
 /* ---------------------------------------------------------------- form */
@@ -401,5 +409,6 @@ const autocompleteFor = {
   /* "Saturday, Sunday and public holidays" needs the full measure at 360px */
   .cb__row { grid-template-columns: 1fr; }
   .cb__row dd { text-align: left; }
+  .cb__stack { align-items: flex-start; }
 }
 </style>

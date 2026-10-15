@@ -57,6 +57,8 @@ const legalLinks = [legal.privacy, legal.terms]
 const paths = {
   mail: 'M3 5h18v14H3zM3 6l9 7 9-7',
   phone: 'M5 3h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 12l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z',
+  /* handset outline, so the two mobile numbers read apart from the office line */
+  mobile: 'M8 2.5h8a1.5 1.5 0 0 1 1.5 1.5v16a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 20V4A1.5 1.5 0 0 1 8 2.5zM10.5 18.5h3',
   globe: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z',
   download: 'M12 4v10.5M7.5 10.5 12 15l4.5-4.5M4 19.5h16',
   /* Social marks drawn as the glyph itself, not inside an enclosing square — boxed
