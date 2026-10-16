@@ -1491,6 +1491,64 @@ export const homeIntro = {
   cta: { label: 'Find Out More About Teknicon', to: '/about' }
 }
 
+/* ------------------------------------------------------ welcome note */
+/* Home, in place of the hidden "Who we are" intro (experiment, 2026-10-16). Text is the
+   client's own "Welcoming note2.docx" (tekres/), verbatim — only change: the full stop
+   missing after "successful projects". Signatory and title as the note gives them
+   (BRIEF §6a). The vision sentence is split out of paragraph 2 only so it can be set
+   in heading colour; it renders as one paragraph. */
+export const welcomeNote = {
+  /* heading reworded at the client's request (2026-10-16): framed as the CEO's own
+     message rather than "Welcome to TEKNICON LTD". The h2 is lifted from the note's
+     own fourth paragraph ("turning visions into reality") */
+  eyebrow: 'Message from the CEO',
+  title: ['Turning visions', 'into reality'],
+  lede: 'It is my great pleasure to welcome you to TEKNICON LTD, a Tanzanian-owned multidisciplinary engineering consulting firm established in 2009, committed to delivering engineering excellence, innovative solutions, and lasting value to our clients and communities at large.',
+  vision: {
+    before: 'Guided by our vision ',
+    quote: '“To improve the quality of life for human beings through engineering excellence,”',
+    after: ' we provide comprehensive services in civil, structural, and bridge engineering, as well as project management. Our expertise covers feasibility studies, engineering design, construction supervision, contract administration, and project management across buildings, roads, bridges, water infrastructure, water dams, mining infrastructure, and Tailings Storage Facilities (TSFs).'
+  },
+  body: [
+    'At TEKNICON, we are committed to integrity, quality, innovation, and delivering practical, cost-effective solutions that create lasting value. Through our experienced professionals and multidisciplinary expertise, we strive to exceed client expectations and contribute to sustainable development in Tanzania and beyond.',
+    'Whether you are a public institution, private investor, developer, mining company, or development partner, we welcome the opportunity to collaborate with you by turning visions into reality and transforming ideas into successful projects.'
+  ],
+  /* layout only: the photo (real Teknicon survey team, already on /services) and the
+     vision line repeated as a pull-out on it — the vision itself is BRIEF §2 */
+  media: {
+    src: '/img/site-survey-team.jpg', w: 1070, h: 775,
+    alt: 'Two engineers in yellow high-visibility vests, one printed Teknicon Ltd, taking notes on a clipboard during a route survey in open bush country'
+  },
+  visionLabel: 'Our vision',
+  visionLine: 'To improve the quality of life for human beings through engineering excellence.',
+  closing: 'Together, let us engineer solutions that create value, strengthen communities, and shape a sustainable future.',
+  /* v4 (Fuse About-page patterns) — labels and photos only, no new claims:
+     the year is BRIEF §1 (established June 2009); both photos are real Teknicon sites
+     already on the site with these alt texts */
+  year: '2009',
+  yearLabel: 'Established',
+  statementEyebrow: 'From our Managing Director',
+  closingAccent: 'sustainable future.',   // the tail of `closing`, set in the accent
+  /* One photo seen through three staggered windows (client reference, 2026-10-16).
+     Box is 630×860; each slice is { left, top, width, height } in % of it. The photo
+     sits at the same place behind every slice, so it reads as one picture. Position
+     48% plus a taller slice 1 keeps both engineers whole and their faces clear of the gaps;
+     the camera date stamp (bottom right of the photo) lands right of slice 3 and is
+     never shown. */
+  sliced: {
+    src: '/img/site-survey-team.jpg', w: 1070, h: 775, pos: '48% 50%',
+    alt: 'Two engineers in yellow high-visibility vests, one printed Teknicon Ltd, taking notes on a clipboard during a route survey in open bush country',
+    slices: [
+      { left: 0, top: 9, width: 70, height: 33 },    // both faces; ends at 70% so the
+                                                     // "Established" label stays clear
+      { left: 24, top: 46, width: 76, height: 22 },  // hands and clipboard
+      { left: 8, top: 72, width: 72, height: 26 }
+    ]
+  },
+  author: { name: 'CEng. Robert D. Lubuva', role: 'Managing Director & CEO, TEKNICON LTD' },
+  cta: { label: 'Find Out More About Teknicon', to: '/about' }
+}
+
 /* ------------------------------------------------------ why teknicon */
 /* IA section 1: "Why work with Teknicon / key differentiators". Eyebrow and title are
    the IA's own two phrases. The four item titles are the IA's four differentiators,

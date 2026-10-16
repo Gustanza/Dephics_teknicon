@@ -300,6 +300,14 @@ a quantity surveyor and senior civil technicians; **experience ranging from 7 to
 
 > **No staff photographs exist in the source material.** Do not fabricate headshots.
 
+### 6a. Managing Director's welcome note (client document, received 2026-10-16)
+
+Source: `tekres/Welcoming note2.docx`, signed **"CEng. Robert D. Lubuva, Managing Director & CEO,
+TEKNICON LTD"**. This is the first source to give his role (MD & CEO) and the **CEng.** title; the
+personnel table above (profile) has him as "Eng. … Civil/Structural Engineer". Use the note's form
+when quoting the note. The text is used verbatim on Home (`welcomeNote` in content.js).
+Facts in it that agree with this brief: established 2009; the vision (§2), word for word.
+
 ## 7. Licences and registrations
 
 | Licence / Certificate | Number |
