@@ -82,7 +82,8 @@ onBeforeUnmount(() => {
       </nav>
 
       <div class="hdr__rail">
-        <a class="hdr__phone" :href="`tel:${company.phoneHref}`">{{ company.phone }}</a>
+        <!-- phone number removed from the bar (client, 2026-10-19); it stays in the
+             slide-out menu below, the footer and /contact -->
         <RouterLink class="btn btn--sm hdr__cta" :to="primaryCta.to">
           <span class="btn__label">{{ primaryCta.label }}</span>
         </RouterLink>
@@ -302,30 +303,13 @@ onBeforeUnmount(() => {
   gap: 26px;
 }
 
-.hdr__phone {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0;
-  color: #fff;
-  white-space: nowrap;
-}
-.hdr__phone:hover { color: #fff; opacity: .75; }
-.hdr--fixed .hdr__phone { color: var(--c-text-dark); }
-.hdr--fixed .hdr__phone:hover { color: var(--c-link); opacity: 1; }
-
 .hdr__cta { flex-shrink: 0; }
 
 /*
-  Laptop widths. At full size the row (230px logo, seven items at .9em, phone, CTA)
-  needs ~1500px; between 1280 and ~1470 it ran up to 184px past the 70px edge and
-  the red CTA hung off the page — the squeezed logo had been hiding the shortfall.
-  Below 1500 the phone number steps out (it stays one click away in the contact
-  panel, the footer and on /contact); below 1380 the menu tightens from .9em to
-  .7em. Measured fit at every 10px from 1280 to 1500.
+  Laptop widths. Below 1380 the menu tightens from .9em to .7em so the row (logo,
+  menu, CTA) fits from 1280 up. (The bar's phone number, which used to step out
+  below 1500, was removed altogether on 2026-10-19.)
 */
-@media (min-width: 1280px) and (max-width: 1499px) {
-  .hdr__phone { display: none; }
-}
 /* Above 1380 the space between menu items grows with the viewport — .9em at 1440,
    ~1.5em at 1920 — so on wide screens the menu spreads to fill the bar rather than
    sitting as a tight cluster with empty space either side of it. */
@@ -415,7 +399,7 @@ onBeforeUnmount(() => {
 .mnav__foot a { color: var(--d-text); }
 
 @media (max-width: 1279px) {
-  .hdr__nav, .hdr__phone { display: none; }
+  .hdr__nav { display: none; }
   .hdr__burger { display: inline-flex; }
   .mnav { display: block; max-height: calc(100dvh - 76px); overflow-y: auto; }
   .mnav[hidden] { display: none; }

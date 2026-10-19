@@ -1,5 +1,4 @@
 <script setup>
-import { computed } from 'vue'
 import Reveal from './ui/Reveal.vue'
 import SectionHeading from './ui/SectionHeading.vue'
 import Button from './ui/Button.vue'
@@ -22,11 +21,11 @@ import { welcomeNote as w } from '../data/content.js'
      All geometry is in % of one 630×860 box so it scales as one piece;
      the year is sized in container units (145 / 630 = 23cqw) for the same reason.
 
-  2. The "WHAT WE DO" band, on dark. Centred eyebrow, a ~57px statement whose closing
-     word is set in the accent and underlined ("…expertise and talent."), then the
-     speaker's name and role directly beneath — no avatar, no quote glyph.
+  2. REMOVED (client, 2026-10-19): the dark "WHAT WE DO" band that carried the closing
+     line as a 57px statement plus the signature. The closing line and signature now end
+     the letter text beside the collage, so the note reads once, in the order of the
+     client's "Welcoming note2.docx", and stays signed.
 */
-const lead = computed(() => w.closing.slice(0, w.closing.length - w.closingAccent.length))
 
 /* Each slice is a window; the photo inside is sized to the WHOLE box and shifted back by
    the window's own offset, so all three show one continuous picture. */
@@ -78,7 +77,7 @@ const slices = w.sliced.slices.map((sl, i) => ({
             decoding="async"
           />
         </Reveal>
-        <p class="wf__year">
+        <p v-if="w.year" class="wf__year">
           <span class="wf__year-n">{{ w.year }}</span>
           <span class="wf__year-label">{{ w.yearLabel }}</span>
         </p>
@@ -88,26 +87,15 @@ const slices = w.sliced.slices.map((sl, i) => ({
         <div class="wf__descr">
           <p>{{ w.vision.before }}<strong class="wf__vision">{{ w.vision.quote }}</strong>{{ w.vision.after }}</p>
           <p v-for="(para, i) in w.body" :key="i">{{ para }}</p>
+          <p class="wf__closing">{{ w.closing }}</p>
         </div>
+        <p class="wf__author">
+          <span class="wf__name">{{ w.author.name }}</span>
+          <span class="wf__role">{{ w.author.role }}</span>
+        </p>
         <Button class="wf__cta" :to="w.cta.to" :label="w.cta.label" variant="navy" />
       </Reveal>
     </div>
-    </div>
-  </section>
-
-  <!-- 2. the signed statement -->
-  <section class="section band--dark ws">
-    <div class="container">
-      <Reveal class="ws__inner" variant="fade">
-        <span class="eyebrow ws__eyebrow">{{ w.statementEyebrow }}</span>
-        <p class="ws__statement">
-          {{ lead }}<span class="ws__accent">{{ w.closingAccent }}</span>
-        </p>
-        <p class="ws__author">
-          <span class="ws__name">{{ w.author.name }}</span>
-          <span class="ws__role">{{ w.author.role }}</span>
-        </p>
-      </Reveal>
     </div>
   </section>
 </template>
@@ -115,10 +103,13 @@ const slices = w.sliced.slices.map((sl, i) => ({
 <style scoped>
 /* ================= 1. intro ================= */
 /* head: same split as .cl__head / .cl__note in Clients.vue */
+/* Same columns and gap as .wf__grid below (client, 2026-10-19): with different splits
+   the quoted lede and the letter text under it started ~50px apart, so the letter
+   read as indented. Now both right-hand blocks share one left edge. */
 .wf__head {
   display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  gap: var(--grid-gap) 60px;
+  grid-template-columns: minmax(0, 630fr) minmax(0, 547fr);
+  gap: var(--grid-gap) var(--space-large);
   align-items: end;
   margin-bottom: var(--space-medium);
 }
@@ -136,7 +127,9 @@ const slices = w.sliced.slices.map((sl, i) => ({
   display: grid;
   grid-template-columns: minmax(0, 630fr) minmax(0, 547fr);   /* measured 630 | 518–547 */
   column-gap: var(--space-large);                              /* ~113–142 on the demo */
-  align-items: center;
+  /* top, not centre (client, 2026-10-19): centred against the tall collage, the letter
+     dropped well below the lede and left a gap; now it follows straight on */
+  align-items: start;
 }
 
 /* one 630×860 box, everything inside in % */
@@ -191,7 +184,26 @@ const slices = w.sliced.slices.map((sl, i) => ({
 }
 .wf__descr p:last-child { margin-bottom: 0; }
 .wf__vision { font-weight: var(--h-weight); color: var(--c-heading); }
-.wf__cta { margin-top: 2.1em; }              /* descr + button */
+.wf__closing { font-weight: var(--h-weight); color: var(--c-heading); }   /* the letter's last line */
+/* signature, after the closing line — name and role stacked, as the band had them */
+.wf__author {
+  display: flex;
+  flex-direction: column;
+  margin: 1.6em 0 0;
+}
+.wf__name {
+  font-size: 19px;
+  line-height: 1.3em;
+  font-weight: var(--h-weight);
+  color: var(--c-heading);
+}
+.wf__role {
+  margin-top: 4px;
+  font-size: 15px;
+  line-height: 1.333em;
+  color: var(--c-text);
+}
+.wf__cta { margin-top: 2.1em; }              /* signature + button */
 
 /* on a narrow collage (phones) step the 14px label down with the collage, not the
    viewport, so it stays in proportion to the year */
@@ -199,65 +211,15 @@ const slices = w.sliced.slices.map((sl, i) => ({
   .wf__year-label { font-size: 11px; letter-spacing: 1.2px; }
 }
 
-/* ================= 2. statement band ================= */
-.ws__inner {
-  max-width: 1000px;               /* the demo's statement runs ~980px wide */
-  margin-inline: auto;
-  text-align: center;
-}
-.ws__eyebrow { display: block; }
-.ws__statement {
-  margin: 0;
-  font-size: var(--h1-size);       /* 57px */
-  line-height: var(--h1-lh);
-  letter-spacing: var(--h1-ls);
-  font-weight: var(--h-weight);
-  color: var(--d-text-dark);
-  text-wrap: balance;
-}
-/* The demo's accent word on dark. Brand red, not --c-link: at 57px / 700 this is large
-   text (3:1 needed) and #E93825 clears it on --d-bg where #CF3221 is marginal. */
-.ws__accent {
-  color: var(--c-brand-red);
-  text-decoration: underline;
-  text-decoration-thickness: .055em;
-  text-underline-offset: .12em;
-}
-.ws__author {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: var(--space-medium) 0 0;
-}
-.ws__name {
-  font-size: 19px;
-  line-height: 1.3em;
-  font-weight: var(--h-weight);
-  color: var(--d-text-dark);
-}
-.ws__role {
-  margin-top: 4px;
-  font-size: 15px;
-  line-height: 1.333em;
-  color: var(--d-text);
-}
-
 /* ================= responsive (THEME_DNA §1 steps) ================= */
 @media (max-width: 1279px) {
-  .wf__grid { column-gap: var(--space-medium); }
-  .ws__statement { font-size: 46px; }
+  .wf__grid,
+  .wf__head { column-gap: var(--space-medium); }
 }
 @media (max-width: 1023px) {
   .wf__grid { grid-template-columns: 1fr; row-gap: var(--space-medium); }
   .wf__head { grid-template-columns: 1fr; align-items: start; }
   .wf__lede { padding-top: 0; border-top: 0; }
   .wf__collage { width: 100%; max-width: 630px; }
-  .ws__statement { font-size: 38px; line-height: 42px; }
-}
-@media (max-width: 767px) {
-  .ws__statement { font-size: 30px; line-height: 35px; letter-spacing: 0; }
-}
-@media (max-width: 479px) {
-  .ws__statement { font-size: 27px; line-height: 31px; }
 }
 </style>

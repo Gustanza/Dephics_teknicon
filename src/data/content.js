@@ -95,9 +95,9 @@ export const heroSlides = [
     w: 2880, h: 1920,
     alt: 'A heavy mobile crane parked in an industrial yard at dusk, low sun behind stacked timber crates',
     focus: '50% 58%',
-    eyebrow: 'Established June 2009 · Dar es Salaam',
+    eyebrow: 'Established Since June 2009',   /* client wording, 2026-10-19 */
     title: ['We are Consulting Engineers', 'and Project Managers'],
-    lede: 'We do multidisciplinary engineering, design, construction supervision and project management.',
+    /* no lede — removed at the client's request, 2026-10-19 (was the IA's supporting message) */
     cta: { label: 'Services that we offer', to: '/services' },   /* client wording, 2026-10-15 */
     cta2: primaryCta
   },
@@ -106,20 +106,21 @@ export const heroSlides = [
        Team decision 2026-09-29: Teknicon's own dam photos were judged not strong
        enough for a full-screen slide. Sharp at every size (2880 px). Replaces the
        TSF-embankment frame, which did not read as "dams" at a glance. */
-    /* FROZEN (client, 2026-10-15): only slide 1 shows for now. Delete the `frozen`
-       line to bring a slide back; the slider, counter and autoplay return by themselves. */
-    frozen: true,
+    /* Unfrozen 2026-10-19 (client): back alongside slide 1. */
     image: '/img/hero-dam-reservoir.jpg',
     w: 2880, h: 1863,
     alt: 'A curved concrete arch dam holding back a deep blue reservoir between red sandstone canyon walls',
     focus: '60% 50%',
-    eyebrow: 'Water, dams & tailings storage facilities',
-    title: ['Tailings and water dams,', 'designed and supervised'],
-    lede: 'TEKNICON provides design, design review, construction supervision and structural audits of tailings storage facilities, water dams and reservoirs — for Shanta, Buckreef, Matongo and Anglo de Beers.',
+    /* Eyebrow and headline are the client's own wording (2026-10-19); no lede — the
+       client asked for it removed, and Hero.vue omits the paragraph when absent. */
+    eyebrow: 'Structural & Bridge Engineering',
+    title: ['We design and supervise buildings', 'and special structures', 'under varied site conditions.'],
     cta: { label: 'View Capability', to: '/services/water-dams-tailings-storage-facilities' }
   },
   {
-    frozen: true,   /* see above */
+    /* FROZEN (client, 2026-10-15): hidden for now. Delete the `frozen` line to bring
+       it back; the slider and counter adjust by themselves. */
+    frozen: true,
     image: '/img/project-tra-ita-hotel.jpg',
     w: 1367, h: 771,
     /* The frame is an architectural RENDERING (image-manifest.json), not a photograph of a
@@ -309,8 +310,9 @@ export const services = {
       tag: 'Water & Tailings',
       /* The IA names this service twice: "Water, Dams & Tailings Storage Facilities"
          (Home highlights, Projects categories) and "… & Mining Infrastructure"
-         (Services list). The client chose the first, 2026-09-27 — one name everywhere. */
-      title: 'Water, Dams & Tailings Storage Facilities',
+         (Services list). The client chose the first, 2026-09-27 — one name everywhere.
+         Comma after "Water" dropped at the client's request, 2026-10-19. */
+      title: 'Water Dams & Tailings Storage Facilities',
       body: 'Dams, reservoirs, irrigation and TSFs.',
       overview: [
         'A large share of TEKNICON’s work is in the mining and water sectors: tailings storage facilities (TSF) and their auxiliary infrastructure, water dams, irrigation, and the training of water courses — covering design, design review, construction supervision and structural audits.',
@@ -491,7 +493,7 @@ const SV = {
 export const projectCategories = [
   { slug: 'buildings', name: 'Buildings & Facilities', blurb: 'Commercial, industrial, residential, health, warehouse and institutional developments.' },
   { slug: 'transport', name: 'Transport & Urban Infrastructure', blurb: 'Bridges, roads, terminals, hardstands, pedestrian infrastructure and related works.' },
-  { slug: 'water', name: 'Water, Dams & Tailings Storage Facilities', blurb: 'Reservoirs, dams, irrigation, TSFs, river works and mining infrastructure.' }
+  { slug: 'water', name: 'Water Dams & Tailings Storage Facilities', blurb: 'Reservoirs, dams, irrigation, TSFs, river works and mining infrastructure.' }
 ]
 
 /* The case-study narrative, one per featured project. Each field is a paragraph. */
@@ -991,7 +993,7 @@ export const projectList = [
     sectors: ['mining', 'transport']
   },
 
-  /* =============================== Water, Dams & Tailings Storage Facilities */
+  /* =============================== Water Dams & Tailings Storage Facilities */
   {
     slug: 'new-luika-150ml-reservoir',
     title: '150 ML Water Reservoir',
@@ -1321,7 +1323,10 @@ export const projects = {
    in BRIEF §8 have no logo files in the source and are carried in prose instead. */
 export const clients = {
   eyebrow: 'Clients & partners',
-  title: ['Mining, water and', 'industrial clients', '& partners'],
+  /* client's handwritten note, 2026-10-19 — the profile's own title for this section
+     (BRIEF §8). Was 'Mining, water and industrial clients & partners'; the note on the
+     right still says the marks are mining, water and industrial clients. */
+  title: ['Some of our clients', '& partners'],
   note: 'The marks shown are clients in the mining, water and industrial sectors. Public-sector and institutional clients — among them TRA, TIPER, MSD, TARURA, the Judiciary of Tanzania, the University of Dar es Salaam and the ministries of health in Tanzania and Zanzibar — are named in the company profile.',
   /* `mh` is the rendered box height in CSS px. It is not a free choice: each
      mark's *ink* bounding box was decoded (tools/_ink is gone, the numbers live
@@ -1347,22 +1352,24 @@ export const clients = {
 }
 
 /* -------------------------------------------------------------- counters */
+/* Reworked from the client's handwritten note + mockups, 2026-10-19 (BRIEF §10):
+   eyebrow renamed; 40 named projects → 100 "and more"; the staff count (14) removed;
+   34 years longest track record → the 3–40 range of individual experience; the
+   "Established June 2009…" note under the band removed. `to` makes a range. */
 export const counters = {
-  eyebrow: 'The practice in numbers',
+  eyebrow: 'The vital numbers',
   items: [
     { value: 17, label: 'Years in practice' },
-    { value: 40, label: 'Named projects' },
-    { value: 14, label: 'Professional and technical staff' },
-    { value: 34, label: 'Years, longest track record' }
-  ],
-  note: 'Established June 2009. Registered with the Engineers Registration Board as a Local Engineering Consulting Firm.'
+    { value: 100, label: 'Projects and more' },
+    { value: 3, to: 40, label: 'Years range of individual professional experiences' }
+  ]
 }
 
 /* ------------------------------------------------------------------ team */
 export const team = {
   eyebrow: 'Key personnel',
   title: ['Registered engineers,', 'on the drawing board', 'and on site'],
-  lede: 'Senior consulting engineers, registered professional engineers, a quantity surveyor and senior civil technicians — with individual experience ranging from 7 to 34 years.',
+  lede: 'Senior consulting engineers, registered professional engineers, a quantity surveyor and senior civil technicians — with individual experience ranging from 3 to 40 years.',   // client, 2026-10-19 (was 7 to 34)
   members: [
     { name: 'Eng. Florence Msambila', profession: 'Civil/Structural Engineer', countries: 'Tanzania · Botswana · South Africa', years: 31 },
     { name: 'Eng. Robert D. Lubuva', profession: 'Civil/Structural Engineer', countries: 'Tanzania', years: 24 },
@@ -1501,8 +1508,9 @@ export const welcomeNote = {
   /* heading reworded at the client's request (2026-10-16): framed as the CEO's own
      message rather than "Welcome to TEKNICON LTD". The h2 is lifted from the note's
      own fourth paragraph ("turning visions into reality") */
-  eyebrow: 'Welcome note',          // client, 2026-10-16 (was 'Message from the CEO')
-  title: ['Turning visions', 'into reality'],
+  /* reworded again by the client, 2026-10-19 (was 'Welcome note' / 'Turning visions into reality') */
+  eyebrow: 'Welcoming Note',
+  title: ['Word from our', 'CEO & Managing Director'],   // client: "CEO" first (2026-10-19)
   lede: 'It is my great pleasure to welcome you to TEKNICON LTD, a Tanzanian-owned multidisciplinary engineering consulting firm established in 2009, committed to delivering engineering excellence, innovative solutions, and lasting value to our clients and communities at large.',
   vision: {
     before: 'Guided by our vision ',
@@ -1525,10 +1533,12 @@ export const welcomeNote = {
   /* v4 (Fuse About-page patterns) — labels and photos only, no new claims:
      the year is BRIEF §1 (established June 2009); both photos are real Teknicon sites
      already on the site with these alt texts */
-  year: '2009',
+  /* "Established 2009" overlay on the collage removed at the client's request
+     (2026-10-19). Put `year: '2009'` back to restore it; the component skips it when absent. */
+  // year: '2009',
   yearLabel: 'Established',
-  statementEyebrow: 'From our Managing Director',
-  closingAccent: 'sustainable future.',   // the tail of `closing`, set in the accent
+  /* statementEyebrow / closingAccent belonged to the dark statement band, removed
+     2026-10-19; `closing` and `author` now end the letter text in WelcomeNoteFuse.vue */
   /* One photo seen through three staggered windows (client reference, 2026-10-16).
      Box is 630×860; each slice is { left, top, width, height } in % of it. The photo
      sits at the same place behind every slice, so it reads as one picture. Photo
@@ -1555,30 +1565,35 @@ export const welcomeNote = {
    the IA's own two phrases. The four item titles are the IA's four differentiators,
    with one wording change: "Established since 2009" reads "Established in 2009".
    Every supporting line is from the profile — BRIEF §1, §2a and §7. No registration
-   numbers (private, 2026-09-29). */
+   numbers (private, 2026-09-29).
+   REWORKED from the client's handwritten note, 2026-10-19: title "Why Teknicon?", the
+   four reasons reordered and their titles reworded as he wrote them. "Wholly owned by…"
+   is cut off in the photo of the note; finished with the profile's own words (BRIEF §1).
+   Supporting lines unchanged, each moved with its reason. */
 export const whyTeknicon = {
   eyebrow: 'Key differentiators',
-  title: ['Why work with Teknicon'],
+  title: ['Why Teknicon?'],
   body: 'TEKNICON maintains an independent consulting position and focuses on professional judgement, responsive client service and practical engineering solutions suited to local, regional and global project conditions.',
   items: [
-    {
-      icon: 'local',
-      title: 'Tanzanian-owned local consultancy',
-      body: 'Wholly owned by Tanzanian nationals and registered under the Companies Act, with offices in Dar es Salaam.'
-    },
-    {
-      icon: 'registered',
-      title: 'ERB-registered consulting firm',
-      body: 'Registered with the Engineers Registration Board as a Local Engineering Consulting Firm, and a member of the Association of Consulting Engineers Tanzania.'
-    },
     {
       icon: 'since',
       title: 'Established in 2009',
       body: 'In practice since June 2009, for public and private sector clients.'
     },
     {
+      icon: 'local',
+      title: 'Wholly owned by Tanzanian nationals',
+      /* opening "Wholly owned by Tanzanian nationals and…" dropped — the title now says it */
+      body: 'A local consultancy registered under the Companies Act, with offices in Dar es Salaam.'
+    },
+    {
+      icon: 'registered',
+      title: 'Registered with relevant professional bodies',
+      body: 'Registered with the Engineers Registration Board as a Local Engineering Consulting Firm, and a member of the Association of Consulting Engineers Tanzania.'
+    },
+    {
       icon: 'lifecycle',
-      title: 'Design-to-construction support',
+      title: 'Engagement in the entire project lifecycle',
       body: 'One firm across the entire project lifecycle — feasibility study, detailed design, tender documentation, construction supervision, contract administration and project close-out.'
     }
   ]
@@ -1625,31 +1640,51 @@ export const orgChart = {
     items: [
       { label: 'Disciplines', text: 'Senior consulting engineers, registered professional engineers, junior engineers, a quantity surveyor and senior civil technicians.' },
       { label: 'Core strengths', text: 'Civil and structural engineering design, construction supervision, project coordination, project management, quantity surveying and site quality control.' },
-      { label: 'Experience', figure: '7–34', text: 'Years of individual experience across the team, gained mainly in Tanzania and abroad.' }
+      { label: 'Experience', figure: '3–40', text:   /* client, 2026-10-19 (profile: 7–34) */ 'Years of individual experience across the team, gained mainly in Tanzania and abroad.' }
     ]
   }
 }
 
 /* --------------------------------------------------------------- licences */
-/* BRIEF section 7, verbatim. Every number is a statutory or professional registration. */
+/* BRIEF §7 + §7a. Two tabs in the client's order from his handwritten note (2026-10-19):
+   statutory, then professional. Organisations, not certificates — TRA covers VAT, TIN
+   and tax clearance; ERB covers the firm registration and the annual practising licence.
+   NO registration numbers and no expiry dates (team decision 2026-09-29: the numbers
+   are private company information; the dates would go stale). `ref` states the
+   standing where BRIEF §7 supports it; for the five bodies that are new in the note
+   nothing is known beyond the name, so `ref` is TBC (hidden while SHOW_PLACEHOLDERS
+   is off — the name alone shows). */
 export const licences = {
   eyebrow: 'Licences & memberships',
-  title: ['Registered, and', 'continuously compliant'],
+  title: ['Registered &', 'Continuously Compliant'],   // client's note, 2026-10-19
   lede: 'TEKNICON maintains full, up-to-date statutory and professional registrations for consulting engineering in Tanzania.',
-  items: [
-    /* NO registration numbers and no expiry dates (team decision 2026-09-29: the
-       numbers are private company information; the dates would go stale). Each `ref`
-       states the standing, which BRIEF §7 supports. Numbers stay in BRIEF §7. */
-    { name: 'Certificate of Incorporation (BRELA)', ref: 'Incorporated under the Companies Act' },
-    { name: 'VAT Registration (TRA)', ref: 'VAT registered' },
-    { name: 'Taxpayer Identification Number (TRA)', ref: 'Registered taxpayer' },
-    { name: 'Business Licence', ref: 'Licensed' },
-    { name: 'Tax Clearance Certificate', ref: 'Tax clearance held' },
-    { name: 'Engineers Registration Board (ERB)', ref: 'Local Engineering Consulting Firm' },
-    { name: 'ERB Annual Practising Licence', ref: 'Practising licence held' },
-    { name: 'Association of Consulting Engineers Tanzania (ACET)', ref: 'Member' },
-    { name: 'Occupational Safety and Health Authority (OSHA)', ref: 'Registered workplace' },
-    { name: 'National Social Security Fund (NSSF)', ref: 'Registered employer' }
+  groups: [
+    {
+      id: 'statutory',
+      label: 'Statutory Compliance',
+      items: [
+        { name: 'Business Registrations and Licensing Agency (BRELA)', ref: 'Incorporated under the Companies Act' },
+        { name: 'Tanzania Revenue Authority (TRA)', ref: 'VAT registered, TIN holder, tax clearance held' },
+        { name: 'Occupational Safety and Health Authority (OSHA)', ref: 'Registered workplace' },
+        { name: 'Licence (Municipal)', ref: 'Licensed' },   // the note's wording
+        { name: 'National Social Security Fund (NSSF)', ref: 'Registered employer' },
+        { name: 'Workers Compensation Fund (WCF)', ref: tbc('Teknicon’s standing with WCF (e.g. registered employer)') },
+        { name: 'Association of Tanzania Employers (ATE)', ref: tbc('Teknicon’s standing with ATE (e.g. member)') },
+        { name: 'Local Content', ref: tbc('Which local content register (issuing body) and Teknicon’s standing on it') }
+      ]
+    },
+    {
+      id: 'professional',
+      label: 'Professional Compliance',
+      items: [
+        { name: 'Engineers Registration Board, Tanzania (ERB)', ref: 'Local Engineering Consulting Firm, annual practising licence held' },
+        { name: 'Association of Consulting Engineers Tanzania (ACET)', ref: 'Member' },
+        /* the note's "AEQSRB (ZNZ)" — Zanzibar's board, which covers engineers too (not the
+           mainland AQRB, which an earlier reading of the note wrongly put here) */
+        { name: 'Architects, Engineers and Quantity Surveyors Registration Board, Zanzibar (AEQSRB)', ref: tbc('Teknicon’s registration with AEQSRB Zanzibar') },
+        { name: 'Institution of Engineers Tanzania (IET)', ref: tbc('Teknicon’s membership of IET') }
+      ]
+    }
   ],
   download: {
     label: 'Download the Company Profile',
@@ -1677,7 +1712,8 @@ export const licences = {
 
 export const sectors = {
   eyebrow: 'Sectors',
-  title: ['Who we build for'],
+  title: ['Sectors that we serve'],   // client's handwritten note, 2026-10-19 (was 'Who we build for')
+  moreLink: 'More details',           // Home teaser link, same note (was 'All sectors')
   /* the page header already gives the IA's service/sector distinction; this line only
      adds the evidence claim, so the definition is not said twice in a row */
   lede: 'Every sector below is evidenced by named projects already delivered.',

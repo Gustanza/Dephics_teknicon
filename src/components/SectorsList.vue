@@ -52,7 +52,9 @@ const allLink = (slug) => ({ path: '/projects', query: { sector: slug }, hash: '
 
         <Reveal v-else class="sl__more" variant="fade" :delay="100">
           <RouterLink class="sl__link" to="/sectors">
-            <span>All sectors</span>
+            <!-- "More details" alone is ambiguous out of context (screen-reader link
+                 lists), so the hidden tail says what it is details of -->
+            <span>{{ sectors.moreLink }}<span class="visually-hidden"> about the sectors we serve</span></span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" />

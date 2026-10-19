@@ -16,7 +16,7 @@ import { homeContactCta } from '../data/content.js'
   <PageHero
     eyebrow="Projects"
     :lines="['Proven on', 'the ground']"
-    lede="Buildings, transport and urban infrastructure, and water, dams and tailings storage facilities — delivered across Tanzania, including Zanzibar, and in Rwanda."
+    lede="Buildings, transport and urban infrastructure, and water dams and tailings storage facilities — delivered across Tanzania, including Zanzibar, and in Rwanda."
     image="/img/project-tra-ita-hotel.jpg"
     :w="1367"
     :h="771"

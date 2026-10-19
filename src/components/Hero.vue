@@ -124,7 +124,7 @@ onBeforeUnmount(() => {
         <h1 class="hero__title">
           <span v-for="(line, i) in current.title" :key="i" class="hero__line">{{ line }}</span>
         </h1>
-        <p class="hero__lede">{{ current.lede }}</p>
+        <p v-if="current.lede" class="hero__lede">{{ current.lede }}</p>
         <!-- Button, not a bare <a>: the slide data carries router `to` paths, and
              the old template read `.href`, which left both buttons without a link -->
         <div class="hero__actions">

@@ -49,7 +49,7 @@ export const routes = [
     meta: {
       title: `Services — ${SUFFIX}`,
       description:
-        'Engineering design and consultancy, structural and bridge engineering, civil engineering and infrastructure, water, dams and tailings storage facilities, and project management and construction supervision.',
+        'Engineering design and consultancy, structural and bridge engineering, civil engineering and infrastructure, water dams and tailings storage facilities, and project management and construction supervision.',
       image: DEFAULT_OG
     }
   },
@@ -60,7 +60,7 @@ export const routes = [
     meta: {
       title: `Projects — ${SUFFIX}`,
       description:
-        'Selected buildings, transport and urban infrastructure, and water, dams and tailings storage facilities delivered across Tanzania, Rwanda, Uganda and Zanzibar.',
+        'Selected buildings, transport and urban infrastructure, and water dams and tailings storage facilities delivered across Tanzania, Rwanda, Uganda and Zanzibar.',
       image: '/img/project-tra-ita-hotel.jpg'
     }
   },

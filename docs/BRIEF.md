@@ -67,7 +67,7 @@ Used by the Home "Why work with Teknicon" section and the About overview.
 - Core strengths include civil and structural engineering design, construction
   supervision, project coordination, project management, quantity surveying, and site
   quality control.
-- The listed staff have accumulated experience ranging from 7 to 34 years, with exposure
+- The listed staff have accumulated experience ranging from 7 to 34 years (client 2026-10-19: **3 to 40** — see §10), with exposure
   mainly in Tanzania and abroad.
 
 ### 2c. Licences statement (profile p.47)
@@ -296,7 +296,7 @@ higher resolution than the Word-file copies — a source for the project galleri
 | 14 | Athuman Dulle | Senior Civil Technician | Tanzania | 9 yrs |
 
 Team strength statement: senior consulting engineers, registered professional engineers,
-a quantity surveyor and senior civil technicians; **experience ranging from 7 to 34 years**.
+a quantity surveyor and senior civil technicians; **experience ranging from 7 to 34 years** (client 2026-10-19: **3–40**, §10).
 
 > **No staff photographs exist in the source material.** Do not fabricate headshots.
 
@@ -322,6 +322,25 @@ Facts in it that agree with this brief: established 2009; the vision (§2), word
 | Association of Consulting Engineers Tanzania (ACET) | 061 |
 | Occupational Safety and Health Authority (OSHA) | 313-102-022 |
 | National Social Security Fund (NSSF) | 1026954 |
+
+### 7a. Client's grouping (handwritten note, 2026-10-19)
+
+The client regrouped the section under the heading **"Registered & Continuously Compliant"**,
+in two lists, in this order. Bold = new, not in the profile table above; source is the note
+only, so **no numbers, dates or standing** are known for them.
+
+- **Statutory:** BRELA · TRA · OSHA · Licence (Municipal) · NSSF · **WCF** · **ATE** · **Local Content**
+- **Professional:** ERB (T) · ACET · **AEQSRB (ZNZ)** · **IET**
+
+Acronyms as the site expands them (standard Tanzanian bodies — confirm with client):
+WCF = Workers Compensation Fund · ATE = Association of Tanzania Employers ·
+AEQSRB (ZNZ) = Architects, Engineers and Quantity Surveyors Registration Board, **Zanzibar**
+(the note writes the full name out and arrows it back to "AEQSRB (ZNZ)"; "ZNZ" = Zanzibar.
+NOT the mainland AQRB — an earlier reading misread "(ZNZ)" and put AQRB here; corrected
+2026-10-19) · IET = Institution of Engineers Tanzania ·
+**Local Content** — register / issuing body not stated (Mining Commission? PURA?) — TBC.
+With the note's grouping the count is **12 organisations** (8 statutory, 4 professional);
+the "10" in §10 counts the profile's certificates, not these.
 
 ## 8. Clients and partners
 
@@ -388,5 +407,11 @@ Council · Kilombero Plantation Ltd · Lafarge · GSM Ltd · Advanced Engineerin
 | **34 years** | Longest individual track record on the team |
 | **20+** | Named clients and partners |
 | **10** | Active statutory / professional registrations |
+| **100 (and more)** | Projects — **client's handwritten note + mockup, 2026-10-19** ("40 → 100 Projects +"). Supersedes 40+ as the counter figure; 40+ remains the count *named in the profile* |
+| **3–40 years** | Range of individual professional experience — **client's note, 2026-10-19**, crossing out the profile's "7 to 34". Supersedes 7–34 (§2b, §6) and the 34-year counter everywhere on the site |
+
+> **Counter band since 2026-10-19 (client):** 17 Years in practice · 100 Projects and more ·
+> 3–40 Years range of individual professional experiences. The 14-staff figure was removed
+> from the band at the client's request (his note also wrote "15" before striking it).
 
 Do NOT use "500+ projects", "98% satisfaction", or any other invented metric.

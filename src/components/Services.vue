@@ -92,7 +92,7 @@ const items = props.teaser
 
 /*
   Cards in a row share their row tracks (subgrid): tag+title, photo, description,
-  button. A title that runs to three lines ("Water, Dams & Tailings Storage Facilities")
+  button. A title that runs to three lines ("Water Dams & Tailings Storage Facilities")
   used to push that card's photo and button below its neighbours'; now every
   track is as tall as its tallest card, so photos start and buttons sit on one line
   across the row whatever the copy does. Same technique as /sectors.

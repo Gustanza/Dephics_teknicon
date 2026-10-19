@@ -3,14 +3,18 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { counters } from '../data/content.js'
 
 const root = ref(null)
-const shown = ref(counters.items.map(() => 0))
 let observer = null
+
+/* An item with `to` is a range ("3–40"); both ends count up together. */
+const fmt = (c, k) => (c.to != null ? `${Math.round(c.value * k)}–${Math.round(c.to * k)}` : String(Math.round(c.value * k)))
+const label = (c) => (c.to != null ? `${c.value} to ${c.to}` : String(c.value))
+const shown = ref(counters.items.map((c) => fmt(c, 0)))
 
 /* count-up: 1500ms, 15ms tick — the theme's data-duration / data-speed */
 function runCount () {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   if (reduced) {
-    shown.value = counters.items.map((c) => c.value)
+    shown.value = counters.items.map((c) => fmt(c, 1))
     return
   }
   const duration = 1500
@@ -18,7 +22,7 @@ function runCount () {
   const tick = (now) => {
     const t = Math.min((now - start) / duration, 1)
     const eased = 1 - Math.pow(1 - t, 3)
-    shown.value = counters.items.map((c) => Math.round(c.value * eased))
+    shown.value = counters.items.map((c) => fmt(c, eased))
     if (t < 1) requestAnimationFrame(tick)
   }
   requestAnimationFrame(tick)
@@ -38,7 +42,7 @@ onBeforeUnmount(() => observer && observer.disconnect())
 </script>
 
 <template>
-  <section ref="root" class="section band--dark cnt" aria-label="The practice in numbers">
+  <section ref="root" class="section band--dark cnt" :aria-label="counters.eyebrow">
     <div class="container">
       <span class="eyebrow cnt__eyebrow">{{ counters.eyebrow }}</span>
 
@@ -47,12 +51,14 @@ onBeforeUnmount(() => observer && observer.disconnect())
           <span class="cnt__figure" aria-hidden="true">{{ shown[i] }}</span>
           <!-- the value precedes the label so the accessible reading order is
                "17, Years in practice" rather than the reverse -->
-          <span class="visually-hidden">{{ item.value }}</span>
+          <span class="visually-hidden">{{ label(item) }}</span>
           <span class="cnt__label">{{ item.label }}</span>
         </li>
       </ul>
 
-      <p class="cnt__note">{{ counters.note }}</p>
+      <!-- the "Established June 2009…" note under the band was removed (client,
+           2026-10-19); `counters.note` is rendered again if it is ever set -->
+      <p v-if="counters.note" class="cnt__note">{{ counters.note }}</p>
     </div>
   </section>
 </template>
@@ -81,9 +87,10 @@ onBeforeUnmount(() => observer && observer.disconnect())
   margin-bottom: var(--space-medium);
 }
 
+/* one column per figure — three since 2026-10-19 (was four) */
 .cnt__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--grid-gap);
 }
 
@@ -149,8 +156,10 @@ onBeforeUnmount(() => observer && observer.disconnect())
 
 @media (max-width: 767px) {
   .cnt__note { max-width: none; text-align: left; margin-left: 0; }
-  .cnt__grid { grid-template-columns: repeat(2, 1fr); row-gap: var(--space-small); }
-  .cnt__item:nth-child(2n)::after { display: none; }
+  /* three figures don't pair into two columns (one would sit alone), and the
+     range label is long — so phones stack them, without the vertical dividers */
+  .cnt__grid { grid-template-columns: 1fr; row-gap: var(--space-small); }
+  .cnt__item::after { display: none; }
   .cnt__item { min-height: 7em; }
 }
 </style>
