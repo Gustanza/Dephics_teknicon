@@ -39,6 +39,10 @@
   /* ---------- Radii — the signature: 0 and 50%, nothing else ---------- */
   --rad: 0px;
   --rad-circle: 50%;
+  /* DEPARTURE (client, 2026-10-16): the one rounded corner on the site — the sliced
+     photo in the Home welcome note, after the Genesis reference. Census allows it by
+     class (wf__slice); nothing else may use it. */
+  --rad-slice: 12px;
 
   /* ---------- Borders / elevation ---------- */
   --hairline: 1px;

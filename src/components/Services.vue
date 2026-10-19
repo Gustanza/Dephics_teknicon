@@ -18,15 +18,14 @@ const items = props.teaser
 <template>
   <section id="services" class="section band--paper">
     <div class="container">
-      <Reveal variant="fade">
-        <SectionHeading
-          :eyebrow="services.eyebrow"
-          :lines="services.title"
-          align="center"
-        >
-          {{ services.lede }}
-        </SectionHeading>
-      </Reveal>
+      <!-- head split like the Clients section (client, 2026-10-16): eyebrow + h2 left,
+           the lede right under a hairline (was one centred block) -->
+      <div class="svc__head">
+        <Reveal variant="fade">
+          <SectionHeading :eyebrow="services.eyebrow" :lines="services.title" />
+        </Reveal>
+        <Reveal class="svc__lede" variant="fade" :delay="100">{{ services.lede }}</Reveal>
+      </div>
 
       <ul class="svc__grid">
         <Reveal
@@ -69,6 +68,26 @@ const items = props.teaser
 </template>
 
 <style scoped>
+/* head: same split as .cl__head / .cl__note in Clients.vue */
+.svc__head {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: var(--grid-gap) 60px;
+  align-items: end;
+  margin-bottom: var(--space-medium);
+}
+.svc__lede {                      /* set like body text, as the welcome-note lede
+                                     (client, 2026-10-16) */
+  padding-top: 20px;
+  border-top: 1px solid var(--c-bd);
+  line-height: var(--body-lh);
+  color: var(--c-text);
+}
+@media (max-width: 1023px) {
+  .svc__head { grid-template-columns: 1fr; align-items: start; }
+  .svc__lede { padding-top: 0; border-top: 0; }
+}
+
 .svc__more { margin-top: var(--space-medium); text-align: center; }
 
 /*

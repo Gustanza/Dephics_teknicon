@@ -58,12 +58,12 @@ import { clients } from '../data/content.js'
   margin-bottom: var(--space-medium);
 }
 
-.cl__note {
+.cl__note {                        /* body text, matching the welcome-note and
+                                     services ledes (client, 2026-10-16); was 15px light */
   padding-top: 20px;
   border-top: 1px solid var(--c-bd);
-  font-size: 15px;
-  line-height: 1.6em;
-  color: var(--c-text-light);
+  line-height: var(--body-lh);
+  color: var(--c-text);
 }
 
 .cl__grid {

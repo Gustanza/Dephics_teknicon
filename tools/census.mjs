@@ -13,7 +13,8 @@
  *              ancestor background is not what the eye sees there.
  *
  * Known, deliberate exceptions (ROADMAP §2): the ghost index numerals `ab__dept-n` and
- * `tm__index` at 1.69:1 are decorative and excluded by class.
+ * `tm__index` at 1.69:1 are decorative and excluded by class. The Home welcome note's
+ * rounded photo slices (`wf__slice`, --rad-slice) are a client-requested departure.
  */
 import { chromium } from 'playwright'
 import { staticPaths } from '../src/data/lookup.js'
@@ -62,7 +63,7 @@ for (const route of staticPaths) {
       const cs = getComputedStyle(e)
       if (cs.display === 'none' || cs.visibility === 'hidden') continue
 
-      for (const k of ['borderTopLeftRadius', 'borderTopRightRadius', 'borderBottomLeftRadius', 'borderBottomRightRadius']) {
+      if (!e.classList.contains('wf__slice')) for (const k of ['borderTopLeftRadius', 'borderTopRightRadius', 'borderBottomLeftRadius', 'borderBottomRightRadius']) {
         const v = cs[k]
         if (v !== '0px' && v !== '50%') { out.radius.push(`${desc(e)} ${v}`); break }
       }

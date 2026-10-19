@@ -13,11 +13,11 @@ import { welcomeNote as w } from '../data/content.js'
   1. The "1995 / START IN" intro, on white. On the demo a two-photo collage — A 440×590
      top-left, B 410×450 overlapping lower-right. DEPARTURE (client, 2026-10-16): replaced
      by ONE photo seen through three staggered horizontal windows (a "sliced image", from
-     the Genesis theme the client pointed at — not a Fuse pattern). Kept Fuse-legal:
-     square corners, no shadow, 34px-ish gaps, Fuse's 60px enter motion. With the
+     the Genesis theme the client pointed at — not a Fuse pattern). Rounded corners
+     (--rad-slice) as on Genesis, at the client's request; otherwise Fuse-legal: no shadow, 34px-ish gaps, Fuse's 60px enter motion. With the
      founding year at
      ~145px in the accent, straddling A's top edge, right-aligned to the collage, and a
-     small uppercase accent label under it. Text column ~140px to the right, centred on
+     small uppercase accent label (moved above the year, 2026-10-16). Text column ~140px to the right, centred on
      the collage: plain eyebrow, h2, description, then the blue (here navy) button.
      All geometry is in % of one 630×860 box so it scales as one piece;
      the year is sized in container units (145 / 630 = 23cqw) for the same reason.
@@ -47,7 +47,16 @@ const slices = w.sliced.slices.map((sl, i) => ({
 <template>
   <!-- 1. intro -->
   <section class="section band--white wf">
-    <div class="container wf__grid">
+    <div class="container">
+    <!-- head split like the Clients section (client, 2026-10-16): eyebrow + h2 left,
+         the lede right under a hairline -->
+    <div class="wf__head">
+      <Reveal variant="fade">
+        <SectionHeading :eyebrow="w.eyebrow" :lines="w.title" />
+      </Reveal>
+      <Reveal class="wf__lede" variant="fade" :delay="100">“{{ w.lede }}”</Reveal>
+    </div>
+    <div class="wf__grid">
       <div class="wf__collage">
         <Reveal
           v-for="(sl, i) in slices"
@@ -76,14 +85,13 @@ const slices = w.sliced.slices.map((sl, i) => ({
       </div>
 
       <Reveal class="wf__text" variant="fade" :delay="100">
-        <SectionHeading :eyebrow="w.eyebrow" :lines="w.title" />
         <div class="wf__descr">
-          <p class="wf__lede">{{ w.lede }}</p>
           <p>{{ w.vision.before }}<strong class="wf__vision">{{ w.vision.quote }}</strong>{{ w.vision.after }}</p>
           <p v-for="(para, i) in w.body" :key="i">{{ para }}</p>
         </div>
         <Button class="wf__cta" :to="w.cta.to" :label="w.cta.label" variant="navy" />
       </Reveal>
+    </div>
     </div>
   </section>
 
@@ -106,6 +114,24 @@ const slices = w.sliced.slices.map((sl, i) => ({
 
 <style scoped>
 /* ================= 1. intro ================= */
+/* head: same split as .cl__head / .cl__note in Clients.vue */
+.wf__head {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: var(--grid-gap) 60px;
+  align-items: end;
+  margin-bottom: var(--space-medium);
+}
+.wf__lede {                      /* in quotes, set like the letter's body text
+                                     (.wf__descr p), client 2026-10-16 */
+  padding-top: 20px;
+  border-top: 1px solid var(--c-bd);
+  line-height: var(--body-lh);
+  color: var(--c-text);
+}
+/* the slices enter from ±60px; at their widened sizes slice 1 would poke past a 360px
+   viewport mid-animation — clip sideways at the section */
+.wf { overflow-x: clip; }
 .wf__grid {
   display: grid;
   grid-template-columns: minmax(0, 630fr) minmax(0, 547fr);   /* measured 630 | 518–547 */
@@ -121,7 +147,8 @@ const slices = w.sliced.slices.map((sl, i) => ({
 }
 .wf__slice {
   position: absolute;
-  overflow: hidden;                /* the window; radius stays 0 (Fuse) */
+  overflow: hidden;                /* the window — clips the photo to the radius */
+  border-radius: var(--rad-slice); /* DEPARTURE: Genesis-style rounded slices (ROADMAP §4) */
 }
 .wf__slice-img {
   position: absolute;
@@ -136,7 +163,8 @@ const slices = w.sliced.slices.map((sl, i) => ({
   z-index: 1;                      /* in front of photo A, as on the demo */
   margin: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse; /* label ABOVE the year (client, 2026-10-16): slice 1
+                                     now runs under the year, where the label used to be */
   align-items: flex-end;
   color: var(--c-link);
 }
@@ -147,7 +175,7 @@ const slices = w.sliced.slices.map((sl, i) => ({
   letter-spacing: -0.02em;
 }
 .wf__year-label {                  /* "START IN": eyebrow metrics, accent colour */
-  margin-top: .9em;
+  margin-bottom: .9em;
   font-size: var(--eyebrow-size);
   line-height: 18px;
   font-weight: 700;
@@ -156,19 +184,17 @@ const slices = w.sliced.slices.map((sl, i) => ({
 }
 
 .wf :deep(.sh__title) { margin-bottom: 0; }
-.wf__descr { margin-top: 1.35em; }           /* h2 + .sc_item_descr */
 .wf__descr p {
   margin: 0 0 1.2em;
   color: var(--c-text);
   line-height: var(--body-lh);
 }
 .wf__descr p:last-child { margin-bottom: 0; }
-.wf__descr .wf__lede { color: var(--c-text-dark); }
 .wf__vision { font-weight: var(--h-weight); color: var(--c-heading); }
 .wf__cta { margin-top: 2.1em; }              /* descr + button */
 
-/* on a narrow collage (phones) the 14px label would run into slice 1, which ends at
-   70% — step it down with the collage, not the viewport */
+/* on a narrow collage (phones) step the 14px label down with the collage, not the
+   viewport, so it stays in proportion to the year */
 @container (max-width: 520px) {
   .wf__year-label { font-size: 11px; letter-spacing: 1.2px; }
 }
@@ -223,6 +249,8 @@ const slices = w.sliced.slices.map((sl, i) => ({
 }
 @media (max-width: 1023px) {
   .wf__grid { grid-template-columns: 1fr; row-gap: var(--space-medium); }
+  .wf__head { grid-template-columns: 1fr; align-items: start; }
+  .wf__lede { padding-top: 0; border-top: 0; }
   .wf__collage { width: 100%; max-width: 630px; }
   .ws__statement { font-size: 38px; line-height: 42px; }
 }

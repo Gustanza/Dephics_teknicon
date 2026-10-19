@@ -58,15 +58,13 @@ const shown = computed(() => (props.teaser ? featured.slice(0, 6) : featured))
   align-items: end;
 }
 
-.prj__footnote {
+.prj__footnote {                  /* body text, matching the other Home head ledes
+                                     (client, 2026-10-16); was 19px bold ink */
   margin: 0 0 .35em;
   padding-top: 20px;
   border-top: 1px solid var(--c-bd);
-  font-size: 19px;
-  line-height: 1.45em;
-  font-weight: 700;
-  letter-spacing: -.6px;
-  color: var(--c-text-dark);
+  line-height: var(--body-lh);
+  color: var(--c-text);
 }
 
 .prj__more { margin-top: var(--space-medium); text-align: center; }  /* centred, as "All Services" above it */
@@ -87,6 +85,5 @@ const shown = computed(() => (props.teaser ? featured.slice(0, 6) : featured))
 
 @media (max-width: 639px) {
   .prj__grid { grid-template-columns: 1fr; }
-  .prj__footnote { font-size: 17px; letter-spacing: 0; }
 }
 </style>

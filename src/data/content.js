@@ -1501,7 +1501,7 @@ export const welcomeNote = {
   /* heading reworded at the client's request (2026-10-16): framed as the CEO's own
      message rather than "Welcome to TEKNICON LTD". The h2 is lifted from the note's
      own fourth paragraph ("turning visions into reality") */
-  eyebrow: 'Message from the CEO',
+  eyebrow: 'Welcome note',          // client, 2026-10-16 (was 'Message from the CEO')
   title: ['Turning visions', 'into reality'],
   lede: 'It is my great pleasure to welcome you to TEKNICON LTD, a Tanzanian-owned multidisciplinary engineering consulting firm established in 2009, committed to delivering engineering excellence, innovative solutions, and lasting value to our clients and communities at large.',
   vision: {
@@ -1531,18 +1531,19 @@ export const welcomeNote = {
   closingAccent: 'sustainable future.',   // the tail of `closing`, set in the accent
   /* One photo seen through three staggered windows (client reference, 2026-10-16).
      Box is 630×860; each slice is { left, top, width, height } in % of it. The photo
-     sits at the same place behind every slice, so it reads as one picture. Position
-     48% plus a taller slice 1 keeps both engineers whole and their faces clear of the gaps;
-     the camera date stamp (bottom right of the photo) lands right of slice 3 and is
-     never shown. */
+     sits at the same place behind every slice, so it reads as one picture. Photo
+     swapped at the client's request for something more executive than the survey team
+     (no staff photographs exist, BRIEF §6): the TRA ITA Hotel tower render, a real
+     Teknicon project. Picked over the wider Uganda High Commission render because the
+     tower runs the full height of the tall box, so every slice holds building. */
   sliced: {
-    src: '/img/site-survey-team.jpg', w: 1070, h: 775, pos: '48% 50%',
-    alt: 'Two engineers in yellow high-visibility vests, one printed Teknicon Ltd, taking notes on a clipboard during a route survey in open bush country',
+    src: '/img/projects/tra-ita-hotel-mikocheni.jpg', w: 1600, h: 899, pos: '26% 50%',
+    alt: 'Architectural rendering of a seven-storey accommodation block with a green and white facade, red accent fins and deep balconies, framed by palm trees',
     slices: [
-      { left: 0, top: 9, width: 70, height: 33 },    // both faces; ends at 70% so the
-                                                     // "Established" label stays clear
-      { left: 24, top: 46, width: 76, height: 22 },  // hands and clipboard
-      { left: 8, top: 72, width: 72, height: 26 }
+      { left: 0, top: 9, width: 84, height: 33 },    // runs under "2009"; the label
+                                                     // sits above the year to clear it
+      { left: 14, top: 46, width: 86, height: 22 },  // widened at the client's request
+      { left: 4, top: 72, width: 84, height: 26 }    // (2026-10-16), stagger kept
     ]
   },
   author: { name: 'CEng. Robert D. Lubuva', role: 'Managing Director & CEO, TEKNICON LTD' },
